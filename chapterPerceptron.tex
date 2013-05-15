@@ -45,15 +45,20 @@ Stochastic gradient descent, the pseudo code is as follows:
 \begin{theorem}
 (\textbf{Novikoff}) If traning data set $\mathcal{D}$ is linearly separable, then
 \begin{enumerate}
-\item There exists a hyperplane denoted as $\widehat{\vec{w}}_{opt} \cdot \vec{x}+b_{opt}=0$ which can correctly seperate all samples, and $\exists\gamma>0,\forall i, y_i(\vec{w}_{opt} \cdot \vec{x}_i+b_{opt}) \geq \gamma$
-\item $k \leq \left(\dfrac{R}{\gamma}\right)^2$, where $R=\max\limits_{1 \leq i \leq N} \abs{\abs{\widehat{\vec{x}}_i}}$
+\item There exists a hyperplane denoted as $\widehat{\vec{w}}_{opt} \cdot \vec{x}+b_{opt}=0$ which can correctly seperate all samples, and 
+\begin{equation}
+\exists\gamma>0,\forall i, y_i(\vec{w}_{opt} \cdot \vec{x}_i+b_{opt}) \geq \gamma
+\end{equation}
+\item \begin{equation}k \leq \left(\dfrac{R}{\gamma}\right)^2,\text{ where } R=\max\limits_{1 \leq i \leq N} \abs{\abs{\widehat{\vec{x}}_i}}
+\end{equation}
+
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
 (1) let $\gamma=\min\limits_{i} y_i(\vec{w}_{opt} \cdot \vec{x}_i+b_{opt})$, then we get $y_i(\vec{w}_{opt} \cdot \vec{x}_i+b_{opt}) \geq \gamma$.
 
-(2) The algorithm start from $\widehat{\vec{x}_0}=0$, if a instance is misclassified, then update the weight. Let $\widehat{\vec{w}_{k-1}}$ denotes the extended weight before the k-th misclassified instance, then we can get
+(2) The algorithm start from $\widehat{\vec{x}}_0=0$, if a instance is misclassified, then update the weight. Let $\widehat{\vec{w}}_{k-1}$ denotes the extended weight before the k-th misclassified instance, then we can get
 \begin{eqnarray}
 y_i(\widehat{\vec{w}}_{k-1} \cdot \widehat{\vec{x}_i})&=&y_i(\vec{w}_{k-1} \cdot \vec{x}_i+b_{k-1}) \leq 0\\
 \widehat{\vec{w}}_k&=&\widehat{\vec{w}}_{k-1}+\eta y_i \widehat{\vec{x}_i}
