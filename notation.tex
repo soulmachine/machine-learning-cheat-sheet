@@ -1,0 +1,179 @@
+\Extrachap{Notation}
+
+\section*{Introduction}
+It is very difficult to come up with a single, consistent notation to cover the wide variety of
+data, models and algorithms that we discuss. Furthermore, conventions difer between machine
+learning and statistics, and between different books and papers. Nevertheless, we have tried
+to be as consistent as possible. Below we summarize most of the notation used in this book,
+although individual sections may introduce new notation. Note also that the same symbol may
+have diferent meanings depending on the context, although we try to avoid this where possible.
+
+
+\section*{General math notation}
+
+\begin{longtable}{p{2.4cm}p{8.9cm}}
+Symbol & Meaning \\
+\noalign{\smallskip}\svhline\noalign{\smallskip}
+$\lfloor x \rfloor$ & Floor of $x$, i.e., round down to nearest integer\\
+$\lceil x \rceil$ & Ceiling of $x$, i.e., round down to nearest integer\\
+$\vec{x} \otimes \vec{y}$ & Convolution of \vec{x} and \vec{y}\\
+$\vec{x} \odot \vec{y}$ & Hadamard (elementwise) product of \vec{x} and \vec{y}\\
+$a \wedge b$ & logical AND\\
+$a \vee b$ & logical OR\\
+$\neg a$ & logical NOT\\
+$\mathbb{I}(x)$ & Indicator function, $\mathbb{I}(x)=1$ if x is true, else $\mathbb{I}(x)=0$\\
+$\infty$ & Infinity\\
+$\rightarrow$ & Tends towards, e.g., $n \rightarrow \infty$\\
+$\propto$ &Proportional to, so $y = ax$ can be written as $y \propto x$\\
+$\abs{x}$ & Absolute value\\
+$\abs{\mathcal{S}}$ & Size (cardinality) of a set\\
+$n!$ & Factorial function\\
+$\nabla$ & Vector of first derivatives\\
+$\nabla^2$ & Hessian matrix of second derivatives\\
+$\triangleq$ & Defined as\\
+$O(\cdot)$ & Big-O: roughly means order of magnitude\\
+$\mathbb{R}$ & The real numbers\\
+$1:n$ & Range (Matlab convention): $1:n = {1, 2,...,n}$\\
+$\approx$ & Approximately equal to\\
+$\arg\max\limits_x f(x)$ & Argmax: the value $x$ that maximizes $f$\\
+$B(a,b)$ & Beta function, $B(a,b)=\dfrac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$\\
+$B(\vec{\alpha})$ & Multivariate beta function, $\dfrac{\prod\limits_k \Gamma(\alpha_k)}{\Gamma(\sum\limits_k \alpha_k)}$\\
+$\binom{n}{k}$ & $n$ choose $k$ , equal to $n!/(k!(n−k )!)$\\
+$\delta(x)$ & Dirac delta function,$\delta(x)=\infty$ if $x=0$, else $\delta(x)=0$\\
+$exp(x)$ & Exponential function $e^x$\\
+$\Gamma(x)$ & Gamma function, $\Gamma(x)=\int_0^\infty u^{x-1}e^{-u}du$\\
+$\Psi(x)$ &  Digamma function,$Psi(x)=\dfrac{d}{dx}\log\Gamma(x)$\\
+$\mathcal{X}$ & A set from which values are drawn (e.g.,$\mathcal{X}=\mathbb{R}^D$)\\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{longtable}
+
+
+\section*{Linear algebra notation}
+We use boldface lower-case to denote vectors, such as \vec{x}, and boldface upper-case to denote matrices, such as \vec{X}. We denote entries in a matrix by non-bold upper case letters, such as $X_{ij}$. Vectors are assumed to be column vectors, unless noted otherwise.
+
+\begin{longtable}{p{2.4cm}p{8.9cm}}
+Symbol & Meaning \\
+\noalign{\smallskip}\svhline\noalign{\smallskip}
+$\vec{X} \succ 0$ & \vec{X} is a positive definite matrix\\
+$tr(\vec{X})$ & Trace of a matrix\\
+$det(\vec{X})$ & Determinant of matrix \vec{X}\\
+$\abs{\vec{X}}$ & Determinant of matrix \vec{X}\\
+$\vec{X}^{-1}$ & Inverse of a matrix\\
+$\vec{X}^{\dagger}$ & Pseudo-inverse of a matrix\\
+$\vec{X}^T$ & Transpose of a matrix\\
+$\vec{x}^T$ & Transpose of a vector\\
+$diag(x)$ & Diagonal matrix made from vector \vec{x}\\
+$diag(X)$ & Diagonal vector extracted from matrix \vec{X}\\
+$\vec{I}$ or $\vec{I}_d$ & Identity matrix of size $d \times d$ (ones on diagonal, zeros of)\\
+$\vec{1}$ or $\vec{1}_d$ & Vector of ones (of length $d$)\\
+$\vec{0}$ or $\vec{0}_d$ & Vector of zeros (of length $d$)\\
+$\abs{\abs{\vec{x}}}=\abs{\abs{\vec{x}}}_2$ & Euclidean or $\ell_2$ norm $\sqrt{\sum\limits_{j=1}^{d} x_j^2}$\\
+$\abs{\abs{\vec{x}}}_1$ & $\ell_1$ norm $\sum\limits_{j=1}^{d} \abs{x_j}$\\
+$\vec{X}_{:,j}$ & j’th column of matrix\\
+$\vec{X}_{i,:}$ & transpose of i’th row of matrix (a column vector)\\
+$\vec{X}_{i,j}$ & Element $(i,j)$ of matrix \vec{X} \\
+$\vec{x} \otimes \vec{y}$ & Tensor product of \vec{x} and \vec{y}\\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{longtable}
+
+
+\section*{Probability notation}
+We denote random and fixed scalars by lower case, random and fixed vectors by bold lower case, and random and fixed matrices by bold upper case. Occasionally we use non-bold upper case to denote scalar random variables. Also, we use $p()$ for both discrete and continuous random variables
+
+\begin{longtable}{p{2.4cm}p{8.9cm}}
+Symbol & Meaning \\
+\noalign{\smallskip}\svhline\noalign{\smallskip}
+$X,Y$ & Random variable\\
+$P()$ & Probability of a random event\\
+$F()$ & Cumulative distribution function(CDF), also called distribution function\\
+$p(x)$ & Probability mass function(PMF)\\
+$f(x)$ & probability density function(PDF) \\
+$F(x,y)$ & Joint CDF\\
+$p(x,y)$ & Joint PMF \\
+$f(x,y)$ & Joint PDF\\
+$p(X|Y)$ & Conditional PMF, also called conditional probability\\
+$f_{X|Y}(x|y)$ & Conditional PDF\\
+$X \perp Y$ & X is independent of Y\\
+$X \not\perp Y$ & X is not independent of Y\\
+$X \perp Y | Z $ & X is conditionally independent of Y given Z\\
+$X \not\perp Y | Z $ & X is not conditionally independent of Y given Z\\
+$X \sim p$ & X is distributed according to distribution $p$\\
+$\vec{\alpha}$ & Parameters of a Beta or Dirichlet distribution\\
+$cov[X]$ & Covariance of X\\
+$\mathbb{E}[X]$ & Expected value of X\\
+$\mathbb{E}_q[X]$ & Expected value of X wrt distribution $q$\\
+$\mathbb{H}(X)$ or $\mathbb{H}(p)$ & Entropy of distribution $p(X)$\\
+$\mathbb{I}(X;Y)$ & Mutual information between X and Y\\
+$\mathbb{KL}(p||q)$ & KL divergence from distribution $p$ to $q$\\
+$\ell(\vec{\theta})$ & Log-likelihood function\\
+$L(\theta,a)$ & Loss function for taking action $a$ when true state of nature is $\theta$\\
+$\lambda$ & Precision (inverse variance) $\lambda=1/\sigma^2$\\
+$\Lambda$ & Precision matrix $\Lambda=\Sigma^{-1}$\\
+mode[\vec X] & Most probable value of \vec X\\
+$\mu$ & Mean of a scalar distribution\\
+$\vec{\mu}$ & Mean of a multivariate distribution\\
+$\Phi$ & cdf of standard normal\\
+$\phi$ & pdf of standard normal\\
+$\vec{\pi}$ & multinomial parameter vector, Stationary distribution of Markov chain\\
+$\rho$ & Correlation coefficient \\
+sigm($x$) & Sigmoid (logistic) function,$\dfrac{1}{1+e^{-x}}$\\
+$\sigma^2$ & Variance\\
+$\Sigma$ & Covariance matrix\\
+var[$x$] & Variance of $x$\\
+$\nu$ & Degrees of freedom parameter\\
+Z & Normalization constant of a probability distribution\\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{longtable}
+
+\section*{Machine learning/statistics notation}
+In general, we use upper case letters to denote constants, such as $C, K, M, N, T$, etc. We use lower case letters as dummy indexes of the appropriate range, such as $c=1:C$ to index classes, $i=1:M$ to index data cases, $j=1:N$ to index input features, $k=1:K$ to index states or clusters, $t=1:T$ to index time, etc.
+
+We use $x$ to represent an observed data vector. In a supervised problem, we use $y$ or \vec{y} to represent the desired output label. We use \vec{z} to represent a hidden variable. Sometimes we also use $q$ to represent a hidden discrete variable.
+
+\begin{longtable}{p{2.4cm}p{8.9cm}}
+Symbol & Meaning \\
+\noalign{\smallskip}\svhline\noalign{\smallskip}
+$C$ & Number of classes\\
+$M$ & Number of data cases\\
+$M_c$ & Number of examples of class $c$,$M_c=\sum_{i=1}^{M}\mathbb{I}(y_i=c)$\\
+$N$ & Dimensionality of data vector (number of features)\\
+$R$ & Number of outputs (response variables)\\
+$\mathcal{D}$ & Training data $\mathcal{D}=\left\{(\vec{x}_i,y_i) | i=1:M\right\}$\\
+$\mathcal{D}_{test}$ & Test data\\
+$\mathcal{X}$ & Input space\\
+$\mathcal{Y}$ & Output space\\
+$K$ & Number of states or dimensions of a variable (often latent)\\
+$k(x,y)$ & Kernel function\\
+$\vec{K}$ & Kernel matrix\\
+$\mathcal{H}$ & Hypothesis space\\
+$L$ & Loss function \\
+$J(\vec{\theta})$ & Cost function\\
+$f(\vec{x})$ & Decision function\\
+$P(y|\vec{x})$ & TODO\\
+$\lambda$ & Strength of $\ell_2$ or $\ell_1 regularizer$\\
+$\phi(x)$ & Basis function expansion of feature vector \vec{x}\\
+$\Phi$ & Basis function expansion of design matrix \vec{X}\\
+$q()$ & Approximate or proposal distribution\\
+$Q(\vec{\theta},\vec{\theta}_{old})$ & Auxiliary function in EM\\
+$T$ & Length of a sequence\\
+$T(\mathcal{D})$ & Test statistic for data\\
+$\vec{T}$ & Transition matrix of Markov chain\\
+$\vec{\theta}$ & Parameter vector\\
+$\vec{\theta}^{(s)}$ & $s$'th sample of parameter vector\\
+$\hat{\vec{\theta}}$ & Estimate (usually MLE or MAP) of \vec{\theta}\\
+$\hat{\vec{\theta}}_{MLE}$ & Maximum likelihood estimate of \vec{\theta}\\
+$\hat{\vec{\theta}}_{MAP}$ & MAP estimate of \vec{\theta}\\
+$\bar{\vec{\theta}}$ & Estimate (usually posterior mean) of  \vec{\theta}\\
+\vec{w} & Vector of regression weights (called $\vec{\beta}$ in statistics)\\
+b & intercept (called $\varepsilon$ in statistics)\\
+\vec{W} & Matrix of regression weights\\
+$x_{ij}$ & Component (i.e., feature) $j$ of data case $i$ ,for $i=1:N ,j=1:D$\\
+$\vec{x}_i$ & Training case, $i=1:N$\\
+$\vec{X}$ & Design matrix of size $N \times D$\\
+$\bar{\vec{x}}$ & Empirical mean $\bar{\vec{x}}=\dfrac{1}{N}\sum_{i=1}^{N} \vec{x}_i$\\
+$\tilde{\vec{x}}$ & Future test case\\
+$\vec{x}_*$ & Future test case\\
+$\vec{y}$ & Vector of all training labels $\vec{y} =(y_1,...,y_N)$\\
+$z_{ij}$ & Latent component $j$ for case $i$\\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{longtable}

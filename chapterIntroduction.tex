@@ -1,0 +1,127 @@
+\chapter{Introduction}
+
+\section{Types of machine learning}
+\begin{equation}\nonumber
+Machine\, learning\begin{cases}
+Supervised\, learning \begin{cases} Classfication\, \\ Regression \end{cases}\\
+Unsupervised\, learning \begin{cases} Discovering\, clusters\, \\ Discovering\, latent\, factors\, \\ Discovering\, graph\, structure\, \\ Matrix\, completion \end{cases}\\
+\end{cases}
+\end{equation}
+
+\section{Three elements of a machine learning method}
+
+\textbf{method = model + strategy + algorithm}
+
+\subsection{Model}
+In supervised learning, a model is a decision function or conditional probability distribution  to be learned. The model's hypothesis space contains all possible decition fuctions $f(x)$ or conditional probability distributions $P(y|\vec{x})$.
+
+\subsection{Strategy}
+Given a model's hypothesis space, we need a strategy to select which hypothesis is optimal.
+
+\subsubsection{Loss function and risk function}
+
+\begin{definition}
+In order to measure how well a function fits the training data, a \textbf{loss function} $L:Y \times Y \rightarrow R \geq 0$ is defined. For training example $(x_i,y_i)$, the loss of predicting the value $\widehat{y}$ is $L(y_i,\widehat{y})$.
+\end{definition}
+
+The following is some common loss functions:
+\begin{enumerate}
+\item 0-1 loss function $L(Y,f(X))=I(Y,f(X))=\begin{cases} 1, & Y=f(X) \\ 0, & Y \neq f(X) \end{cases}$
+\item Quadratic loss function $L(Y,f(X))=\left(Y-f(X)\right)^2$
+\item Absolute loss function $L(Y,f(X))=\abs{Y-f(X)}$
+\item Logarithmic loss function $L(Y,P(Y|X))=-\log{P(Y|X)}$
+\end{enumerate}
+
+\begin{definition}
+The risk of function $f$ is defined as the expected loss of $f$:
+\begin{equation}
+R_{exp}(f)=E_p\left[L\left(Y,f(X)\right)\right]=\int _{X \times Y} L\left(y,f(x)\right)P(x,y)dxdy
+\end{equation}
+which is also called expected loss or \textbf{risk function}.
+\end{definition}
+
+\begin{definition}
+The risk function $R_{exp}(f)$ can be estimated from the training data as
+\begin{equation}
+R_{emp}(f)=\dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right)
+\end{equation}
+which is also called empirical loss or \textbf{empirical risk}.
+\end{definition}
+
+You can define your own loss function, but if you're a novice, you're probably better off using one from the literature. There are conditions that loss functions should meet\footnote{\url{http://t.cn/zTrDxLO}}:
+\begin{enumerate}
+\item They should approximate the actual loss you're trying to minimize. As was said in the other answer, the standard loss functions for classification is zero-one-loss (misclassification rate) and the ones used for training classifiers are approximations of that loss.
+\item The loss function should work with your intended optimization algorithm. That's why zero-one-loss is not used directly: it doesn't work with gradient-based optimization methods since it doesn't have a well-defined gradient (or even a subgradient, like the hinge loss for SVMs has).
+
+The main algorithm that optimizes the zero-one-loss directly is the old perceptron algorithm(chapter \S \ref{chap:Perceptron}).
+\end{enumerate}
+
+\subsubsection{ERM and SRM}
+\begin{definition}
+ERM(Empirical risk minimization)
+\begin{equation}
+\min\limits _{f \in \mathcal{F}} R_{emp}(f)=\min\limits _{f \in \mathcal{F}} \dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right)
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Structural risk
+\begin{equation}
+R_{smp}(f)=\dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right) +\lambda J(f)
+\end{equation}
+\end{definition}
+
+\begin{definition}
+SRM(Structural risk minimization)
+\begin{equation}
+\min\limits _{f \in \mathcal{F}} R_{srm}(f)=\min\limits _{f \in \mathcal{F}} \dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right) +\lambda J(f)
+\end{equation}
+\end{definition}
+
+\subsection{Algorithm}
+Namely training algorithm(or learning algorithm), which is used to compute the optimal result according to the strategy. It's a procedural concept.
+
+\section{Cross validation}
+\begin{definition}
+\textbf{Cross validation}, sometimes called \emph{rotation estimation}, is a \emph{model validation} technique for assessing how the results of a statistical analysis will generalize to an independent data set\footnote{\url{http://en.wikipedia.org/wiki/Cross-validation_(statistics)}}.
+\end{definition}
+
+Common types of cross-validation:
+\begin{enumerate}
+\item K-fold cross-validation. In k-fold cross-validation, the original sample is randomly partitioned into k equal size subsamples. Of the k subsamples, a single subsample is retained as the validation data for testing the model, and the remaining k − 1 subsamples are used as training data.
+\item 2-fold cross-validation. Also, called simple cross-validation or holdout method. This is the simplest variation of k-fold cross-validation, k=2.
+\item Leave-one-out cross-validation(\emph{LOOCV}). k=M, the number of original samples.
+\end{enumerate}
+
+\section{Linear Regression}
+Given 
+\begin{equation}
+\begin{array}{lcl}
+\mathcal{D}=\left\{(\vec{x}_i,y_i) | i=1:M\right\} \\
+\mathcal{H}=\left\{f(\vec{x_i})=\vec{w}^T\vec{x_i}+b | i=1:M\right\}\\
+L(\vec{w},b)=\sum\limits_{i=1}^{M} \left(y_i-f(\vec{x}_i)-b\right)^2\\
+\end{array}
+\end{equation}
+
+Let $\widehat{\vec{w}}=\left(\vec{w}^T,b\right)^T$,  and
+\begin{equation}
+\widehat{\vec{X}}=\left(\begin{array}{lcr}
+\widehat{\vec{x}}_1^T\\
+\widehat{\vec{x}}_2^T\\
+\vdots \\
+\widehat{\vec{x}}_M^T\\
+\end{array}
+\right), where\; \widehat{\vec{x}}_i=\left(\vec{x}_i^T,1\right)^T
+\end{equation}
+
+We can get
+\begin{equation}
+\begin{array}{lcr}
+L(\widehat{\vec{w}})=\left(\vec{y}-\widehat{\vec{X}}\widehat{\vec{w}}\right)^T\left(\vec{y}-\widehat{\vec{X}}\widehat{\vec{w}}\right)\\
+\dfrac{\partial L}{\partial{\widehat{\vec{w}}}}=-2\widehat{\vec{X}}^T\vec{y}+2\widehat{\vec{X}}^T\widehat{\vec{X}}\widehat{\vec{w}}=0\\
+\widehat{\vec{X}}^T\vec{y}=\widehat{\vec{X}}^T\widehat{\vec{X}}\widehat{\vec{w}}\\
+\widehat{\vec{w}}=\left(\widehat{\vec{X}}^T\widehat{\vec{X}}\right)^{-1}\widehat{\vec{X}}^T\vec{y}
+\end{array}
+\end{equation}
+
+If $\widehat{\vec{X}}^T\widehat{\vec{X}}$ is singular, the pseudo-inverse can be used, or else the technique of ridge regression described below can be applied.
