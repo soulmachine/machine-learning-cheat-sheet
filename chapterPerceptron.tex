@@ -31,7 +31,7 @@ Stochastic gradient descent, the pseudo code is as follows:
     $\vec{w} \leftarrow 0;\; b \leftarrow 0;\; k \leftarrow 0$\;
     \While{no mistakes made within the for loop}{
         \For{$i\leftarrow 1$ \KwTo $N$}{
-			\If{$y_i(\vec{w}^T\vec{x}_i+b) \leq 0$}{
+			\If{$y_i(\vec{w} \cdot \vec{x}_i+b) \leq 0$}{
 				$\vec{w} \leftarrow \vec{w}+\eta y_i \vec{x}_i$\;
 				$b \leftarrow b+\eta y_i$\;
 				$k \leftarrow k+1$\;
@@ -47,11 +47,10 @@ Stochastic gradient descent, the pseudo code is as follows:
 \begin{enumerate}
 \item There exists a hyperplane denoted as $\widehat{\vec{w}}_{opt} \cdot \vec{x}+b_{opt}=0$ which can correctly seperate all samples, and 
 \begin{equation}
-\exists\gamma>0,\forall i, y_i(\vec{w}_{opt} \cdot \vec{x}_i+b_{opt}) \geq \gamma
+\exists\gamma>0,\; \forall i, \; y_i(\vec{w}_{opt} \cdot \vec{x}_i+b_{opt}) \geq \gamma
 \end{equation}
 \item \begin{equation}k \leq \left(\dfrac{R}{\gamma}\right)^2,\text{ where } R=\max\limits_{1 \leq i \leq N} \abs{\abs{\widehat{\vec{x}}_i}}
 \end{equation}
-
 \end{enumerate}
 \end{theorem}
 
