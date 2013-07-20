@@ -15,13 +15,13 @@ Geometric distance: The Euclidean distance:
 
 \section{Objective function}
 \begin{equation}
-\underset{\gamma,\mu}{\operatorname{argmax}} \sum_{n=1}^N {\sum_{k=1}^K}\gamma_{nk}{{\|{x_n-\mu_k}\|}_2^2}
+\underset{\gamma,\mu}{\operatorname{argmin}} \sum_{n=1}^N {\sum_{k=1}^K}\gamma_{nk}{{\|{x_n-\mu_k}\|}_2^2}
 \end{equation}
 
 \section{Algorithm}
 E-Step:
 \begin{equation}
-\gamma_{nk}=\begin{cases} 1,& if\  \|x_n=\mu_k\| \ minimal\ for  \ k \\ 0, &otherwise \end{cases}
+\gamma_{nk}=\begin{cases} 1,& if\  \|x_n-\mu_k\|_2 \ minimal\ for  \ k \\ 0, &otherwise \end{cases}
 \end{equation}
 M-Step:
 \begin{equation}

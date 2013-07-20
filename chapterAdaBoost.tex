@@ -21,13 +21,13 @@ equals with:
 \subsection{input}
 $T=\{(x_1,y_1),(x2,y2),\dotsc,(x_N,y_N) \};\ x_i\in \mathbb{R};\ y_i \in \{-1,+1\};$\ Weak\ Learner.
 \subsection{output}
-Final Learner:\ G(x)
+Final Learner:\ $G(x)_{Final}$
 
 \subsection{Algorithm}
 \begin{enumerate}
 \item Initialize\ the\ weights'\ distribution\ of\ training\ data(when\ m=1):
 \begin{equation}
-D_1=(w_{11},w_{12},\dotsc,w_{1n}}),w_{in}=\frac{1}{N},\ i=1,2,\dotsc,N
+D_1=(w_{11},w_{12},\dotsc,w_{1n}),w_{in}=\frac{1}{N},\ i=1,2,\dotsc,N
 \end{equation}
 \item iterate $m=1,2,\dotsc,M$
 
@@ -55,7 +55,7 @@ Z_m=\sum_{i=1}^N w_{mi}\exp(-\alpha_m y_i G_m(x_i))
 
 \item Ensemble\ $M$\ weak\ learners:
 \begin{equation}
-G(x)=sign(\sum_{m=1}^M \alpha_m G_m(x))
+G(x)_{Final}=sign(\sum_{m=1}^M \alpha_m G_m(x))
 \end{equation}
 \end{enumerate} 
 
@@ -66,7 +66,7 @@ The upper bound of the training error of AdaBoost is :
 \frac{1}{N} \sum_{i=1}^N \mathbb{I}(G(x_i)\neq y_i) \leq \frac{1}{N} \sum_{i=1}^N \exp(-y_i f(x_i))=\prod_{m=1}^M Z_m
 \end{equation}
 
-Note: the fooling equation would help proof this theorem:
+Note: the folowing equation would help proof this theorem:
 \begin{equation}
 w_{mi}\exp(-\alpha_m y_i G_m(x_i))=Z_m w_{m+1,i}
 \end{equation}
