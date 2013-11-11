@@ -1,1 +1,34 @@
 \chapter{K-Means Clustering}
+
+\section{Notation}
+
+\begin{equation}
+\gamma_{nk} \in \{0,1\} \ s.t.\ \forall n\ \sum_{k=1}^K \gamma_{nk}=1
+\end{equation}
+
+
+\section{Model}
+Geometric distance: The Euclidean distance:
+\begin{equation}
+{\|{x_n-\mu_k}\|}_2=\sqrt{\sum_{i=1}^D (x_{ni}-\mu_{ki})^2}
+\end{equation}
+
+\section{Objective function}
+\begin{equation}
+\underset{\gamma,\mu}{\operatorname{argmin}} \sum_{n=1}^N {\sum_{k=1}^K}\gamma_{nk}{{\|{x_n-\mu_k}\|}_2^2}
+\end{equation}
+
+\section{Algorithm}
+E-Step:
+\begin{equation}
+\gamma_{nk}=\begin{cases} 1,& if\  \|x_n-\mu_k\|_2 \ minimal\ for  \ k \\ 0, &otherwise \end{cases}
+\end{equation}
+M-Step:
+\begin{equation}
+\mu_{MLE}^{(k)}= \frac{\sum_{n=1}^N{\gamma_{nk}x_n}}{\sum \gamma_{nk}}
+\end{equation}
+
+$\dotsc$ \ where\ $\mu^{(k)}$ \ is\ the\ centroid\ of\ cluster\ k.
+
+\section{Reference}
+1. cheat-sheet: Algorithm for supervised and unsupervised learning by Emanuel Ferm http://t.cn/hD0Stf

@@ -1,1 +1,73 @@
-\chapter{AdaBoost}
+﻿\chapter{AdaBoost}
+
+\section{Loss Function}
+Exponential Loss Function:
+\begin{equation}
+L(y,f(x))=\exp[-yf(x)]
+\end{equation}
+
+\section{Objective Function}
+
+\begin{equation}
+(\alpha_m,G_m(x))= \underset{\alpha,G}{\operatorname{argmin}} \sum_{i=1}^N \exp{[-y_i(f_{m-1}(x_i)+\alpha G(x_i))]}
+\end{equation}
+
+equals with:
+\begin{equation}
+(\alpha_m,G_m(x))= \underset{\alpha,G}{\operatorname{argmin}} \sum_{i=1}^N {\bar{w}}_{mi} \exp{(-y_i \alpha G(x_i))}
+\end{equation}
+
+\section{Algorithm}
+\subsection{input}
+$T=\{(x_1,y_1),(x2,y2),\dotsc,(x_N,y_N) \};\ x_i\in \mathbb{R};\ y_i \in \{-1,+1\};$\ Weak\ Learner.
+\subsection{output}
+Final Learner:\ $G(x)_{Final}$
+
+\subsection{Algorithm}
+\begin{enumerate}
+\item Initialize\ the\ weights'\ distribution\ of\ training\ data(when\ m=1):
+\begin{equation}
+D_1=(w_{11},w_{12},\dotsc,w_{1n}),w_{in}=\frac{1}{N},\ i=1,2,\dotsc,N
+\end{equation}
+\item iterate $m=1,2,\dotsc,M$
+
+
+\subitem a. Train\ the\ weak\ learner\ with\ the\ weights'\ distribution\ $D_m$\ and\ get\ the\ classifier\ $G_m(x)$
+\subitem b. Compute\ the\ error\ rate\ of\ $G_m(x)$\ over\ the\ training\ data:
+\newline
+\begin{equation}
+e_m=P(G_m(x_i)\neq y_i)=\sum_{i=1}^N {w_{mi}\mathbb{I}(G_m(x_i)\neq y_i)}
+\end{equation}
+
+\subitem c. Compute the coefficient of leaner $G_m(x)$:
+\begin{equation}
+\alpha_m = \frac{1}{2}\log{\frac{1-e_m}{e_m}}
+\end{equation}
+\subitem d. Update\ the\ weights'\ distribution\ of\ training\ data:
+\begin{equation}
+w_{m+1,i}=\frac{w_{mi}}{Z_m}\exp(-\alpha_m y_i G_m(x_i))
+\end{equation}
+the\ normalizer\ $Z_m$:
+\begin{equation}
+Z_m=\sum_{i=1}^N w_{mi}\exp(-\alpha_m y_i G_m(x_i))
+\end{equation}
+
+
+\item Ensemble\ $M$\ weak\ learners:
+\begin{equation}
+G(x)_{Final}=sign(\sum_{m=1}^M \alpha_m G_m(x))
+\end{equation}
+\end{enumerate} 
+
+\section{The upper bound of the training error of AdaBoost}
+\begin{theorem}
+The upper bound of the training error of AdaBoost is :
+\begin{equation}
+\frac{1}{N} \sum_{i=1}^N \mathbb{I}(G(x_i)\neq y_i) \leq \frac{1}{N} \sum_{i=1}^N \exp(-y_i f(x_i))=\prod_{m=1}^M Z_m
+\end{equation}
+
+Note: the folowing equation would help proof this theorem:
+\begin{equation}
+w_{mi}\exp(-\alpha_m y_i G_m(x_i))=Z_m w_{m+1,i}
+\end{equation}
+\end{theorem}
