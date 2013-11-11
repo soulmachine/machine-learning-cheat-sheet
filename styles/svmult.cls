@@ -469,7 +469,7 @@ passing it to article class \MessageBreak
 \newif\if@mainmatter \@mainmattertrue
 \newcommand\frontmatter{\startnewpage
             \@mainmatterfalse\pagenumbering{roman}
-            \setcounter{page}{5}}
+            \setcounter{page}{1}}
 %
 \newcommand\mainmatter{\clearemptydoublepage
             \@mainmattertrue
@@ -495,7 +495,7 @@ passing it to article class \MessageBreak
         \@restonecolfalse\newpage
       \fi
       \thispagestyle{empty}%
-      \addtocounter{page}\m@ne
+      %\addtocounter{page}\m@ne
   \def\and{\unskip, }
   \parindent=\z@
   \pretolerance=10000
