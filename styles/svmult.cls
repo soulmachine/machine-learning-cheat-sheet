@@ -231,7 +231,7 @@ passing it to article class \MessageBreak
 \setlength{\textwidth}{6.5in}
 \setlength{\topmargin}{0in}
 \setlength{\headheight}{0in}
-\setlength{\headsep}{0in}
+\setlength{\headsep}{5mm}
 %\setlength{\topsep}{0in}
 \setlength{\textheight}{9in}
 \setlength{\oddsidemargin}{0in}
