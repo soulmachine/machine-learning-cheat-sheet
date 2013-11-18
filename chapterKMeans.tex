@@ -1,34 +1,41 @@
 \chapter{K-Means Clustering}
 
-\section{Notation}
 
+\section{Representation}
 \begin{equation}
-\gamma_{nk} \in \{0,1\} \ s.t.\ \forall n\ \sum_{k=1}^K \gamma_{nk}=1
+y_j=k \text{ if } \|\vec{x}_j-\vec{\mu}_k\|_2^2 \text{ is minimal}
+\end{equation}
+where $\vec{\mu}_k$ \ is\ the centroid of cluster k.
+
+
+\section{Evaluation}
+\begin{equation}
+\arg\min\limits_{\vec{\mu}} \sum_{j=1}^N {\sum_{k=1}^K}\gamma_{jk}{\|\vec{x}_j-\vec{\mu}_k\|_2^2}
+\end{equation}
+
+The hidden variable is $\gamma_{jk}$, which's meanining is:
+\begin{equation} \nonumber
+\gamma_{jk}=\begin{cases}
+1, & \text{if } \|\vec{x}_j-\vec{\mu}_k\|_2 \text{ is minimal for } \vec{\mu}_k \\
+0, & \text{otherwise}
+\end{cases}
 \end{equation}
 
 
-\section{Model}
-Geometric distance: The Euclidean distance:
-\begin{equation}
-{\|{x_n-\mu_k}\|}_2=\sqrt{\sum_{i=1}^D (x_{ni}-\mu_{ki})^2}
-\end{equation}
-
-\section{Objective function}
-\begin{equation}
-\underset{\gamma,\mu}{\operatorname{argmin}} \sum_{n=1}^N {\sum_{k=1}^K}\gamma_{nk}{{\|{x_n-\mu_k}\|}_2^2}
-\end{equation}
-
-\section{Algorithm}
+\section{Optimization}
 E-Step:
 \begin{equation}
-\gamma_{nk}=\begin{cases} 1,& if\  \|x_n-\mu_k\|_2 \ minimal\ for  \ k \\ 0, &otherwise \end{cases}
-\end{equation}
-M-Step:
-\begin{equation}
-\mu_{MLE}^{(k)}= \frac{\sum_{n=1}^N{\gamma_{nk}x_n}}{\sum \gamma_{nk}}
+\gamma_{jk}^{(i+1)}=\begin{cases} 
+1, & \text{if } \|\vec{x}_j-\vec{\mu}_k^{(i)}\|_2 \text{ is minimal for } \vec{\mu}_k^{(i)} \\ 
+0, & \text{otherwise}
+\end{cases}
 \end{equation}
 
-$\dotsc$ \ where\ $\mu^{(k)}$ \ is\ the\ centroid\ of\ cluster\ k.
+M-Step:
+\begin{equation}
+\vec{\mu}_{k}^{(i+1)}= \frac{\sum_{j=1}^N{\gamma_{jk}^{(i+1)}\vec{x}_j}}{\sum \gamma_{jk}^{(i+1)}}
+\end{equation}
+
 
 \section{Reference}
 1. cheat-sheet: Algorithm for supervised and unsupervised learning by Emanuel Ferm http://t.cn/hD0Stf

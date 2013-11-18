@@ -1,1 +1,36 @@
 \chapter{Logistic Regression}
+
+
+\section{Binomial Logistic Regression Model}
+
+
+\subsection{Representation}
+
+\begin{eqnarray}
+  P(Y=1|\vec{x}) &=& \frac{\exp(\vec{w}^T\vec{x})}{1+\exp(\vec{w}^T\vec{x})} \\
+  P(Y=0|\vec{x}) &=& \frac{1}{1+\exp(\vec{w}^T\vec{x})}
+\end{eqnarray}
+where $\vec{w}=(w_1, w_2,\cdots, w_n, b)$, $\vec{x}=(x_1,x_2,\cdots, 1)$
+
+
+\subsection{Evaluation}
+\begin{equation}
+\max_{\vec{w}} l(\vec{w})
+\end{equation}
+where $l(\vec{w})$ is log likelihood function
+\begin{eqnarray*}
+\pi(\vec{x}_i) & \triangleq & P(Y=1|\vec{x}_i) \\
+l(\vec{w}) &=& \log\left\{\prod\limits_{i=1}^N{\left[\pi(\vec{x}_i)\right]^{y_i}\left[1-\pi(\vec{x}_i)\right]^{1-y_i}}\right\} \\
+           &=& \sum\limits_{i=1}^N\left[y_i\log\pi(\vec{x}_i)+(1-y_i)\log(1-\pi(\vec{x}_i))\right] \\
+		   &=& \sum\limits_{i=1}^N\left[y_i\log\dfrac{\pi(\vec{x}_i)}{1-\pi(\vec{x}_i)}+\log(1-\pi(\vec{x}_i))\right] \\
+		   &=& \sum\limits_{i=1}^N\left[y_i(\vec{w}\cdot\vec{x}_i)-\log(1+\exp(\vec{w}\cdot\vec{x}_i))\right]
+\end{eqnarray*}
+
+
+\subsection{Optimization}
+We can use stochastic gradient ascent and quasi Newton method, etc.
+
+
+\subsubsection{SGD}
+
+$$ \dfrac{\partial}{\partial \vec{w}}l(\vec{w}) = \vec{w} + \alpha\left[y_i - \pi(\vec{x}_i) \right]\vec{x}_i $$

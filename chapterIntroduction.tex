@@ -2,21 +2,25 @@
 
 \section{Types of machine learning}
 \begin{equation}\nonumber
-Machine\, learning\begin{cases}
-Supervised\, learning \begin{cases} Classfication\, \\ Regression \end{cases}\\
-Unsupervised\, learning \begin{cases} Discovering\, clusters\, \\ Discovering\, latent\, factors\, \\ Discovering\, graph\, structure\, \\ Matrix\, completion \end{cases}\\
+\text{Machine learning}\begin{cases}
+\text{Supervised learning} \begin{cases} \text{Classfication} \\ \text{Regression} \end{cases}\\
+\text{Unsupervised learning} \begin{cases} \text{Discovering clusters} \\ \text{Discovering latent factors} \\ \text{Discovering graph structure} \\ \text{Matrix completion} \end{cases}\\
 \end{cases}
 \end{equation}
 
-\section{Three elements of a machine learning method}
 
-\textbf{method = model + strategy + algorithm}
+\section{Three elements of a machine learning model}
 
-\subsection{Model}
-In supervised learning, a model is a decision function or conditional probability distribution  to be learned. The model's hypothesis space contains all possible decition fuctions $f(x)$ or conditional probability distributions $P(y|\vec{x})$.
+\textbf{Model = Representation + Evaluation + Optimization}\footnote{Domingos, P. A few useful things to know about machine learning. Commun. ACM. 55(10):78–87 (2012).}
 
-\subsection{Strategy}
-Given a model's hypothesis space, we need a strategy to select which hypothesis is optimal.
+
+\subsection{Representation}
+In supervised learning, a model must be represented as a conditional probability distribution $P(y|\vec{x})$(usually we call it classifier) or a decision function $f(x)$. The set of classifiers(or decision functions) is called the hypothesis space of the model. Choosing a representation for a model is tantamount to choosing the hypothesis space that it can possibly learn. 
+
+
+\subsection{Evaluation}
+In the hypothesis space, an evaluation function (also called objective function or risk function) is needed to distinguish good classifiers(or decision functions) from bad ones.
+
 
 \subsubsection{Loss function and risk function}
 
@@ -56,6 +60,7 @@ You can define your own loss function, but if you're a novice, you're probably b
 The main algorithm that optimizes the zero-one-loss directly is the old perceptron algorithm(chapter \S \ref{chap:Perceptron}).
 \end{enumerate}
 
+
 \subsubsection{ERM and SRM}
 \begin{definition}
 ERM(Empirical risk minimization)
@@ -78,8 +83,10 @@ SRM(Structural risk minimization)
 \end{equation}
 \end{definition}
 
-\subsection{Algorithm}
-Namely training algorithm(or learning algorithm), which is used to compute the optimal result according to the strategy. It's a procedural concept.
+
+\subsection{Optimization}
+Finally, we need a \textbf{training algorithm}(also called \textbf{learning algorithm}) to search among the classifiers in the the hypothesis space for the highest-scoring one. The choice of optimization technique is key to the \textbf{efficiency} of the model.
+
 
 \section{Cross validation}
 \begin{definition}

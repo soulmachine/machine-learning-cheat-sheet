@@ -1,1 +1,125 @@
 \chapter{Support Vector Machines}
+\label{chap:SVM}
+
+
+\section{Primal form}
+
+
+\subsection{Representation}
+
+\begin{equation}
+\mathcal{H}:y=f(\vec{x})=\text{sign}(\vec{w}\vec{x}+b)
+\end{equation}
+
+
+\subsection{Evaluation}
+
+\begin{eqnarray}
+\min_{\vec{w},b}  && \frac{1}{2}\|\vec{w}\|^2 \\
+       & s.t. \quad & y_i(\vec{w}\vec{x}_i+b)\geqslant 1, i=1,2, \dots , N
+\end{eqnarray}
+
+
+\section{Dual form}
+
+
+\subsection{Representation}
+
+\begin{equation}
+\mathcal{H}:y=f(\vec{x})=\text{sign}\left(\sum\limits_{i=1}^N{\alpha_iy_i(\vec{x} \cdot \vec{x}_i)}+b\right)
+\end{equation}
+
+
+\subsection{Evaluation}
+
+\begin{eqnarray}
+ \min_{\alpha} && \frac{1}{2} \sum\limits_{i=1}^N\sum\limits_{j=1}^N \alpha_i\alpha_j y_i y_j (\vec{x}_i \cdot \vec{x}_j) - \sum\limits_{i=1}^N \alpha_i \\
+               & s.t.  \quad &\sum\limits_{i=1}^N\alpha_i y_i=0 \\
+               && \alpha_i \geqslant 0, i=1,2, \dots, N
+\end{eqnarray}
+
+
+
+\section{Primal form with regularization}
+
+
+\subsection{Representation}
+
+\begin{equation}
+\mathcal{H}:y=f(\vec{x})=\text{sign}(\vec{w}\vec{x}+b)
+\end{equation}
+
+
+\subsection{Evaluation}
+
+\begin{eqnarray}
+\min_{\vec{w},b}  && \frac{1}{2}\|\vec{w}\|^2 + C \sum\limits_{i=1}^N\xi_i \label{eqn:pfwr1} \\
+      & s.t. \quad & y_i(\vec{w}\vec{x}_i+b)\geqslant 1-\xi_i, i=1,2, \dots , N \label{eqn:pfwr2} \\
+                  && \xi_i \geqslant 0, i=1,2, \dots, N \label{eqn:pfwr3}
+\end{eqnarray}
+
+
+\section{Dual form with regularization}
+
+
+\subsection{Representation}
+
+\begin{equation}
+\mathcal{H}:y=f(\vec{x})=\text{sign}\left(\sum\limits_{i=1}^N{\alpha_iy_i(\vec{x} \cdot \vec{x}_i)}+b\right)
+\end{equation}
+
+
+\subsection{Evaluation}
+
+\begin{eqnarray}
+ \min_{\alpha} && \frac{1}{2} \sum\limits_{i=1}^N\sum\limits_{j=1}^N \alpha_i\alpha_j y_i y_j (\vec{x}_i \cdot \vec{x}_j) - \sum\limits_{i=1}^N \alpha_i \\
+               & s.t.  \quad & \sum\limits_{i=1}^N\alpha_i y_i=0 \\
+               && 0 \leqslant  \alpha_i \leqslant C, i=1,2, \dots, N
+\end{eqnarray}
+
+\begin{eqnarray}
+\alpha_i=0 \Rightarrow y_i(\vec{w} \cdot \vec{x}_i+b)\geqslant 1 \\
+\alpha_i=C \Rightarrow y_i(\vec{w} \cdot \vec{x}_i+b)\leqslant 1 \\
+0<\alpha_i<C \Rightarrow y_i(\vec{w} \cdot \vec{x}_i+b)= 1
+\end{eqnarray}
+
+
+\section{Hinge Loss}
+Linear support vector machines can also be interpreted as hinge loss minimization:
+\begin{equation}\label{eqn:Hinge-Loss}
+\min_{\vec{w},b} \sum\limits_{i=1}^N{[1-y_i(\vec{w} \cdot \vec{x}_i + b)]}_+ + \lambda\|\vec{w}\|^2
+\end{equation}
+where $L(X,Y)$ is hinge loss function.
+\begin{equation}
+{[z]}_+ = \begin{cases}
+z,  & z > 0 \\
+0,  & z \leqslant 0
+\end{cases}
+\end{equation}
+
+\begin{proof}
+We can write equation \eqref{eqn:Hinge-Loss} as equations \eqref{eqn:pfwr1} $\sim$ \eqref{eqn:pfwr3}.
+
+Let 
+\begin{equation}
+\xi_i= 1-y_i(\vec{w} \cdot \vec{x}_i + b),\xi_i \geqslant 0
+\end{equation}
+
+Then $\vec{w},b,\xi_i$ satisfy the constraints \eqref{eqn:pfwr1} and \eqref{eqn:pfwr2}. And objective function \eqref{eqn:pfwr3} can be written as
+\begin{equation}
+\min_{\vec{w},b} \sum\limits_{i=1}^N{\xi_i}+ \lambda\|\vec{w}\|^2 \nonumber
+\end{equation}
+
+If $\lambda=\dfrac{1}{2C}$, then 
+\begin{equation}
+\min_{\vec{w},b} \dfrac{1}{C}\left(\dfrac{1}{2}\|\vec{w}\|^2+C\sum\limits_{i=1}^N{\xi_i}\right)
+\end{equation}
+It is equivalent to Eqn.\eqref{eqn:pfwr1}.
+
+\end{proof}
+
+\section{Kernels}
+
+
+\section{Optimization}
+SMO, QP, SGD, etc.

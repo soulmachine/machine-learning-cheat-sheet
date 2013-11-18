@@ -1,0 +1,45 @@
+\chapter{Optimization methods}
+\label{chap:Optimization-methods}
+
+
+\section{Gradient descent}
+\label{sec:Gradient-descent}
+
+
+\subsection{Stochastic gradient descent}
+
+\begin{algorithm}[htbp]
+    \SetAlgoNoLine
+	\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+	
+    \Input{Training data $\mathcal{D}=\left\{(\vec{x}_i,y_i) | i=1:N\right\}$}
+	\Output{A linear model: $y_i=\vec{\theta}^T\vec{x}$}
+    $\vec{w} \leftarrow 0;\; b \leftarrow 0;\; k \leftarrow 0$\;
+    \While{no mistakes made within the for loop}{
+        \For{$i\leftarrow 1$ \KwTo $N$}{
+			\If{$y_i(\vec{w} \cdot \vec{x}_i+b) \leq 0$}{
+				$\vec{w} \leftarrow \vec{w}+\eta y_i \vec{x}_i$\;
+				$b \leftarrow b+\eta y_i$\;
+				$k \leftarrow k+1$\;
+			}
+		}
+    }
+\caption{Stochastic gradient descent}
+\end{algorithm}
+
+
+\subsection{Batch gradient descent}
+
+
+\section{Lagrange duality}
+
+
+\subsection{Primal form}
+Consider the following, which we'll call the \textbf{primal} optimization problem:
+\begin{eqnarray}
+xyz
+\end{eqnarray}
+
+
+\subsection{Dual form}
+

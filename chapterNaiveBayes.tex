@@ -1,1 +1,33 @@
 \chapter{Naive Bayes}
+\label{chap:Naive-Bayes}
+
+
+\section{Representation}
+\begin{equation}
+y_i=f(\vec{x}_i)=\arg\max\limits_{c_k}{P(c_k|\vec{x}_i)}=P(y=c_k)\prod_{j=1}^D P(x_{ij}|y=c_k)
+\end{equation}
+
+
+\section{Evaluation}
+\begin{equation}
+R_{exp}(f)=E_{(X,Y)}\sum\limits_{k=1}^K\left[L\left(Y,f(X)\right)\right]P(c_k|X)
+\end{equation}
+where $L\left(Y,f(X)\right)$ is 0-1 loss function.
+
+
+\section{Optimization}
+
+The likelihood function is:
+\begin{eqnarray*}
+P(\mathcal{D} | \vec{\pi}, \vec{\theta}) & = & \prod_{i=1}^N P(\vec{x}_i, y_i) \\
+      & = & \prod_{i=1}^N\left[P(y_i)\prod_{j=1}^D P(x_{ij} | y_i)\right]
+\end{eqnarray*}
+
+For discrete distributions, we have MLE solution as follows:
+\begin{equation}
+\pi_k = P(Y=c_k) = \frac{\sum_{i=1}^N \mathbb{I}(y_i=c_k)}{N}
+\end{equation}
+
+\begin{equation}
+\theta_{kij} = P(x_{ij}=a_{ij} | Y=c_k) = \dfrac{\sum_{i=1}^N \mathbb{I}(x_{ij}=a_{ij}, y_i=c_k)}{\sum_{i=1}^N \mathbb{I}(y_i=c_k)}
+\end{equation} 

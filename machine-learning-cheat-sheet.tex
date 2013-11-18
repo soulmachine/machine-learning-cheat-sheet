@@ -13,7 +13,7 @@
 % general metadata:
 \author{soulmachine@gmail.com}
 \title{Machine Learning Cheat Sheet}
-\subtitle{Classical equations and diagrams in machine learning}
+\subtitle{Insights, diagrams and equations of machine learning}
 
 % choose options for [] as required from the list
 % in the Reference Guide
@@ -35,6 +35,7 @@
 \usepackage{makeidx}         % allows index generation
 \usepackage{graphicx}        % standard LaTeX graphics tool
                              % when including figure files
+\usepackage[justification=centering]{caption}
 \usepackage{multicol}        % used for the two-column index
 \usepackage[bottom]{footmisc}% places footnotes at page bottom
 \usepackage[bookmarksnumbered=true,
@@ -44,6 +45,8 @@
             anchorcolor=blue,
             citecolor=blue
            ]{hyperref}
+
+\graphicspath{{figures/}}
 
 % see the list of further useful packages in the Reference Guide
 
@@ -64,7 +67,7 @@
 %\include{acknow}
 
 \tableofcontents
-%\include{cblist}
+\include{cblist}
 %\include{acronym}
 \include{notation}
 
@@ -78,18 +81,20 @@
 \include{chapterKMeans}
 \include{chapterNaiveBayes}
 \include{chapterDecisionTree}
+\include{chapterLinearRegression}
 \include{chapterLR}
 \include{chapterME}
 \include{chapterSVM}
 \include{chapterAdaBoost}
 \include{chapterEM}
 \include{chapterHMM}
+\include{chapterBayesNets}
 \include{chapterCRF}
 %
 
 \backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
-%\include{appendix}
+\include{chapterOptimization}
 \include{glossary}
 \printindex
 

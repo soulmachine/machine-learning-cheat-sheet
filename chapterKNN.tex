@@ -1,1 +1,18 @@
 \chapter{K-Nearest Neighbors}
+
+
+\section{Representation}
+
+\begin{equation}
+y=f(\vec{x})=\arg\min_{c}{\sum\limits_{\vec{x}_i \in N_k(\vec{x})} \mathbb{I}(y_i=c)}
+\end{equation}
+where $N_k(\vec{x})$ is the set of k points that are closest to point $\vec{x}$.
+
+Usually use \textbf{k-d tree} to accelerate the process of finding k nearest points.
+
+
+\section{Evaluation}
+No training is needed.
+
+\section{Optimization}
+No training is needed.

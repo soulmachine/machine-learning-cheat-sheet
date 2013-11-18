@@ -1,27 +1,32 @@
 \chapter{Perceptron}
 \label{chap:Perceptron}
 
-\section{Model}
+
+\section{Representation}
+
 \begin{equation}
-\mathcal{H}:f(\vec{x})=\text{sign}(\vec{w}\vec{x}+b)
+\mathcal{H}:y=f(\vec{x})=\text{sign}(\vec{w}^T\vec{x}+b)
 \end{equation}
 where $\text{sign}(x)=\begin{cases}+1, & x \geq 0\\-1, & x<0\\\end{cases}$, see Fig. ~\ref{fig:perceptron}\footnote{\url{https://en.wikipedia.org/wiki/Perceptron}}.
+
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.50]{figures/perceptron.png}
+    \includegraphics[scale=.50]{perceptron.png}
 \caption{Perceptron}
 \label{fig:perceptron} 
 \end{figure}
 
-Perceptron is a binary linear classifier, which is a discriminant model.
 
-\section{Strategy}
+\section{Evaluation}
+
 \begin{eqnarray}
-L(\vec{w},b)&=&-y_i(\vec{wx}_i+b)\\
-R_{emp}(f)&=&-\sum\limits_i y_i(\vec{wx}_i+b)\\
+L(\vec{w},b)&=&-y_i(\vec{w}^T\vec{x}_i+b)\\
+R_{emp}(f)&=&-\sum\limits_i y_i(\vec{w}^T\vec{x}_i+b)\\
 \end{eqnarray}
 
-\section{Learning algorithm}
+
+\section{Optimization}
+
 \subsection{Primal form}
 Stochastic gradient descent, the pseudo code is as follows:
 \begin{algorithm}[htbp]
@@ -41,7 +46,8 @@ Stochastic gradient descent, the pseudo code is as follows:
 \caption{Perceptron learning algorithm, primal form}
 \end{algorithm}
 
-\subsection{Convergency}
+
+\subsubsection{Convergency}
 \begin{theorem}
 (\textbf{Novikoff}) If traning data set $\mathcal{D}$ is linearly separable, then
 \begin{enumerate}
@@ -76,6 +82,7 @@ From above two equations we get
 \nonumber \text{i.e. } k & \leq & \left(\dfrac{R}{\gamma}\right)^2
 \end{eqnarray}
 \end{proof}
+
 
 \subsection{Dual form}
 \begin{eqnarray}
