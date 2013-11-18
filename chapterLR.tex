@@ -28,9 +28,12 @@ l(\vec{w}) &=& \log\left\{\prod\limits_{i=1}^N{\left[\pi(\vec{x}_i)\right]^{y_i}
 
 
 \subsection{Optimization}
-We can use stochastic gradient ascent and quasi Newton method, etc.
+We can use stochastic gradient ascent(SGA) and quasi Newton method, etc.
 
 
-\subsubsection{SGD}
-
-$$ \dfrac{\partial}{\partial \vec{w}}l(\vec{w}) = \vec{w} + \alpha\left[y_i - \pi(\vec{x}_i) \right]\vec{x}_i $$
+\subsubsection{SGA}
+\begin{eqnarray}
+\dfrac{\partial}{\partial \vec{w}}l(\vec{w}) &=& \left[y_i - \pi(\vec{x}_i) \right]\vec{x}_i \\
+\vec{w} &=& \vec{w}+\alpha\dfrac{\partial}{\partial \vec{w}}l(\vec{w}) \\
+        &=& \vec{w} + \alpha\left[y_i - \pi(\vec{x}_i) \right]\vec{x}_i
+\end{eqnarray}

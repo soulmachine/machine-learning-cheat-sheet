@@ -3,74 +3,83 @@
 
 \section{Representation}
 
-\section{Loss Function}
-Exponential Loss Function:
 \begin{equation}
-L(y,f(x))=\exp[-yf(x)]
+y=\text{sign}(f(\vec{x}))=\text{sign}\left(\sum\limits_{i=1}^m \alpha_mG_m(\vec{x})\right)
+\end{equation}
+where $G_m(\vec{x})$ are sub classifiers.
+
+
+\section{Evaluation}
+
+\begin{equation} \nonumber
+L(y,f(\vec{x}))=\exp[-yf(\vec{x})] \text{  i.e., exponential loss function}
 \end{equation}
 
-\section{Objective Function}
-
 \begin{equation}
-(\alpha_m,G_m(x))= \underset{\alpha,G}{\operatorname{argmin}} \sum_{i=1}^N \exp{[-y_i(f_{m-1}(x_i)+\alpha G(x_i))]}
+(\alpha_m,G_m(x))= \arg\min_{\alpha,G} \sum_{i=1}^N \exp{[-y_i(f_{m-1}(\vec{x}_i)+\alpha G(\vec{x}_i))]}
 \end{equation}
 
-equals with:
+Define $\bar{w}_{mi}=\exp{[-y_i(f_{m-1}(\vec{x}_i)]}$, which is constant w.r.t. $\alpha, G$
 \begin{equation}
-(\alpha_m,G_m(x))= \underset{\alpha,G}{\operatorname{argmin}} \sum_{i=1}^N {\bar{w}}_{mi} \exp{(-y_i \alpha G(x_i))}
+(\alpha_m,G_m(x))= \arg\min_{\alpha,G} \sum_{i=1}^N {\bar{w}}_{mi} \exp{(-y_i \alpha G(x_i))}
 \end{equation}
 
-\section{Algorithm}
-\subsection{input}
-$T=\{(x_1,y_1),(x2,y2),\dotsc,(x_N,y_N) \};\ x_i\in \mathbb{R};\ y_i \in \{-1,+1\};$\ Weak\ Learner.
-\subsection{output}
-Final Learner:\ $G(x)_{Final}$
+
+\section{Optimization}
+
+\subsection{Input}
+\begin{eqnarray*}
+& \mathcal{D}=\{(\vec{x}_1,y_1),(\vec{x}_2,y2),\dots,(\vec{x}_N,y_N)\} \text{ ,where } \vec{x}_i \in \mathbb{R}^D,\ y_i \in \{-1,+1\} \\
+& \text{ Weak classifiers } \{G_1,G_2,\dots,G_m\}
+\end{eqnarray*}
+
+
+\subsection{Output}
+Final classifier: $G(x)$
+
 
 \subsection{Algorithm}
+
 \begin{enumerate}
-\item Initialize\ the\ weights'\ distribution\ of\ training\ data(when\ m=1):
-\begin{equation}
-D_1=(w_{11},w_{12},\dotsc,w_{1n}),w_{in}=\frac{1}{N},\ i=1,2,\dotsc,N
+\item Initialize the weights' distribution of training data(when $m=1$):
+\begin{equation}\nonumber
+\mathcal{D}_1=(w_{11},w_{12},\cdots,w_{1n})=(\frac{1}{N},\frac{1}{N},\cdots,\frac{1}{N}),\ i=1,2,\cdots,N
 \end{equation}
-\item iterate $m=1,2,\dotsc,M$
-
-
-\subitem a. Train\ the\ weak\ learner\ with\ the\ weights'\ distribution\ $D_m$\ and\ get\ the\ classifier\ $G_m(x)$
-\subitem b. Compute\ the\ error\ rate\ of\ $G_m(x)$\ over\ the\ training\ data:
-\newline
+\item Iterate over $m=1,2,\dotsc,M$
+\subitem (a) Use training data with current weights' distribution $\mathcal{D}_m$ to get a classifier $G_m(\vec{x})$
+\subitem (b) Compute the error rate of $G_m(\vec{x})$ over the training data \\
 \begin{equation}
-e_m=P(G_m(x_i)\neq y_i)=\sum_{i=1}^N {w_{mi}\mathbb{I}(G_m(x_i)\neq y_i)}
+e_m=P(G_m(\vec{x}_i)\neq y_i)=\sum_{i=1}^N {w_{mi}\mathbb{I}(G_m(\vec{x}_i) \neq y_i)}
 \end{equation}
 
-\subitem c. Compute the coefficient of leaner $G_m(x)$:
+\subitem (c) Compute the coefficient of classifier $G_m(x)$
 \begin{equation}
 \alpha_m = \frac{1}{2}\log{\frac{1-e_m}{e_m}}
 \end{equation}
-\subitem d. Update\ the\ weights'\ distribution\ of\ training\ data:
+\subitem (d) Update the weights' distribution of training data
 \begin{equation}
-w_{m+1,i}=\frac{w_{mi}}{Z_m}\exp(-\alpha_m y_i G_m(x_i))
+w_{m+1,i}=\frac{w_{mi}}{Z_m}\exp(-\alpha_m y_i G_m(\vec{x}_i))
 \end{equation}
-the\ normalizer\ $Z_m$:
+where $Z_m$ is the normalizing constant
 \begin{equation}
-Z_m=\sum_{i=1}^N w_{mi}\exp(-\alpha_m y_i G_m(x_i))
+Z_m=\sum_{i=1}^N w_{mi}\exp(-\alpha_m y_i G_m(\vec{x}_i))
 \end{equation}
 
-
-\item Ensemble\ $M$\ weak\ learners:
+\item Ensemble $M$ weak classifiers:
 \begin{equation}
-G(x)_{Final}=sign(\sum_{m=1}^M \alpha_m G_m(x))
+G(x)=\text{sign}f(\vec{x})=\text{sign}\left[\sum_{m=1}^M \alpha_m G_m(\vec{x})\right]
 \end{equation}
 \end{enumerate} 
 
 \section{The upper bound of the training error of AdaBoost}
 \begin{theorem}
-The upper bound of the training error of AdaBoost is :
+The upper bound of the training error of AdaBoost is 
 \begin{equation}
-\frac{1}{N} \sum_{i=1}^N \mathbb{I}(G(x_i)\neq y_i) \leq \frac{1}{N} \sum_{i=1}^N \exp(-y_i f(x_i))=\prod_{m=1}^M Z_m
+\frac{1}{N} \sum_{i=1}^N \mathbb{I}(G(\vec{x}_i)\neq y_i) \leq \frac{1}{N} \sum_{i=1}^N \exp(-y_i f(\vec{x}_i))=\prod_{m=1}^M Z_m
 \end{equation}
 
-Note: the folowing equation would help proof this theorem:
+Note: the following equation would help proof this theorem:
 \begin{equation}
-w_{mi}\exp(-\alpha_m y_i G_m(x_i))=Z_m w_{m+1,i}
+w_{mi}\exp(-\alpha_m y_i G_m(\vec{x}_i))=Z_m w_{m+1,i}
 \end{equation}
 \end{theorem}
