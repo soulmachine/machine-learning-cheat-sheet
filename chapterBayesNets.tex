@@ -1,0 +1,91 @@
+\chapter{BayesNets}
+\section{Chain rule}
+\begin{equation}
+p(x) = p(x_1)\prod_{v = 2}^Vp(x_v|x_{1:v-1})
+\end{equation}
+
+\section{Markov chain}
+\begin{equation}
+p(x) = p(x_1)\prod_{v = 2}^Vp(x_v|x_{v-1})
+\end{equation}
+
+\section{DGM}
+\begin{equation}
+p(x|G) = \prod_{v=1}^Vp(x_v|x_{pa(v)})
+\label{bayes_net}
+\end{equation}
+
+\section{Inference}
+\begin{equation}
+p(x_h|x_v,\theta) = 
+\frac{p(x_h, x_v|\theta)}
+{\sum_{x_h'}p(x_h', x_v|\theta)}
+\end{equation}
+
+\begin{equation}
+p(x_q|x_v,\theta) = \sum_{x_n}p(x_q, x_n|x_v, \theta)
+\end{equation}
+
+\section{Learning}
+\subsection{MAP}
+\begin{equation}
+\hat{\theta} =
+\underset{\theta}{\operatorname{argmax}}
+p(\theta)\prod_{n=1}^Np(x_n|\theta)
+\end{equation}
+\subsection{Learning from complete data}
+\begin{equation}
+p(D|\theta) = \prod_{n=1}^Np(x_n|\theta)
+= \prod_{n=1}^N\prod_{v=1}^Vp(x_{nv}|x_{n, pa(v)}, \theta_v)
+= \prod_{v=1}^Vp(D_v|\theta_v)
+\end{equation}
+
+\subsection{Multinoulli Learning}
+Multinoulli Distribution：
+\begin{equation}
+Cat(x|\mu) = \prod_{k=1}^K\mu_k^{x_k}
+\label{discrite}
+\end{equation}
+then from \ref{bayes_net} and \ref{discrite}:
+\begin{equation}
+p(x|G,\theta) = \prod_{v=1}^V\prod_{c=1}^{C_v}\prod_{k=1}^K
+\theta_{vck}^{y_{vck}}
+\end{equation}
+Likelihood
+\begin{equation}
+p(D|G,\theta) = \prod_{n=1}^N p(x_n|G,\theta)
+=\prod_{n=1}^N\prod_{v=1}^V\prod_{c=1}^{C_{nv}}\prod_{k=1}^K
+\theta_{vck}^{y_{nvck}}
+\end{equation}
+where $y_{nv} = f(pa(x_{nv}))$, f(x) is a map from x to a vector,
+there is only one element in the vector is 1.
+
+\section{d-separation}
+\begin{enumerate}
+\item P contains a chain
+\begin{equation}
+p(x,z|y) = \frac{p(x,y,z)}{p(y)}
+= \frac{p(x)p(y|x)p(z|y)}{p(y)}
+= \frac{p(x,y)p(z|y)}{p(y)} = p(x|y)p(z|y)
+\end{equation}
+
+\item P contains a fork
+\begin{equation}
+p(x,z|y) = \frac{p(x,y,z)}{p(y)}
+= \frac{p(y)p(x|y)p(z|y)}{p(y)}
+= p(x|y)p(z|y)
+\end{equation}
+\item P contains v-structure
+\begin{equation}
+p(x,z|y) = \frac{p(x,y,z)}{p(y)}
+= \frac{p(x)p(z)p(y|x,z)}{p(y)}
+\neq p(x|y)p(z|y)
+\end{equation}
+\end{enumerate}
+\section{Markov blanket}
+\begin{equation}
+mb(t) = ch(t)\cup pa(t)\cup copa(t)
+\end{equation}
+
+\section{Reference}
+Mlapp chapter 10 Bayes nets
