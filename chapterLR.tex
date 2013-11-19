@@ -10,7 +10,7 @@
   P(Y=1|\vec{x}) &=& \frac{\exp(\vec{w}^T\vec{x})}{1+\exp(\vec{w}^T\vec{x})} \\
   P(Y=0|\vec{x}) &=& \frac{1}{1+\exp(\vec{w}^T\vec{x})}
 \end{eqnarray}
-where $\vec{w}=(w_1, w_2,\cdots, w_n, b)$, $\vec{x}=(x_1,x_2,\cdots, 1)$
+where $\vec{w}=(w_1, w_2,\cdots, w_n, b)$, $\vec{x}=(x_1,x_2,\cdots, 1)$.
 
 
 \subsection{Evaluation}
@@ -34,6 +34,6 @@ We can use stochastic gradient ascent(SGA) and quasi Newton method, etc.
 \subsubsection{SGA}
 \begin{eqnarray}
 \dfrac{\partial}{\partial \vec{w}}l(\vec{w}) &=& \left[y_i - \pi(\vec{x}_i) \right]\vec{x}_i \\
-\vec{w} &=& \vec{w}+\alpha\dfrac{\partial}{\partial \vec{w}}l(\vec{w}) \\
+\vec{w} &=& \vec{w}+\alpha\dfrac{\partial}{\partial \vec{w}}l(\vec{w}) \nonumber \\
         &=& \vec{w} + \alpha\left[y_i - \pi(\vec{x}_i) \right]\vec{x}_i
 \end{eqnarray}

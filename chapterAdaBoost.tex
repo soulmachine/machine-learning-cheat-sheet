@@ -41,7 +41,7 @@ Final classifier: $G(x)$
 \subsection{Algorithm}
 
 \begin{enumerate}
-\item Initialize the weights' distribution of training data(when $m=1$):
+\item Initialize the weights' distribution of training data(when $m=1$)
 \begin{equation}\nonumber
 \mathcal{D}_1=(w_{11},w_{12},\cdots,w_{1n})=(\frac{1}{N},\frac{1}{N},\cdots,\frac{1}{N}),\ i=1,2,\cdots,N
 \end{equation}
@@ -65,7 +65,7 @@ where $Z_m$ is the normalizing constant
 Z_m=\sum_{i=1}^N w_{mi}\exp(-\alpha_m y_i G_m(\vec{x}_i))
 \end{equation}
 
-\item Ensemble $M$ weak classifiers:
+\item Ensemble $M$ weak classifiers
 \begin{equation}
 G(x)=\text{sign}f(\vec{x})=\text{sign}\left[\sum_{m=1}^M \alpha_m G_m(\vec{x})\right]
 \end{equation}
@@ -78,7 +78,7 @@ The upper bound of the training error of AdaBoost is
 \frac{1}{N} \sum_{i=1}^N \mathbb{I}(G(\vec{x}_i)\neq y_i) \leq \frac{1}{N} \sum_{i=1}^N \exp(-y_i f(\vec{x}_i))=\prod_{m=1}^M Z_m
 \end{equation}
 
-Note: the following equation would help proof this theorem:
+Note: the following equation would help proof this theorem
 \begin{equation}
 w_{mi}\exp(-\alpha_m y_i G_m(\vec{x}_i))=Z_m w_{m+1,i}
 \end{equation}
