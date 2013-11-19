@@ -5,7 +5,8 @@ This cheat sheet contains many classical equations and diagrams on machine learn
 
 The cheat sheet will also appeal to someone who is preparing for a job interview related to machine learning.
 
-Download:[machine-learning-cheat-sheet.pdf](https://github.com/soulmachine/machine-learning-cheat-sheet/raw/master/machine-learning-cheat-sheet.pdf) 
+##Download PDF
+[machine-learning-cheat-sheet.pdf](https://github.com/soulmachine/machine-learning-cheat-sheet/raw/master/machine-learning-cheat-sheet.pdf) 
 
 ##LaTeX template
 This open-source book adopts the [Springer latex template](http://www.springer.com/authors/book+authors?SGWID=0-154102-12-970131-0).
