@@ -89,7 +89,7 @@ Linear support vector machines can also be interpreted as hinge loss minimizatio
 \begin{equation}\label{eqn:Hinge-Loss}
 \min_{\vec{w},b} \sum\limits_{i=1}^N{[1-y_i(\vec{w} \cdot \vec{x}_i + b)]}_+ + \lambda\|\vec{w}\|^2
 \end{equation}
-where $L(X,Y)$ is hinge loss function.
+where $L(X,Y)$ is a hinge loss function
 \begin{equation}
 {[z]}_+ = \begin{cases}
 z,  & z > 0 \\
@@ -100,9 +100,9 @@ z,  & z > 0 \\
 \begin{proof}
 We can write equation \eqref{eqn:Hinge-Loss} as equations \eqref{eqn:pfwr1} $\sim$ \eqref{eqn:pfwr3}.
 
-Let 
+Define 
 \begin{equation}
-\xi_i= 1-y_i(\vec{w} \cdot \vec{x}_i + b),\xi_i \geqslant 0
+\xi_i \triangleq 1-y_i(\vec{w} \cdot \vec{x}_i + b),\xi_i \geqslant 0
 \end{equation}
 
 Then $\vec{w},b,\xi_i$ satisfy the constraints \eqref{eqn:pfwr1} and \eqref{eqn:pfwr2}. And objective function \eqref{eqn:pfwr3} can be written as
@@ -114,7 +114,7 @@ If $\lambda=\dfrac{1}{2C}$, then
 \begin{equation}
 \min_{\vec{w},b} \dfrac{1}{C}\left(\dfrac{1}{2}\|\vec{w}\|^2+C\sum\limits_{i=1}^N{\xi_i}\right)
 \end{equation}
-It is equivalent to Eqn.\eqref{eqn:pfwr1}.
+It is equivalent to equation \eqref{eqn:pfwr1}.
 
 \end{proof}
 

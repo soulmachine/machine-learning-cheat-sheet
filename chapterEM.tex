@@ -61,7 +61,7 @@ Each iteration of the EM algorithm consists of two processes: The E-step, and th
 	
 	\While{(!convergency)} {
 	    // 2. E-step: plug in $P(\mathcal{X},\vec{z}|\vec{\theta})$, derive the formula of $Q(\vec{\theta}, \vec{\theta}^{(i)})$ \\
-	    $Q(\vec{\theta}, \vec{\theta}^{(i)})=E_{\vec{z}|\mathcal{X},\vec{\theta}^{(i)}}\left[\log P(\mathcal{X},\vec{z}|\vec{\theta})\right]$ \\
+	    $Q(\vec{\theta}, \vec{\theta}^{(i)})=\mathbb{E}_{\vec{z}|\mathcal{X},\vec{\theta}^{(i)}}\left[\log P(\mathcal{X},\vec{z}|\vec{\theta})\right]$ \\
 	    // 3. M-step: find \vec{\theta} that maximizes the value of $Q(\vec{\theta}, \vec{\theta}^{(i)})$ \\
 		$\vec{\theta}^{(i+1)}=\arg\max\limits_{\vec{\theta}} Q(\vec{\theta}, \vec{\theta}^{(i)})$ \\
 	}
@@ -90,7 +90,7 @@ l(\vec{\theta})-l(\vec{\theta}^{(i)}) &=& \log\left[\sum\limits_{\vec{z}} P(\mat
 				&& \text{Now drop terms which are constant w.r.t. } \vec{\theta} \nonumber \\
 				&=& \arg\max\limits_{\vec{\theta}}{\left\{\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{X},\theta^{(i)})\log\left[P(\mathcal{X}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})\right]\right\}} \nonumber \\
 				&=& \arg\max\limits_{\vec{\theta}}{\left\{\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{X},\theta^{(i)})\log\left[P(\mathcal{X},\vec{z}|\vec{\theta})\right]\right\}} \nonumber \\
-				&=& \arg\max\limits_{\vec{\theta}}{\left\{E_{\vec{z}|\mathcal{X},\theta^{(i)}}\log\left[P(\mathcal{X},\vec{z}|\vec{\theta})\right]\right\}} \\
+				&=& \arg\max\limits_{\vec{\theta}}{\left\{\mathbb{E}_{\vec{z}|\mathcal{X},\theta^{(i)}}\log\left[P(\mathcal{X},\vec{z}|\vec{\theta})\right]\right\}} \\
 				&\triangleq& \arg\max\limits_{\vec{\theta}}{Q(\vec{\theta}, \vec{\theta}^{(i)})}
 \end{eqnarray}
 
@@ -148,8 +148,8 @@ P(\mathcal{X},\gamma|\vec{\theta}) &=& \prod\limits_{j=1}^N P(x_j,\gamma_{j1},\g
 
 \subsubsection{E-step: derive the formula of $Q(\vec{\theta}, \vec{\theta}^{(i)})$}
 \begin{eqnarray}
-Q(\vec{\theta}, \vec{\theta}^{(i)}) &=& E_{\vec{z}|\mathcal{X},\theta^{(i)}}\log\left[P(\mathcal{X},\vec{z}|\vec{\theta})\right] \nonumber \\
-    &=& E_{\vec{\gamma}|\mathcal{X},\theta^{(i)}}\left\{\sum\limits_{k=1}^K\left\{n_k\log\pi_k+\sum\limits_{j=1}^N{\gamma_{jk}\left[\log(\dfrac{1}{\sqrt{2\pi}}-\log\sigma_k-\dfrac{\left(x_j-\mu_k\right)^2}{2\sigma_k^2})\right]}\right\}\right\} \nonumber \\
+Q(\vec{\theta}, \vec{\theta}^{(i)}) &=& \mathbb{E}_{\vec{z}|\mathcal{X},\theta^{(i)}}\log\left[P(\mathcal{X},\vec{z}|\vec{\theta})\right] \nonumber \\
+    &=& \mathbb{E}_{\vec{\gamma}|\mathcal{X},\theta^{(i)}}\left\{\sum\limits_{k=1}^K\left\{n_k\log\pi_k+\sum\limits_{j=1}^N{\gamma_{jk}\left[\log(\dfrac{1}{\sqrt{2\pi}}-\log\sigma_k-\dfrac{\left(x_j-\mu_k\right)^2}{2\sigma_k^2})\right]}\right\}\right\} \nonumber \\
 	&=& \sum\limits_{k=1}^K\left\{\left(\sum\limits_{j=1}^N{E\gamma_{jk}}\right)\log\pi_k+\sum\limits_{j=1}^N{E\gamma_{jk}\left[\log(\dfrac{1}{\sqrt{2\pi}}-\log\sigma_k-\dfrac{\left(x_j-\mu_k\right)^2}{2\sigma_k^2})\right]}\right\} \nonumber \\
 	&& \text{denote } E\gamma_{jk} \text{ as } \hat{\gamma}_{jk} \nonumber \\
 	&=& \sum\limits_{k=1}^K\left\{\left(\sum\limits_{j=1}^N{\hat{\gamma}_{jk}}\right)\log\pi_k+\sum\limits_{j=1}^N{\hat{\gamma}_{jk}\left[\log(\dfrac{1}{\sqrt{2\pi}}-\log\sigma_k-\dfrac{\left(x_j-\mu_k\right)^2}{2\sigma_k^2})\right]}\right\} \label{eqn:Q-function} \label{eqn:Q-function}
@@ -223,9 +223,9 @@ EM algorithm can be interpreted as F function's maximization-maximization algori
 \begin{definition}
 Given the probability distribution of the hidden variable $Z$ is $\tilde{P}(Z)$, define \textbf{F function} as the following:
 \begin{equation}
-F(\tilde{P},\vec{\theta})=E_{\tilde{P}}\left[\log{P(X,Z|\theta)}\right]+H(\tilde{P})
+F(\tilde{P},\vec{\theta})=\mathbb{E}_{\tilde{P}}\left[\log{P(X,Z|\theta)}\right]+H(\tilde{P})
 \end{equation}
-Where $H(\tilde{P})=-E_{\tilde{P}}\log\tilde{P}(Z)$, which is $\tilde{P}(Z)$'s entropy. Usually we assume that $P(X,Z|\theta)$ is continuous w.r.t. $\vec{\theta}$, therefore $F(\tilde{P},\vec{\theta})$ is continuous w.r.t. $\tilde{P}$ and $\vec{\theta}$.
+Where $H(\tilde{P})=-\mathbb{E}_{\tilde{P}}\log\tilde{P}(Z)$, which is $\tilde{P}(Z)$'s entropy. Usually we assume that $P(X,Z|\theta)$ is continuous w.r.t. $\vec{\theta}$, therefore $F(\tilde{P},\vec{\theta})$ is continuous w.r.t. $\tilde{P}$ and $\vec{\theta}$.
 \end{definition}
 
 \begin{lemma}
@@ -240,7 +240,7 @@ and $\tilde{P}_{\theta}$ is continuous w.r.t. $\vec{\theta}$.
 \begin{proof}
 Given a fixed $\vec{\theta}$, we can get $\tilde{P}_{\theta}$ which maximizes $F(\tilde{P},\vec{\theta})$. we construct the Lagrangian
 \begin{equation}
-\mathcal{L}(\tilde{P}, \vec{\theta})=E_{\tilde{P}}\left[\log{P(X,Z|\theta)}\right]-E_{\tilde{P}}\log\tilde{P}_{\theta}(Z)+\lambda\left[1-\sum\limits_Z{\tilde{P}(Z)}\right]
+\mathcal{L}(\tilde{P}, \vec{\theta})=\mathbb{E}_{\tilde{P}}\left[\log{P(X,Z|\theta)}\right]-\mathbb{E}_{\tilde{P}}\log\tilde{P}_{\theta}(Z)+\lambda\left[1-\sum\limits_Z{\tilde{P}(Z)}\right]
 \end{equation}
 
 Take partial derivative with respect to $\tilde{P}_{\theta}(Z)$ then we get
@@ -287,7 +287,7 @@ Assume $\vec{\theta}^{(i)}$ is the estimation of $\vec{\theta}$ in the i-th iter
 
 (2) According above, we can get
 \begin{eqnarray}
-F(\tilde{P}^{(i+1)},\vec{\theta}) &=& E_{\tilde{P}^{(i+1)}}\left[\log{P(X,Z|\theta)}\right]+H(\tilde{P}^{(i+1)}) \nonumber \\
+F(\tilde{P}^{(i+1)},\vec{\theta}) &=& \mathbb{E}_{\tilde{P}^{(i+1)}}\left[\log{P(X,Z|\theta)}\right]+H(\tilde{P}^{(i+1)}) \nonumber \\
     &=& \sum\limits_Z{P(Z|X,\vec{\theta}^{(i)})\log{P(X,Z|\theta)}}+H(\tilde{P}^{(i+1)}) \nonumber \\
 	&=& Q(\vec{\theta}, \vec{\theta}^{(i)})+H(\tilde{P}^{(i+1)})\nonumber
 \end{eqnarray}

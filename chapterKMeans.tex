@@ -37,5 +37,25 @@ M-Step:
 \end{equation}
 
 
+\section{Tricks}
+
+\subsection{Choosing $k$}
+
+
+\subsection{Choosing the initial centroids(seeds)}
+
+\subsubsection{K-means++}
+The intuition that spreading out the k initial cluster centers is a good thing is behind this approach: the first cluster center is chosen uniformly at random from the data points that are being clustered, after which each subsequent cluster center is chosen from the remaining data points with probability proportional to its squared distance from the point's closest existing cluster center\footnote{\url{http://en.wikipedia.org/wiki/K-means++}}.
+
+The exact algorithm is as follows:
+\begin{enumerate}
+\item Choose one center uniformly at random from among the data points.
+\item For each data point \vec{x}, compute $D(\vec{x})$, the distance between \vec{x} and the nearest center that has already been chosen.
+\item Choose one new data point at random as a new center, using a weighted probability distribution where a point \vec{x} is chosen with probability proportional to $D(\vec{x})^2$.
+\item Repeat Steps 2 and 3 until $k$ centers have been chosen.
+\item Now that the initial centers have been chosen, proceed using standard k-means clustering.
+\end{enumerate}
+
+
 \section{Reference}
 1. cheat-sheet: Algorithm for supervised and unsupervised learning by Emanuel Ferm http://t.cn/hD0Stf
