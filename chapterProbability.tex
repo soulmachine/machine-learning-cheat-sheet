@@ -152,13 +152,79 @@ This is useful since it has the same units as $X$ itself.
 In this section, we review some commonly used parametric distributions defined on discrete state spaces, both finite and countably infinite.
 
 
-\subsection{The binomial and Bernoulli distributions}
+\subsection{The Bernoulli and binomial distributions}
+
+\begin{definition}
+Now suppose we toss a coin only once. Let $X \in \{0,1\}$ be a binary random variable, with probability of “success” or “heads” of $\theta$. We say that $X$ has a \textbf{Bernoulli distribution}. This is written as $X \sim \text{Ber}(\theta)$, where the pmf is defined as 
+\begin{equation}
+p(x) \triangleq \theta^{\mathbb{I}(x=1)}(1-\theta)^{\mathbb{I}(x=0)}
+\end{equation}
+\end{definition}
 
 
-\subsection{The multinomial and multinoulli distributions}
+\begin{definition}
+Suppose we toss a coin $n$ times. Let $X \in \{0,1,\cdots,n\}$ be the number of heads. If the probability of heads is $\theta$, then we say $X$ has a \textbf{binomial distribution}, written as $X \sim \text{Bin}(n, \theta)$. The pmf is given by 
+\begin{equation}
+p(k) \triangleq \dbinom{n}{k}\theta^k(1-\theta)^{n-k}
+\end{equation}
+\end{definition}
+
+
+\subsection{The multinoulli and multinomial distributions}
+
+\begin{definition}
+The Bernoulli distribution can be used to model the outcome of one coin tosse. To model the outcome of tossing a K-sided die, let $\vec{x} =(\mathbb{I}(x=1),\cdots,\mathbb{I}(x=K)) \in \{0,1\}^K$ be a random vector(this is called \textbf{dummy encoding} or \textbf{one-hot encoding}), then we say $X$ has a \textbf{multinoulli distribution}(or \textbf{categorical distribution}), written as $X \sim \text{Cat}(\theta)$. The pmf is given by: 
+\begin{equation}
+p(\vec{x}) \triangleq \prod\limits_{k=1}^K\theta_j^{\mathbb{I}(x_j=1)}
+\end{equation}
+\end{definition}
+
+\begin{definition}
+Suppose we toss a K-sided die $n$ times. Let $\vec{x} =(x_1,x_2,\cdots,x_K) \in \{0,1,\cdots,n\}^K$ be a random vector, where $x_j$ is the number of times side $j$ of the die occurs, then we say $X$ has a \textbf{multinomial distribution}, written as $X \sim \text{Mu}(n, \vec{\theta})$. The pmf is given by 
+\begin{equation}
+p(\vec{x}) \triangleq \dbinom{n}{x_1 \cdots x_k} \prod\limits_{k=1}^K\theta_j^{x_j} \quad \text{where} \dbinom{n}{x_1 \cdots x_k} \triangleq \dfrac{n!}{x_1!x_2! \cdots x_K!}
+\end{equation}
+\end{definition}
+
+Bernoulli distribution is just a special case of a Binomial distribution with $n=1$, and so is multinoulli distribution as to multinomial distribution. See Table ~\ref{tab:multinomial} for a summary.
+
+\begin{longtable}{p{2cm}p{1cm}p{1cm}p{4.6cm}}
+\caption{Summary of the multinomial and related distributions.} \label{tab:Summary-distribution}\\  
+Name & K & n & X \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+Bernoulli & 1 & 1 & $x \in \{0,1\}$ \\
+Binomial & 1 & - & $\vec{x} \in \{0,1,\cdots,n\}$ \\
+Multinoulli & - & 1 & $\vec{x} \in \{0,1\}^K, \sum_{k=1}^K x_k=1$ \\
+Multinomial & - & - & $\vec{x} \in \{0,1,\cdots,n\}^K, \sum_{k=1}^K x_k=n$ \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{longtable}
 
 
 \subsection{The Poisson distribution}
+\begin{definition}
+We say that $X \in \{0,1,2,\cdots\}$ has a \textbf{Poisson distribution} with parameter $\lambda>0$, written $X \sim \text{Poi}(\lambda)$, if its pmf is
+\begin{equation}
+p(x|\lambda)=e^{-\lambda}\dfrac{\lambda^x}{x!}
+\end{equation}
+\end{definition}
+
+The first term is just the normalization constant, required to ensure the distribution sums to 1.
+
+The Poisson distribution is often used as a model for counts of rare events like radioactive decay and traffic accidents. 
+
+
+\begin{longtable}{llllll}
+\caption{Summary of Bernoulli, binomial multinoulli and multinomial distributions.} \label{tab:multinomial}\\
+\hline\noalign{\smallskip}
+Name & Written as & X & $p(x)$(or $p(\vec{x})$) & $\mathbb{E}[X]$ & $\text{var}[X]$ \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+Bernoulli & $X \sim \text{Ber}(\theta)$ & $x \in \{0,1\}$ & $\theta^{\mathbb{I}(x=1)}(1-\theta)^{\mathbb{I}(x=0)}$ & $\theta$ & $\theta(1-\theta)$ \\
+Binomial & $X \sim \text{Bin}(n,\theta)$ & $x \in \{0,1,\cdots,n\}$ & $\dbinom{n}{k}\theta^k(1-\theta)^{n-k}$ & $n\theta$ & $n\theta(1-\theta)$ \\
+Multinoulli & $X \sim \text{Cat}(\vec{\theta})$ & $\vec{x} \in \{0,1\}^K, \sum_{k=1}^K x_k=1$ & $\prod\limits_{k=1}^K\theta_j^{\mathbb{I}(x_j=1)}$ & - & - \\
+Multinomial & $X \sim \text{Mu}(n,\vec{\theta})$ & $\vec{x} \in \{0,1,\cdots,n\}^K, \sum_{k=1}^K x_k=n$ & $\dbinom{n}{x_1 \cdots x_k} \prod\limits_{k=1}^K\theta_j^{x_j}$ & - & - \\
+Poisson & $X \sim \text{Poi}(\lambda)$ & $x \in \{0,1,2,\cdots\}$ & $e^{-\lambda}\dfrac{\lambda^x}{x!}$ & $\lambda$ & $\lambda$ \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{longtable}
 
 
 \subsection{The empirical distribution}
@@ -170,20 +236,371 @@ In this section we present some commonly used univariate (one-dimensional) conti
 
 \subsection{Gaussian (normal) distribution}
 
+% \begin{table}
+% \caption{Summary of Gaussian distribution}
+% \centering
+% \begin{tabular}{cccccc}
+% \hline\noalign{\smallskip}
+% Name & Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+% \noalign{\smallskip}\svhline\noalign{\smallskip}
+% Gaussian distribution & $X \sim \mathcal{N}(\mu,\sigma^2)$ & $\dfrac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2\sigma^2}\left(x-\mu\right)^2}$ & $\mu$ & $\mu$ & $\sigma^2$ \\
+% \noalign{\smallskip}\hline
+% \end{tabular}
+% \end{table} 
 
-\subsection{Degenerate pdf}
+\begin{longtable}{cccccc}
+\caption{Summary of Gaussian distribution.} \\
+\hline\noalign{\smallskip}
+Name & Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+Gaussian distribution & $X \sim \mathcal{N}(\mu,\sigma^2)$ & $\dfrac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2\sigma^2}\left(x-\mu\right)^2}$ & $\mu$ & $\mu$ & $\sigma^2$ \\
+\noalign{\smallskip}\hline
+\end{longtable}
+
+If $X \sim N(0,1)$,we say $X$ follows a \textbf{standard normal} distribution.
+
+The Gaussian distribution is the most widely used distribution in statistics. There are several reasons for this. 
+\begin{enumerate}
+\item First, it has two parameters which are easy to interpret, and which capture some of the most basic properties of a distribution, namely its mean and variance. 
+\item Second,the central limit theorem (Section TODO) tells us that sums of independent random variables have an approximately Gaussian distribution, making it a good choice for modeling residual errors or “noise”. 
+\item Third, the Gaussian distribution makes the least number of assumptions (has maximum entropy), subject to the constraint of having a specified mean and variance, as we show in Section TODO; this makes it a good default choice in many cases. 
+\item Finally, it has a simple mathematical form, which results in easy to implement, but often highly effective, methods, as we will see. 
+\end{enumerate}
+See (Jaynes 2003, ch 7) for a more extensive discussion of why Gaussians are so widely used.
+
+
+\subsection{Student's t-distribution}
+
+\begin{longtable}{cccccc}
+\caption{Summary of Student's t-distribution.} \\
+\hline\noalign{\smallskip}
+Name & Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+Student's t-distribution & $X \sim \mathcal{T}(\mu,\sigma^2,\nu)$ & $\dfrac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\nu\pi}\Gamma(\frac{\nu}{2})}\left[1+\dfrac{1}{\nu}\left(\dfrac{x-\mu}{\nu}\right)^2\right]$ & $\mu$ & $\mu$ & $\dfrac{\nu\sigma^2}{\nu-2}$ \\
+\noalign{\smallskip}\hline
+\end{longtable}
+where  $\Gamma(x)$ is the gamma function:
+\begin{equation}
+\Gamma(x) \triangleq \int_0^\infty u^{x-1}e^{-u}dx
+\end{equation}
+$\mu$ is the mean, $\sigma^2>0$ is the scale parameter, and $\nu>0$ is called the \textbf{degrees of freedom}. See Figure ~\ref{fig:pdfs-for-NTL} for some plots.
+
+\begin{figure}[hbtp]
+\centering
+    \includegraphics[scale=.70]{pdfs-for-NTL.png}
+\caption{(a) The pdf’s for a $\mathcal{N}(0,1)$, $\mathcal{T}(0,1,1)$ and $Lap(0,1/\sqrt{2})$. The mean is 0 and the variance is 1 for both the Gaussian and Laplace. The mean and variance of the Student is undefined when $\nu=1$.(b) Log of these pdf’s. Note that the Student distribution is not log-concave for any parameter value, unlike the Laplace distribution, which is always log-concave (and log-convex...) Nevertheless, both are unimodal.}
+\label{fig:pdfs-for-NTL} 
+\end{figure}
+
+The variance is only defined if $\nu>2$. The mean is only defined if $\nu>1$.
+
+As an illustration of the robustness of the Student distribution, consider Figure ~\ref{fig:robustness}. We see that the Gaussian is affected a lot, whereas the Student distribution hardly changes. This is because the Student has heavier tails, at least for small $\nu$(see Figure ~\ref{fig:pdfs-for-NTL}).
+
+\begin{figure}[hbtp]
+\centering
+    \includegraphics[scale=.60]{robustness.png}
+\caption{Illustration of the effect of outliers on fitting Gaussian, Student and Laplace distributions. (a) No outliers (the Gaussian and Student curves are on top of each other). (b) With outliers. We see that the Gaussian is more affected by outliers than the Student and Laplace distributions.}
+\label{fig:robustness} 
+\end{figure}
+
+If $\nu=1$, this distribution is known as the \textbf{Cauchy} or \textbf{Lorentz} distribution. This is notable for having such heavy tails that the integral that defines the mean does not converge.
+
+To ensure finite variance, we require $\nu>2$. It is common to use $\nu=4$, which gives good performance in a range of problems (Lange et al. 1989). For $\nu \gg 5$, the Student distribution rapidly approaches a Gaussian distribution and loses its robustness properties.
 
 
 \subsection{The Laplace distribution}
 
+\begin{longtable}{cccccc}
+\caption{Summary of Laplace distribution.} \\
+\hline\noalign{\smallskip}
+Name & Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+Laplace distribution & $X \sim \text{Lap}(\mu,b)$ & $\dfrac{1}{2b}\exp\left(-\dfrac{|x-\mu|}{b}\right)$ & $\mu$ & $\mu$ & $2b^2$ \\
+\noalign{\smallskip}\hline
+\end{longtable}
+
+Here $\mu$ is a location parameter and $b>0$ is a scale parameter. See Figure ~\ref{fig:pdfs-for-NTL} for a plot.
+
+Its robustness to outliers is illustrated in Figure ~\ref{fig:robustness}. It also put mores probability density at 0 than the Gaussian. This property is a useful way to encourage sparsity in a model, as we will see in Section TODO.
+
 
 \subsection{The gamma distribution}
+
+\begin{table}
+\caption{Summary of gamma distribution}
+\centering
+\begin{tabular}{ccccccc}
+\hline\noalign{\smallskip}
+Name & Written as & $X$ & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+\noalign{\smallskip}\svhline\noalign{\smallskip}
+Gamma distribution & $X \sim \text{Ga}(a,b)$ & $x \in \mathbb{R}^+$ & $\dfrac{b^a}{\Gamma(a)}x^{a-1}e^{-xb}$ & $\dfrac{a}{b}$ & $\dfrac{a-1}{b}$ & $\dfrac{a}{b^2}$ \\
+\noalign{\smallskip}\hline
+\end{tabular}
+\end{table} 
+
+% \begin{longtable}{ccccccc}
+% \caption{Summary of Gamma distribution.} \\
+% \hline\noalign{\smallskip}
+% Name & Written as & $X$ & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+% \noalign{\smallskip}\hline\noalign{\smallskip}
+% Gamma distribution & $X \sim \text{Ga}(a,b)$ & $x \in \mathbb{R}^+$ & $\dfrac{b^a}{\Gamma(a)}x^{a-1}e^{-xb}$ & $\dfrac{a}{b}$ & $\dfrac{a-1}{b}$ & $\dfrac{a}{b^2}$ \\
+% \noalign{\smallskip}\hline
+% \end{longtable}
+
+Here $a>0$ is called the shape parameter and $b>0$ is called the rate parameter. See Figure ~\ref{fig:gamma-distribution} for some plots.
+
+\begin{figure}[hbtp]
+\centering
+    \includegraphics[scale=.60]{gamma-distribution.png}
+\caption{Some Ga$(a, b=1)$ distributions. If $a \leq 1$, the mode is at 0, otherwise it is $>0$.As we increase the rate $b$, we reduce the horizontal scale, thus squeezing everything leftwards and upwards. (b) An empirical pdf of some rainfall data, with a fitted Gamma distribution superimposed.}
+\label{fig:gamma-distribution} 
+\end{figure}
 
 
 \subsection{The beta distribution}
 
+\begin{table}
+\caption{Summary of Beta distribution}
+\centering
+\begin{tabular}{ccccccc}
+\hline\noalign{\smallskip}
+Name & Written as & $X$ & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+\noalign{\smallskip}\svhline\noalign{\smallskip}
+Beta distribution & $X \sim \text{Beta}(a,b)$ & $x \in [0,1]$ & $\dfrac{1}{B(a,b)}x^{a-1}(1-x)^{b-1}$ & $\dfrac{a}{a+b}$ & $\dfrac{a-1}{a+b-2}$ & $\dfrac{ab}{(a+b)^2(a+b+1)}$ \\
+\noalign{\smallskip}\hline
+\end{tabular}
+\end{table} 
+
+Here $B(a, b)$is the beta function,
+\begin{equation}
+B(a,b) \triangleq \dfrac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}
+\end{equation}
+
+See Figure ~\ref{fig:beta-distribution} for plots of some beta distributions. We require  $a, b >0$ to ensure the distribution is integrable (i.e., to ensure $B(a, b)$ exists). If $a=b=1$, we get the uniform distirbution. If $a$ and $b$ are both less than 1, we get a bimodal distribution with “spikes” at 0 and 1; if $a$ and $b$ are both greater than 1, the distribution is unimodal.
+
+\begin{figure}[hbtp]
+\centering
+    \includegraphics[scale=.60]{beta-distribution.png}
+\caption{Some beta distributions.}
+\label{fig:beta-distribution} 
+\end{figure}
+
 
 \subsection{Pareto distribution}
+
+\begin{table}
+\caption{Summary of Pareto distribution}
+\centering
+\begin{tabular}{ccccccc}
+\hline\noalign{\smallskip}
+Name & Written as & $X$ & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+\noalign{\smallskip}\svhline\noalign{\smallskip}
+Pareto distribution & $X \sim \text{Pareto}(k,m)$ & $x \geq m$ & $km^kx^{-(k+1)}\mathbb{I}(x \geq m)$ & $\dfrac{km}{k-1} \text{ if } k > 1$ & $m$ & $\dfrac{m^2k}{(k-1)^2(k-2)} \text{ if } k>2$ \\
+\noalign{\smallskip}\hline
+\end{tabular}
+\end{table} 
+
+The \textbf{Pareto distribution} is used to model the distribution of quantities that exhibit \textbf{long tails}, also called \textbf{heavy tails}.
+
+As $k \rightarrow \infty$, the distribution approaches $\delta(x-m)$. See Figure ~\ref{fig:Pareto-distribution}(a) for some plots. If we plot the distribution on a log-log scale, it forms a straight line, of the form $\log p(x)=a\log x+c$ for some constants $a$ and $c$. See Figure ~\ref{fig:Pareto-distribution}(b) for an illustration (this is known as a \textbf{power law}).
+
+\begin{figure}[hbtp]
+\centering
+    \includegraphics[scale=.50]{Pareto-distribution.png}
+\caption{(a) The Pareto distribution Pareto$(x|m, k)$ for $m=1$. (b) The pdf on a log-log scale.}
+\label{fig:Pareto-distribution} 
+\end{figure}
+
+
+\section{Joint probability distributions}
+Given a \textbf{multivariate random variable} or \textbf{random vector} \footnote{\url{http://en.wikipedia.org/wiki/Multivariate_random_variable}} $X \in \mathbb{R}^D$, the \textbf{joint probability distribution}\footnote{\url{http://en.wikipedia.org/wiki/Joint_probability_distribution}} is a probability distribution that gives the probability that each of $X_1, X_2, \cdots,X_D$ falls in any particular range or discrete set of values specified for that variable. In the case of only two random variables, this is called a \textbf{bivariate distribution}, but the concept generalizes to any number of random variables, giving a \textbf{multivariate distribution}.
+
+The joint probability distribution can be expressed either in terms of a \textbf{joint cumulative distribution function} or in terms of a \textbf{joint probability density function} (in the case of continuous variables) or \textbf{joint probability mass function} (in the case of discrete variables). 
+
+
+\subsection{Covariance and correlation}
+\begin{definition}
+The \textbf{covariance} between two rv’s $X$ and $Y$ measures the degree to which $X$ and $Y$ are (linearly) related. Covariance is defined as
+\begin{equation}
+Cov[X,Y] \triangleq \mathbb{E}\left[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])\right]=\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]
+\end{equation}
+\end{definition}
+
+\begin{definition}
+If $X$ is a $D$-dimensional random vector, its \textbf{covariance matrix} is defined to be the following symmetric, positive definite matrix:
+\begin{eqnarray}
+Cov[X] &\triangleq& \mathbb{E}\left[(X-\mathbb{E}[X])(X-\mathbb{E}[X])^T\right] \\
+       &=& \left( \begin{array}{cccc}
+           \text{var}[X_1] & \text{Cov}[X_1,X_2] & \cdots & \text{Cov}[X_1,X_D] \\
+           \text{Cov}[X_2,X_1] & \text{var}[X_2] & \cdots & \text{Cov}[X_2,X_D] \\
+		   \vdots & \vdots & \ddots & \vdots \\
+           \text{Cov}[X_D,X_1] & \text{Cov}[X_D,X_2] & \cdots & \text{var}[X_D] \end{array} \right)
+\end{eqnarray}
+\end{definition}
+
+\begin{definition}
+The (Pearson) \textbf{correlation coefficient} between $X$ and $Y$ is defined as
+\begin{equation}
+\text{corr}[X,Y] \triangleq \dfrac{\text{Cov}[X,Y]}{\sqrt{\text{var}[X],\text{var}[Y]}}
+\end{equation}
+\end{definition}
+
+A \textbf{correlation matrix} has the form
+\begin{equation}
+\mathbf{R} \triangleq \left( \begin{array}{cccc}
+           \text{corr}[X_1,X_1] & \text{corr}[X_1,X_2] & \cdots & \text{corr}[X_1,X_D] \\
+           \text{corr}[X_2,X_1] & \text{corr}[X_2,X_2] & \cdots & \text{corr}[X_2,X_D] \\
+		   \vdots & \vdots & \ddots & \vdots \\
+           \text{corr}[X_D,X_1] & \text{corr}[X_D,X_2] & \cdots & \text{corr}[X_D,X_D] \end{array} \right)
+\end{equation}
+
+The correlation coefficient can viewed as a degree of linearity between $X$ and $Y$, see Figure ~\ref{fig:Correlation-examples}.
+\begin{figure}[hbtp]
+\centering
+    \includegraphics[scale=.80]{Correlation-examples.png}
+\caption{Several sets of $(x, y)$ points, with the Pearson correlation coefficient of $x$ and $y$ for each set. Note that the correlation reflects the noisiness and direction of a linear relationship (top row), but not the slope of that relationship (middle), nor many aspects of nonlinear relationships (bottom). N.B.: the figure in the center has a slope of 0 but in that case the correlation coefficient is undefined because the variance of $Y$ is zero.Source:\url{http://en.wikipedia.org/wiki/Correlation}}
+\label{fig:Correlation-examples} 
+\end{figure}
+
+\textbf{Uncorrelated does not imply independent}. For example, let $X \sim U(-1,1)$ and $Y =X^2$. Clearly $Y$ is dependent on $X$(in fact, $Y$ is uniquely determined by $X$), yet one can show that corr$[X, Y]=0$. Some striking examples of this fact are shown in Figure ~\ref{fig:Correlation-examples}. This shows several data sets where there is clear dependence between $X$ and $Y$, and yet the correlation coefficient is 0. A more general measure of dependence between random variables is mutual information, see Section TODO.
+
+
+\subsection{Multivariate Gaussian distribution}
+The \textbf{multivariate Gaussian} or \textbf{multivariate normal}(MVN) is the most widely used joint probability density function for continuous variables. We discuss MVNs in detail in Chapter 4; here we just give some definitions and plots.
+
+The pdf of the MVN in $D$ dimensions is defined by the following:
+\begin{equation}
+\mathcal{N}(\vec{x}|\vec{\mu},\Sigma) \triangleq \dfrac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}\exp\left[-\dfrac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu})\right]
+\end{equation}
+where $\vec{\mu}=\mathbb{E}[X] \in \mathbb{R}^D$ is the mean vector, and $\Sigma=\text{Cov}[X]$ is the $D \times D$ covariance matrix. The normalization constant $(2\pi)^{D/2}|\Sigma|^{1/2}$ just ensures that the pdf integrates to 1.
+
+Figure ~\ref{fig:2d-Gaussions} plots some MVN densities in 2d for three different kinds of covariance matrices. A full covariance matrix has A $D(D+1)/2$ parameters (we divide by 2 since $\Sigma$ is symmetric). A diagonal covariance matrix has $D$ parameters, and has 0s in the off-diagonal terms. A spherical or isotropic covariance,$\Sigma=\sigma^2\vec{I}_D$, has one free parameter.
+
+\begin{figure}[hbtp]
+\centering
+    \includegraphics[scale=.60]{2d-Gaussions.png}
+\caption{We show the level sets for 2d Gaussians. (a) A full covariance matrix has elliptical contours.(b) A diagonal covariance matrix is an axis aligned ellipse. (c) A spherical covariance matrix has a circular shape. (d) Surface plot for the spherical Gaussian in (c).}
+\label{fig:2d-Gaussions} 
+\end{figure}
+
+
+\subsection{Multivariate Student's t-distribution}
+A more robust alternative to the MVN is the multivariate Student's t-distribution, whose pdf is given by
+\begin{eqnarray}
+\mathcal{T}(x|\vec{\mu},\Sigma,\nu) &\triangleq& \dfrac{\Gamma(\frac{\nu+D}{2})}{\Gamma(\frac{\nu}{2})}\dfrac{|\Sigma|^{-\frac{1}{2}}}{\left(\nu\pi\right)^{\frac{D}{2}}}\left[1+\dfrac{1}{\nu}\left(\vec{x}-\vec{\mu}\right)^T\Sigma^{-1}\left(\vec{x}-\vec{\mu}\right)\right]^{-\frac{\nu+D}{2}} \\
+  &=& \dfrac{\Gamma(\frac{\nu+D}{2})}{\Gamma(\frac{\nu}{2})}\dfrac{|\Sigma|^{-\frac{1}{2}}}{\left(\nu\pi\right)^{\frac{D}{2}}}\left[1+\left(\vec{x}-\vec{\mu}\right)^T\vec{V}^{-1}\left(\vec{x}-\vec{\mu}\right)\right]^{-\frac{\nu+D}{2}}
+\end{eqnarray}
+where $\Sigma$ is called the scale matrix (since it is not exactly the covariance matrix) and $\vec{V}=\nu\Sigma$. This has fatter tails than a Gaussian. The smaller $\nu$ is, the fatter the tails. As $\nu \rightarrow \infty$, the distribution tends towards a Gaussian. The distribution has the following properties
+\begin{equation}
+\text{mean}=\vec{\mu} \text{ , mode}=\vec{\mu} \text{ , Cov}= \dfrac{\nu}{\nu-2}\Sigma
+\end{equation}
+
+
+\subsection{Dirichlet distribution}
+A multivariate generalization of the beta distribution is the \textbf{Dirichlet distribution}, which has
+support over the probability simplex, defined by
+\begin{equation}
+S_K=\left\{\vec{x}:0 \leq x_k \leq 1,\sum\limits_{k=1}^K x_k=1\right\}
+\end{equation}
+
+The pdf is defined as follows:
+\begin{equation}
+\text{Dir}(\vec{x}|\vec{\alpha}) \triangleq \dfrac{1}{B(\vec{\alpha})}\prod\limits_{k=1}^K x_k^{\alpha_k-1}\mathbb{I}(\vec{x} \in S_K)
+\end{equation}
+where $B(\alpha_1,\alpha_2,\cdots,\alpha_K)$ is the natural generalization of the beta function to $K$ variables:
+\begin{equation}
+B(\alpha) \triangleq \dfrac{\prod\_{k=1}^K \Gamma(\alpha_k)}{\Gamma(\alpha_0)} \text{ where } \alpha_0 \triangleq \sum_{k=1}^K \alpha_k
+\end{equation}
+
+Figure ~\ref{fig:3d-Dirichlet} shows some plots of the Dirichlet when $K=3$, and Figure ~\ref{fig:5d-Dirichlet} for some sampled probability vectors. We see that $\alpha_0$ controls the strength of the distribution (how peaked it is), and theαkcontrol where the peak occurs. For example, Dir$(1,1,1)$ is a uniform distribution, Dir$(2,2,2)$ is a broad distribution centered at $(1/3,1/3,1/3)$, and Dir$(20,20,20)$ is a narrow distribution centered at $(1/3,1/3,1/3)$.If $\alpha_k < 1$ for all $k$, we get “spikes” at the corner of the simplex.
+
+\begin{figure}[hbtp]
+\centering
+    \includegraphics[scale=.60]{3d-Dirichlet.png}
+\caption{(a) The Dirichlet distribution when $K=3$ defines a distribution over the simplex, which can be represented by the triangular surface. Points on this surface satisfy $0 \leq \theta_k \leq 1$ and $\sum_{k=1}^K \theta_k=1$. (b) Plot of the Dirichlet density when $\vec{\alpha}=(2,2,2)$. (c) $\vec{\alpha}=(20,2,2)$.}
+\label{fig:3d-Dirichlet} 
+\end{figure}
+
+\begin{figure}[hbtp]
+\centering
+    \includegraphics[scale=.60]{5d-Dirichlet.png}
+\caption{Samples from a 5-dimensional symmetric Dirichlet distribution for different parameter values. (a) $\vec{\alpha}=(0.1,\cdots,0.1)$. This results in very sparse distributions, with many 0s. (b) $\vec{\alpha}=(1,\cdots,1)$. This results in more uniform (and dense) distributions.} 
+\label{fig:5d-Dirichlet} 
+\end{figure}
+
+For future reference, the distribution has these properties
+\begin{equation}
+\mathbb{E}(x_k)=\dfrac{\alpha_k}{\alpha_0} \text{, mode}[x_k]=\dfrac{\alpha_k-1}{\alpha_0-K} \text{, var}[x_k]=\dfrac{\alpha_k(\alpha_0-\alpha_k)}{\alpha_0^2(\alpha_0+1)}
+\end{equation}
+
+
+\section{Transformations of random variables}
+If $\vec{x} \sim P()$ is some random variable, and $\vec{y}=f(\vec{x})$, what is the distribution of $Y$? This is the question we address in this section.
+
+
+\subsection{Linear transformations}
+Suppose $g()$is a linear function: 
+\begin{equation}
+g(\vec{x})=A\vec{x}+b
+\end{equation}
+
+First, for the mean, we have
+\begin{equation}
+\mathbb{E}[\vec{y}]=\mathbb{E}[A\vec{x}+b]=A\mathbb{E}[\vec{x}]+b
+\end{equation}
+this is called the \textbf{linearity of expectation}.
+
+For the covariance, we have
+\begin{equation}
+\text{Cov}[\vec{y}]=\text{Cov}[A\vec{x}+b]=A\Sigma A^T
+\end{equation}
+
+
+\subsection{General transformations}
+\label{sec:General-transformations}
+If $X$ is a discrete rv, we can derive the pmf for $y$ by simply summing up the probability mass for all the $x$’s such that $f(x)=y$:
+\begin{equation}\label{eqn:transformation-discrete}
+p_Y(y)=\sum\limits_{x:g(x)=y}p_X(x)
+\end{equation}
+
+If $X$ is continuous, we cannot use Equation \eqref{eqn:transformation-discrete} since $p_X(x)$ is a density, not a pmf, and we cannot sum up densities. Instead, we work with cdf’s, and write
+\begin{equation}
+F_Y(y)=P(Y \leq y)=P(g(X) \leq y)=\int\limits_{g(X) \leq y} f_X(x)dx
+\end{equation}
+
+We can derive the pdf of $Y$ by differentiating the cdf:
+\begin{equation}
+f_Y(y)=f_X(x)|\dfrac{dx}{dy}|
+\end{equation}
+
+This is called \textbf{change of variables} formula. We leave the proof of this as an exercise. 
+
+For example, suppose $X \sim U(−1,1)$, and $Y=X^2$. Then $p_Y(y)=\dfrac{1}{2}y^{-\frac{1}{2}}$.
+
+
+\subsection{Central limit theorem}
+
+\begin{theorem}
+Given $N$ random variables $X_1,X_2,\cdots,X_N$, each variable is \textbf{independent and identically distributed}(\textbf{iid} for short), and each has the same mean $\mu$ and variance $\sigma^2$, then
+\begin{equation}
+\dfrac{\sum\limits_{i=1}^n X_i-N\mu}{\sqrt{N}\sigma} \sim \mathcal{N}(0,1)
+\end{equation}
+this can also be written as
+\begin{equation}
+\dfrac{\bar{X}-\mu}{\sigma/\sqrt{N}} \sim \mathcal{N}(0,1) \text{ where } \bar{X} \triangleq \dfrac{1}{N}\sum\limits_{i=1}^n X_i
+\end{equation}
+\end{theorem}
+
+
+\section{Monte Carlo approximation}
+In general, computing the distribution of a function of an rv using the change of variables formula can be difficult. One simple but powerful alternative is as follows. First we generate $S$ samples from the distribution, call them $x_1,\cdots,x_S$. (There are many ways to generate such samples; one popular method, for high dimensional distributions, is called Markov chain Monte Carlo or MCMC; this will be explained in Chapter TODO.) Given the samples, we can approximate the distribution of $f(X)$ by using the empirical distribution of $\left\{f(x_s)\right\}_{s=1}^S$. This is called a \textbf{Monte Carlo approximation}\footnote{\url{http://en.wikipedia.org/wiki/Monte_Carlo_method}}, named after a city in Europe known for its plush gambling casinos.
+
+We can use Monte Carlo to approximate the expected value of any function of a random variable. We simply draw samples, and then compute the arithmetic mean of the function applied to the samples. This can be written as follows:
+\begin{equation}
+\mathbb{E}[g(X)]=\int g(x)p(x)dx \approx \dfrac{1}{S}\sum\limits_{s=1}^S f(x_s) \text{ , where } x_s \sim p(X)
+\end{equation}
+
+This is called \textbf{Monte Carlo integration}\footnote{\url{http://en.wikipedia.org/wiki/Monte_Carlo_integration}}, and has the advantage over numerical integration (which is based on evaluating the function at a fixed grid of points) that the function is only evaluated in places where there is non-negligible probability.
 
 
 \section{Information theory}
