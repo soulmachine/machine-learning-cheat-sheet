@@ -56,7 +56,7 @@ Each iteration of the EM algorithm consists of two processes: The E-step, and th
     \Input{observed data $\mathcal{X}=\{\vec{x}^{(1)},\vec{x}^{(2)},\cdots, \vec{x}^{(n)}$\},joint distribution $P(\mathcal{X},\vec{z}|\vec{\theta})$}
 	\Output{model's parameters $\vec{\theta}$}
 
-	// 1. identify hidden variables $\vec{z}$, write out the log likelihood function $l(\mathcal{X},\vec{z}|\vec{\theta})$ \\
+	// 1. identify hidden variables $\vec{z}$, write out the log likelihood function $\ell(\mathcal{X},\vec{z}|\vec{\theta})$ \\
 	$\vec{\theta}^{(0)}$ = ... // initialize \\
 	
 	\While{(!convergency)} {
@@ -72,10 +72,10 @@ Each iteration of the EM algorithm consists of two processes: The E-step, and th
 \section{Derivation of the EM algorithm}
 The log likelihood function is given by 
 \begin{eqnarray}
-l(\vec{\theta}) &=& \log{P(\mathcal{X}|\vec{\theta})} \text{ ,where } \log{P(\mathcal{X}|\vec{\theta})}=\sum\limits_{i=1}^{n} \log{{P(\vec{x}^{(i)}|\vec{\theta})}}\nonumber \\
+\ell(\vec{\theta}) &=& \log{P(\mathcal{X}|\vec{\theta})} \text{ ,where } \log{P(\mathcal{X}|\vec{\theta})}=\sum\limits_{i=1}^{n} \log{{P(\vec{x}^{(i)}|\vec{\theta})}}\nonumber \\
                 &=& \log{{\sum\limits_{\vec{z}} P(\mathcal{X},\vec{z}|\vec{\theta})}} \nonumber \\
 				&=& \log{{\sum\limits_{\vec{z}} P(\mathcal{X}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}} \nonumber \\
-l(\vec{\theta})-l(\vec{\theta}^{(i)}) &=& \log\left[\sum\limits_{\vec{z}} P(\mathcal{X}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})\right] - \log{P(\mathcal{X}|\vec{\theta}^{(i)})} \nonumber \\
+\ell(\vec{\theta})-\ell(\vec{\theta}^{(i)}) &=& \log\left[\sum\limits_{\vec{z}} P(\mathcal{X}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})\right] - \log{P(\mathcal{X}|\vec{\theta}^{(i)})} \nonumber \\
                 &=& \log\left[\sum\limits_{\vec{z}} P(\mathcal{X}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})\dfrac{P(\vec{z}|\mathcal{X},\theta^{(i)})}{P(\vec{z}|\mathcal{X},\theta^{(i)})}\right] - \log{P(\mathcal{X}|\vec{\theta}^{(i)})} \nonumber \\
 				&=& \log\left[\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{X},\theta^{(i)})\dfrac{P(\mathcal{X}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{X},\theta^{(i)})}\right] - \log{P(\mathcal{X}|\vec{\theta}^{(i)})} \nonumber \\
 				&\geq& \sum\limits_{\vec{z}} P(\vec{z}|\mathcal{X},\theta^{(i)})\log\left[\dfrac{P(\mathcal{X}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{X},\theta^{(i)})}\right] - \log{P(\mathcal{X}|\vec{\theta}^{(i)})} \nonumber \\
@@ -85,8 +85,8 @@ l(\vec{\theta})-l(\vec{\theta}^{(i)}) &=& \log\left[\sum\limits_{\vec{z}} P(\mat
 \end{eqnarray}
 
 \begin{eqnarray}
-\vec{\theta}^{(i+1)} &=& \arg\max\limits_{\vec{\theta}}{\left[ l(\vec{\theta}^{(i)})+B(\vec{\theta},\vec{\theta}^{(i)})\right]} \nonumber \\
-                &=& \arg\max\limits_{\vec{\theta}}{\left\{ l(\vec{\theta}^{(i)})+\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{X},\theta^{(i)})\log\left[\dfrac{P(\mathcal{X}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{X},\theta^{(i)})P(\mathcal{X}|\vec{\theta}^{(i)})}\right]\right\}} \nonumber \\
+\vec{\theta}^{(i+1)} &=& \arg\max\limits_{\vec{\theta}}{\left[ \ell(\vec{\theta}^{(i)})+B(\vec{\theta},\vec{\theta}^{(i)})\right]} \nonumber \\
+                &=& \arg\max\limits_{\vec{\theta}}{\left\{ \ell(\vec{\theta}^{(i)})+\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{X},\theta^{(i)})\log\left[\dfrac{P(\mathcal{X}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{X},\theta^{(i)})P(\mathcal{X}|\vec{\theta}^{(i)})}\right]\right\}} \nonumber \\
 				&& \text{Now drop terms which are constant w.r.t. } \vec{\theta} \nonumber \\
 				&=& \arg\max\limits_{\vec{\theta}}{\left\{\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{X},\theta^{(i)})\log\left[P(\mathcal{X}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})\right]\right\}} \nonumber \\
 				&=& \arg\max\limits_{\vec{\theta}}{\left\{\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{X},\theta^{(i)})\log\left[P(\mathcal{X},\vec{z}|\vec{\theta})\right]\right\}} \nonumber \\
@@ -97,7 +97,7 @@ l(\vec{\theta})-l(\vec{\theta}^{(i)}) &=& \log\left[\sum\limits_{\vec{z}} P(\mat
 \begin{figure}[hbtp]
 \centering
     \includegraphics[scale=.50]{EM-algorithm.png}
-\caption{Graphical interpretation of a single iteration of the EM algorithm: The function $B(\vec{\theta},\vec{\theta}^{(i)})$ is bounded above by the log likelihood function $l(\vec{\theta})$. The functions are equal at $\vec{\theta} = \vec{\theta}^{(i)}$. The EM algorithm chooses $\vec{\theta}^{(i)}$ as the value of $\vec{\theta}$ for which $B(\vec{\theta},\vec{\theta}^{(i)})$ is a maximum. Since $l(\vec{\theta}) \geq B(\vec{\theta},\vec{\theta}^{(i)})$ increasing $B(\vec{\theta},\vec{\theta}^{(i)})$ ensures that the value of the log likelihood function $l(\vec{\theta})$ is increased at each step.}
+\caption{Graphical interpretation of a single iteration of the EM algorithm: The function $B(\vec{\theta},\vec{\theta}^{(i)})$ is bounded above by the log likelihood function $\ell(\vec{\theta})$. The functions are equal at $\vec{\theta} = \vec{\theta}^{(i)}$. The EM algorithm chooses $\vec{\theta}^{(i)}$ as the value of $\vec{\theta}$ for which $B(\vec{\theta},\vec{\theta}^{(i)})$ is a maximum. Since $\ell(\vec{\theta}) \geq B(\vec{\theta},\vec{\theta}^{(i)})$ increasing $B(\vec{\theta},\vec{\theta}^{(i)})$ ensures that the value of the log likelihood function $\ell(\vec{\theta})$ is increased at each step.}
 \label{fig:EM-algorithm} 
 \end{figure}
 
@@ -300,7 +300,7 @@ Then
 
 
 \subsection{The Generalized EM Algorithm(GEM)}
-In the formulation of the EM algorithm described above, $\vec{\theta}^{(i+1)}$ was chosen as the value of $\vec{\theta}$ for which $Q(\vec{\theta}, \vec{\theta}^{(i)})$ was maximized. While this ensures the greatest increase in $l(\vec{\theta})$, it is however possible to relax the requirement of maximization to one of simply increasing $Q(\vec{\theta}, \vec{\theta}^{(i)})$ so that $Q(\vec{\theta}^{(i+1)}, \vec{\theta}^{(i)}) \geq Q(\vec{\theta}^{(i)}, \vec{\theta}^{(i)})$. This approach, to simply increase and not necessarily maximize $Q(\vec{\theta}^{(i+1)}, \vec{\theta}^{(i)})$ is known as the Generalized Expectation Maximization (GEM) algorithm and is often useful in cases where the maximization is difficult. The convergence of the GEM algorithm is similar to the EM algorithm.
+In the formulation of the EM algorithm described above, $\vec{\theta}^{(i+1)}$ was chosen as the value of $\vec{\theta}$ for which $Q(\vec{\theta}, \vec{\theta}^{(i)})$ was maximized. While this ensures the greatest increase in $\ell(\vec{\theta})$, it is however possible to relax the requirement of maximization to one of simply increasing $Q(\vec{\theta}, \vec{\theta}^{(i)})$ so that $Q(\vec{\theta}^{(i+1)}, \vec{\theta}^{(i)}) \geq Q(\vec{\theta}^{(i)}, \vec{\theta}^{(i)})$. This approach, to simply increase and not necessarily maximize $Q(\vec{\theta}^{(i+1)}, \vec{\theta}^{(i)})$ is known as the Generalized Expectation Maximization (GEM) algorithm and is often useful in cases where the maximization is difficult. The convergence of the GEM algorithm is similar to the EM algorithm.
 
 
 \section{Reference}
