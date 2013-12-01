@@ -39,7 +39,7 @@ The following is some common loss functions:
 \begin{definition}
 The risk of function $f$ is defined as the expected loss of $f$:
 \begin{equation}
-R_{exp}(f)=E_p\left[L\left(Y,f(X)\right)\right]=\int _{X \times Y} L\left(y,f(x)\right)P(x,y)dxdy
+R_{exp}(f)=E_p\left[L\left(Y,f(X)\right)\right]=\int _{X \times Y} L\left(y,f(x)\right)P(x,y)\mathrm{d}x\mathrm{d}y
 \end{equation}
 which is also called expected loss or \textbf{risk function}.
 \end{definition}
@@ -99,36 +99,3 @@ Common types of cross-validation:
 \item 2-fold cross-validation. Also, called simple cross-validation or holdout method. This is the simplest variation of k-fold cross-validation, k=2.
 \item Leave-one-out cross-validation(\emph{LOOCV}). k=M, the number of original samples.
 \end{enumerate}
-
-\section{Linear Regression}
-Given 
-\begin{equation}
-\begin{array}{lcl}
-\mathcal{D}=\left\{(\vec{x}_i,y_i) | i=1:M\right\} \\
-\mathcal{H}=\left\{f(\vec{x_i})=\vec{w}^T\vec{x_i}+b | i=1:M\right\}\\
-L(\vec{w},b)=\sum\limits_{i=1}^{M} \left(y_i-f(\vec{x}_i)-b\right)^2\\
-\end{array}
-\end{equation}
-
-Let $\widehat{\vec{w}}=\left(\vec{w}^T,b\right)^T$,  and
-\begin{equation}
-\widehat{\vec{X}}=\left(\begin{array}{lcr}
-\widehat{\vec{x}}_1^T\\
-\widehat{\vec{x}}_2^T\\
-\vdots \\
-\widehat{\vec{x}}_M^T\\
-\end{array}
-\right), where\; \widehat{\vec{x}}_i=\left(\vec{x}_i^T,1\right)^T
-\end{equation}
-
-We can get
-\begin{equation}
-\begin{array}{lcr}
-L(\widehat{\vec{w}})=\left(\vec{y}-\widehat{\vec{X}}\widehat{\vec{w}}\right)^T\left(\vec{y}-\widehat{\vec{X}}\widehat{\vec{w}}\right)\\
-\dfrac{\partial L}{\partial{\widehat{\vec{w}}}}=-2\widehat{\vec{X}}^T\vec{y}+2\widehat{\vec{X}}^T\widehat{\vec{X}}\widehat{\vec{w}}=0\\
-\widehat{\vec{X}}^T\vec{y}=\widehat{\vec{X}}^T\widehat{\vec{X}}\widehat{\vec{w}}\\
-\widehat{\vec{w}}=\left(\widehat{\vec{X}}^T\widehat{\vec{X}}\right)^{-1}\widehat{\vec{X}}^T\vec{y}
-\end{array}
-\end{equation}
-
-If $\widehat{\vec{X}}^T\widehat{\vec{X}}$ is singular, the pseudo-inverse can be used, or else the technique of ridge regression described below can be applied.

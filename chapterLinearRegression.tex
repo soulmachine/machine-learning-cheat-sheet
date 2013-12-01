@@ -4,12 +4,12 @@
 \section{Representation}
 
 \begin{equation}
-y=f(x)=\vec{w}^T\vec{x}+b \quad , \vec{x} \in \mathbb{R}^D, y \in \mathbb{R}
+y=f(\vec{x})=\vec{w}^T\vec{x}+b \quad , \vec{x} \in \mathbb{R}^D, y \in \mathbb{R}
 \end{equation}
 
 If we extend $\vec{x}^T=(1,x_1,x_2,\cdots,x_D),\vec{w}^T=(b,w_1,w_2,\cdots,w_D)$, then
 \begin{equation}
-y=f(x)=\vec{w}^T\vec{x}
+y=f(\vec{x})=\vec{w}^T\vec{x}
 \end{equation}
 
 
@@ -28,7 +28,7 @@ R_{emp}(f) &=& \frac{1}{2N}\sum\limits_{i=1}^N \left(y-f(\vec{x})\right)^2=\frac
 J(\vec{w}) &\triangleq& R_{emp}(f)
 \end{eqnarray}
 
-Prerequisite: define error term $\epsilon_i \triangleq y_i-\vec{w}^T\vec{x}_i$, $\epsilon_i$ are IID (independently and identically distributed) according to a Gaussian distribution. 
+Prerequisite: define error term $\epsilon_i \triangleq y_i-\vec{w}^T\vec{x}_i$, $\epsilon_i$ are IID according to a Gaussian distribution. 
 
 
 \section{Optimization}
@@ -38,7 +38,7 @@ Prerequisite: define error term $\epsilon_i \triangleq y_i-\vec{w}^T\vec{x}_i$, 
 When dataset is small, use Normal Equation to compute \vec{w} directly.
 
 \begin{equation}
-y=f(x)=\vec{w}^T\vec{x} \vec{w}=(X^TX)^{-1}X^T\vec{y}
+\vec{w}=(X^TX)^{-1}X^T\vec{y}
 \end{equation}
 where
 \begin{eqnarray*}
@@ -57,6 +57,7 @@ trA &\triangleq& \sum\limits_{i=1}^n A_{ii} \nonumber \\
 \frac{\partial}{\partial A}|A| &=& |A|(A^{-1})^T
 \end{eqnarray}
 
+Then,
 \begin{eqnarray*}
 J(\vec{w}) &=& \frac{1}{2N}(X\vec{w}-\vec{y})^T(X\vec{w}-\vec{y}) \\
 \frac{\partial J}{\vec{w}} &=& \frac{1}{2N} \frac{\partial}{\vec{w}} (\vec{w}^TX^TX\vec{w}-\vec{w}^TX^T\vec{y}-\vec{y}^TX\vec{w}+\vec{y}^T\vec{y}) \\
@@ -84,8 +85,8 @@ X^TX\vec{w} &=& X^T\vec{y} \\
 \subsection{SGD}
 When dataset is large, use stochastic gradient descent(SGD).
 
-\begin{eqnarray}
-\dfrac{\partial}{\partial \vec{w}}J(\vec{w}) &=& \left[y_i - f(\vec{x}_i) \right]\vec{x}_i \\
-\vec{w} &=& \vec{w} - \alpha\dfrac{\partial}{\partial \vec{w}}f(\vec{w}) \nonumber \\
-        &=& \vec{w} - \alpha\left[y_i - f(\vec{x}_i) \right]\vec{x}_i
-\end{eqnarray}
+\begin{align}
+\because \dfrac{\partial}{\partial \vec{w}}J(\vec{w})=& \left[y_i - f(\vec{x}_i) \right]\vec{x}_i \\
+\therefore \vec{w}=& \vec{w} - \alpha\dfrac{\partial}{\partial \vec{w}}f(\vec{w}) \nonumber \\
+                  =& \vec{w} - \alpha\left[y_i - f(\vec{x}_i) \right]\vec{x}_i
+\end{align}

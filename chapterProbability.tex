@@ -24,7 +24,7 @@ We denote a random event by defining a \textbf{random variable} $X$.
 \begin{equation}
 F(x) \triangleq P(X \leq x)=\begin{cases}
 \sum_{u \leq x}p(u), & \text{descrete random variable}\\
-\int_{-\infty}^{x} f(u)du, & \text{continuous random variable}\\
+\int_{-\infty}^{x} f(u)\mathrm{d}u, & \text{continuous random variable}\\
 \end{cases}
 \end{equation}
 
@@ -32,7 +32,7 @@ F(x) \triangleq P(X \leq x)=\begin{cases}
 \subsubsection{PMF and PDF}
 For descrete random variable, We denote the probability of the event that $X=x$ by $P(X=x)$, or just $p(x)$ for short. Here $p(x)$ is called a \textbf{probability mass function} or \textbf{PMF}.A probability mass function is a function that gives the probability that a discrete random variable is exactly equal to some value\footnote{\url{http://en.wikipedia.org/wiki/Probability_mass_function}}. This satisfies the properties $0 \leq p(x) \leq 1$ and $\sum_{x \in \mathcal{X}} p(x)=1$.
 
-For continuous variable, in the equation $F(x)=\int_{-\infty}^{x} f(u)du$, the function $f(x)$ is called a \textbf{probability density function} or \textbf{PDF}. A probability density function is a function that describes the relative likelihood for this random variable to take on a given value\footnote{\url{http://en.wikipedia.org/wiki/Probability_density_function}}.This satisfies the properties $f(x) \geq 0$ and $\int_{-\infty}^{\infty} f(x)dx=1$.
+For continuous variable, in the equation $F(x)=\int_{-\infty}^{x} f(u)\mathrm{d}u$, the function $f(x)$ is called a \textbf{probability density function} or \textbf{PDF}. A probability density function is a function that describes the relative likelihood for this random variable to take on a given value\footnote{\url{http://en.wikipedia.org/wiki/Probability_density_function}}.This satisfies the properties $f(x) \geq 0$ and $\int_{-\infty}^{\infty} f(x)\mathrm{d}x=1$.
 
 
 \subsection{Mutivariate random variables}
@@ -44,7 +44,7 @@ We denote joint CDF by $F(x,y) \triangleq P(X \leq x \cap Y \leq y)=P(X \leq x ,
 \begin{equation}
 F(x,y) \triangleq P(X \leq x, Y \leq y)=\begin{cases}
 \sum_{u \leq x, v \leq y}p(u,v), & \text{descrete}\\
-\int_{-\infty}^{x}\int_{-\infty}^{y} f(u,v)dudv, & \text{continuous}\\
+\int_{-\infty}^{x}\int_{-\infty}^{y} f(u,v)\mathrm{d}u\mathrm{d}v, & \text{continuous}\\
 \end{cases}
 \end{equation}
 
@@ -65,11 +65,11 @@ p(X_{1:N})=p(X_1)p(X_2|X_1)p(X_3|X_2,X_1)...p(X_N|X_{1:N-1})
 \begin{cases}
 F_X(x) \triangleq F(x,+\infty)=\begin{cases}
 \sum_{x_i \leq x}P(X=x_i)=\sum_{x_i \leq x}\sum_{j=1}^{+\infty}P(X=x_i,Y=y_j), & \text{descrete}\\
-\int_{-\infty}^{x}f_X(u)du=\int_{-\infty}^{x}\int_{-\infty}^{+\infty} f(u,v)dudv, & \text{continuous}\\
+\int_{-\infty}^{x}f_X(u)du=\int_{-\infty}^{x}\int_{-\infty}^{+\infty} f(u,v)\mathrm{d}u\mathrm{d}v, & \text{continuous}\\
 \end{cases}\\
 F_Y(y) \triangleq F(+\infty,y)=\begin{cases}
 \sum_{y_j \leq y}p(Y=y_j)=\sum_{i=1}^{+\infty}\sum_{y_j \leq y}P(X=x_i,Y=y_j), & \text{descrete}\\
-\int_{-\infty}^{y}f_Y(v)dv=\int_{-\infty}^{+\infty}\int_{-\infty}^{y} f(u,v)dudv, & \text{continuous}\\
+\int_{-\infty}^{y}f_Y(v)dv=\int_{-\infty}^{+\infty}\int_{-\infty}^{y} f(u,v)\mathrm{d}u\mathrm{d}v, & \text{continuous}\\
 \end{cases}\\
 \end{cases}
 \end{equation}
@@ -79,11 +79,11 @@ F_Y(y) \triangleq F(+\infty,y)=\begin{cases}
 \begin{cases}
 \begin{cases}
 P(X=x_i)=\sum_{j=1}^{+\infty}P(X=x_i,Y=y_j), & \text{descrete}\\
-f_X(x)=\int_{-\infty}^{+\infty} f(x,y)dy, & \text{continuous}\\
+f_X(x)=\int_{-\infty}^{+\infty} f(x,y)\mathrm{d}y, & \text{continuous}\\
 \end{cases}\\
 \begin{cases}
 p(Y=y_j)=\sum_{i=1}^{+\infty}P(X=x_i,Y=y_j), & \text{descrete}\\
-f_Y(y)=\int_{-\infty}^{+\infty} f(x,y)dx, & \text{continuous}\\
+f_Y(y)=\int_{-\infty}^{+\infty} f(x,y)\mathrm{d}x, & \text{continuous}\\
 \end{cases}\\
 \end{cases}
 \end{equation}
@@ -108,10 +108,10 @@ p(Y=y|X=x)=\dfrac{p(X=x,Y=y)}{p(X=x)}=\dfrac{p(X=x|Y=y)p(Y=y)}{\sum_{y'}p(X=x|Y=
 
 \subsubsection{Example: Generative classifiers}
 \begin{equation}
-p(y=c|X,\vec{\theta})=\dfrac{p(X|y=c,\vec{\theta})p(y=c|\vec{\theta})}{\sum_{c'}p(X|y=c',\vec{\theta})p(y=c'|\vec{\theta})}
+p(y=c|\vec{x},\vec{\theta})=\dfrac{p(\vec{x}|y=c,\vec{\theta})p(y=c|\vec{\theta})}{\sum_{c'}p(\vec{x}|y=c',\vec{\theta})p(y=c'|\vec{\theta})}
 \end{equation}
 
-This is called a \textbf{generative classifier}, since it specifies how to generate the data using the class conditional density $p(x|y=c)$ and the class prior $p(y = c)$. An alternative approach is to directly fit the class posterior, $p(y=c|x)$ ;this is known as a \textbf{discriminative classifier}. 
+This is called a \textbf{generative classifier}, since it specifies how to generate the data using the class conditional density $p(\vec{x}|y=c)$ and the class prior $p(y = c)$. An alternative approach is to directly fit the class posterior, $p(y=c|\vec{x})$ ;this is known as a \textbf{discriminative classifier}. 
 
 \subsection{Independence and conditional independence}
 We say $X$ and $Y$ are unconditionally independent or marginally independent, denoted $X \perp Y$, if we can represent the joint as the product of the two marginals, i.e.,
@@ -128,12 +128,12 @@ X \perp Y|Z=P(X,Y|Z)=P(X|Z)P(Y|Z)
 Since the cdf $F$ is a monotonically increasing function, it has an inverse; let us denote this by $F^{-1}$. If $F$ is the cdf of $X$ , then $F^{-1}(\alpha)$ is the value of $x_{\alpha}$ such that $P(X \leq x_{\alpha})=\alpha$; this is called the $\alpha$ quantile of $F$. The value $F^{-1}(0.5)$ is the \textbf{median} of the distribution, with half of the probability mass on the left, and half on the right. The values $F^{-1}(0.25)$ and $F^{−1}(0.75)$are the lower and upper \textbf{quartiles}.
 
 \subsection{Mean and variance}
-The most familiar property of a distribution is its \textbf{mean},or \textbf{expected value}, denoted by $\mu$. For discrete rv’s, it is defined as $\mathbb{E}[X] \triangleq \sum_{x \in \mathcal{X}}xp(x)$, and for continuous rv’s, it is defined as $\mathbb{E}[X] \triangleq \int_{\mathcal{X}}xp(x)dx$. If this integral is not finite, the mean is not defined (we will see some examples of this later). 
+The most familiar property of a distribution is its \textbf{mean},or \textbf{expected value}, denoted by $\mu$. For discrete rv’s, it is defined as $\mathbb{E}[X] \triangleq \sum_{x \in \mathcal{X}}xp(x)$, and for continuous rv’s, it is defined as $\mathbb{E}[X] \triangleq \int_{\mathcal{X}}xp(x)\mathrm{d}x$. If this integral is not finite, the mean is not defined (we will see some examples of this later). 
 
 The \textbf{variance} is a measure of the “spread” of a distribution, denoted by $\sigma^2$. This is defined as follows:
 \begin{eqnarray}
-var[X]&=&\mathbb{E}[(X-\mu)^2]=\int{(x-\mu)^2p(x)dx}\\
-      &=&\int{x^2p(x)dx}\int{{\mu}^2p(x)dx}-2\mu\int{xp(x)dx}=\mathbb{E}[X^2]-{\mu}^2
+var[X]&=&\mathbb{E}[(X-\mu)^2]=\int{(x-\mu)^2p(x)\mathrm{d}x}\\
+      &=&\int{x^2p(x)\mathrm{d}x}\int{{\mu}^2p(x)\mathrm{d}x}-2\mu\int{xp(x)\mathrm{d}x}=\mathbb{E}[X^2]-{\mu}^2
 \end{eqnarray}
 
 from which we derive the useful result
@@ -157,15 +157,15 @@ In this section, we review some commonly used parametric distributions defined o
 \begin{definition}
 Now suppose we toss a coin only once. Let $X \in \{0,1\}$ be a binary random variable, with probability of “success” or “heads” of $\theta$. We say that $X$ has a \textbf{Bernoulli distribution}. This is written as $X \sim \text{Ber}(\theta)$, where the pmf is defined as 
 \begin{equation}
-p(x) \triangleq \theta^{\mathbb{I}(x=1)}(1-\theta)^{\mathbb{I}(x=0)}
+\text{Ber}(x|\theta) \triangleq \theta^{\mathbb{I}(x=1)}(1-\theta)^{\mathbb{I}(x=0)}
 \end{equation}
 \end{definition}
 
 
 \begin{definition}
 Suppose we toss a coin $n$ times. Let $X \in \{0,1,\cdots,n\}$ be the number of heads. If the probability of heads is $\theta$, then we say $X$ has a \textbf{binomial distribution}, written as $X \sim \text{Bin}(n, \theta)$. The pmf is given by 
-\begin{equation}
-p(k) \triangleq \dbinom{n}{k}\theta^k(1-\theta)^{n-k}
+\begin{equation}\label{eqn:binomial-pmf}
+\text{Bin}(k|n,\theta) \triangleq \dbinom{n}{k}\theta^k(1-\theta)^{n-k}
 \end{equation}
 \end{definition}
 
@@ -173,16 +173,16 @@ p(k) \triangleq \dbinom{n}{k}\theta^k(1-\theta)^{n-k}
 \subsection{The multinoulli and multinomial distributions}
 
 \begin{definition}
-The Bernoulli distribution can be used to model the outcome of one coin tosse. To model the outcome of tossing a K-sided die, let $\vec{x} =(\mathbb{I}(x=1),\cdots,\mathbb{I}(x=K)) \in \{0,1\}^K$ be a random vector(this is called \textbf{dummy encoding} or \textbf{one-hot encoding}), then we say $X$ has a \textbf{multinoulli distribution}(or \textbf{categorical distribution}), written as $X \sim \text{Cat}(\theta)$. The pmf is given by: 
+The Bernoulli distribution can be used to model the outcome of one coin tosses. To model the outcome of tossing a K-sided dice, let $\vec{x} =(\mathbb{I}(x=1),\cdots,\mathbb{I}(x=K)) \in \{0,1\}^K$ be a random vector(this is called \textbf{dummy encoding} or \textbf{one-hot encoding}), then we say $X$ has a \textbf{multinoulli distribution}(or \textbf{categorical distribution}), written as $X \sim \text{Cat}(\theta)$. The pmf is given by: 
 \begin{equation}
-p(\vec{x}) \triangleq \prod\limits_{k=1}^K\theta_j^{\mathbb{I}(x_j=1)}
+p(\vec{x}) \triangleq \prod\limits_{k=1}^K\theta_k^{\mathbb{I}(x_k=1)}
 \end{equation}
 \end{definition}
 
 \begin{definition}
-Suppose we toss a K-sided die $n$ times. Let $\vec{x} =(x_1,x_2,\cdots,x_K) \in \{0,1,\cdots,n\}^K$ be a random vector, where $x_j$ is the number of times side $j$ of the die occurs, then we say $X$ has a \textbf{multinomial distribution}, written as $X \sim \text{Mu}(n, \vec{\theta})$. The pmf is given by 
-\begin{equation}
-p(\vec{x}) \triangleq \dbinom{n}{x_1 \cdots x_k} \prod\limits_{k=1}^K\theta_j^{x_j} \quad \text{where} \dbinom{n}{x_1 \cdots x_k} \triangleq \dfrac{n!}{x_1!x_2! \cdots x_K!}
+Suppose we toss a K-sided dice $n$ times. Let $\vec{x} =(x_1,x_2,\cdots,x_K) \in \{0,1,\cdots,n\}^K$ be a random vector, where $x_j$ is the number of times side $j$ of the dice occurs, then we say $X$ has a \textbf{multinomial distribution}, written as $X \sim \text{Mu}(n, \vec{\theta})$. The pmf is given by 
+\begin{equation}\label{eqn:multinomial-pmf}
+p(\vec{x}) \triangleq \dbinom{n}{x_1 \cdots x_k} \prod\limits_{k=1}^K\theta_k^{x_k} \quad \text{where} \dbinom{n}{x_1 \cdots x_k} \triangleq \dfrac{n!}{x_1!x_2! \cdots x_K!}
 \end{equation}
 \end{definition}
 
@@ -228,6 +228,10 @@ Poisson & $X \sim \text{Poi}(\lambda)$ & $x \in \{0,1,2,\cdots\}$ & $e^{-\lambda
 
 
 \subsection{The empirical distribution}
+The \textbf{empirical distribution function}\footnote{\url{http://en.wikipedia.org/wiki/Empirical_distribution_function}}, or \textbf{empirical cdf}, is the cumulative distribution function associated with the empirical measure of the sample. Let $\mathcal{D}=\{x_1,x_2,\cdots,x_N\}$ be a sample set, it is defined as 
+\begin{equation}
+F_n(x) \triangleq \dfrac{1}{N}\sum\limits_{i=1}^N\mathbb{I}(x_i \leq x)
+\end{equation}
 
 
 \section{Some common continuous distributions}
@@ -281,7 +285,7 @@ Student's t-distribution & $X \sim \mathcal{T}(\mu,\sigma^2,\nu)$ & $\dfrac{\Gam
 \end{longtable}
 where  $\Gamma(x)$ is the gamma function:
 \begin{equation}
-\Gamma(x) \triangleq \int_0^\infty u^{x-1}e^{-u}dx
+\Gamma(x) \triangleq \int_0^\infty u^{x-1}e^{-u}\mathrm{d}x
 \end{equation}
 $\mu$ is the mean, $\sigma^2>0$ is the scale parameter, and $\nu>0$ is called the \textbf{degrees of freedom}. See Figure ~\ref{fig:pdfs-for-NTL} for some plots.
 
@@ -360,7 +364,7 @@ Here $a>0$ is called the shape parameter and $b>0$ is called the rate parameter.
 \subsection{The beta distribution}
 
 \begin{table}
-\caption{Summary of Beta distribution}
+\caption{Summary of Beta distribution}\label{tab:beta-distribution}
 \centering
 \begin{tabular}{ccccccc}
 \hline\noalign{\smallskip}
@@ -529,7 +533,7 @@ Figure ~\ref{fig:3d-Dirichlet} shows some plots of the Dirichlet when $K=3$, and
 \end{figure}
 
 For future reference, the distribution has these properties
-\begin{equation}
+\begin{equation}\label{eqn:Dirichlet-properties}
 \mathbb{E}(x_k)=\dfrac{\alpha_k}{\alpha_0} \text{, mode}[x_k]=\dfrac{\alpha_k-1}{\alpha_0-K} \text{, var}[x_k]=\dfrac{\alpha_k(\alpha_0-\alpha_k)}{\alpha_0^2(\alpha_0+1)}
 \end{equation}
 
@@ -565,7 +569,7 @@ p_Y(y)=\sum\limits_{x:g(x)=y}p_X(x)
 
 If $X$ is continuous, we cannot use Equation \eqref{eqn:transformation-discrete} since $p_X(x)$ is a density, not a pmf, and we cannot sum up densities. Instead, we work with cdf’s, and write
 \begin{equation}
-F_Y(y)=P(Y \leq y)=P(g(X) \leq y)=\int\limits_{g(X) \leq y} f_X(x)dx
+F_Y(y)=P(Y \leq y)=P(g(X) \leq y)=\int\limits_{g(X) \leq y} f_X(x)\mathrm{d}x
 \end{equation}
 
 We can derive the pdf of $Y$ by differentiating the cdf:
@@ -581,7 +585,7 @@ For example, suppose $X \sim U(−1,1)$, and $Y=X^2$. Then $p_Y(y)=\dfrac{1}{2}y
 \subsection{Central limit theorem}
 
 \begin{theorem}
-Given $N$ random variables $X_1,X_2,\cdots,X_N$, each variable is \textbf{independent and identically distributed}(\textbf{iid} for short), and each has the same mean $\mu$ and variance $\sigma^2$, then
+Given $N$ random variables $X_1,X_2,\cdots,X_N$, each variable is \textbf{independent and identically distributed}\footnote{\url{http://en.wikipedia.org/wiki/Independent_identically_distributed}}(\textbf{iid} for short), and each has the same mean $\mu$ and variance $\sigma^2$, then
 \begin{equation}
 \dfrac{\sum\limits_{i=1}^n X_i-N\mu}{\sqrt{N}\sigma} \sim \mathcal{N}(0,1)
 \end{equation}
@@ -597,7 +601,7 @@ In general, computing the distribution of a function of an rv using the change o
 
 We can use Monte Carlo to approximate the expected value of any function of a random variable. We simply draw samples, and then compute the arithmetic mean of the function applied to the samples. This can be written as follows:
 \begin{equation}
-\mathbb{E}[g(X)]=\int g(x)p(x)dx \approx \dfrac{1}{S}\sum\limits_{s=1}^S f(x_s) \text{ , where } x_s \sim p(X)
+\mathbb{E}[g(X)]=\int g(x)p(x)\mathrm{d}x \approx \dfrac{1}{S}\sum\limits_{s=1}^S f(x_s) \text{ , where } x_s \sim p(X)
 \end{equation}
 
 This is called \textbf{Monte Carlo integration}\footnote{\url{http://en.wikipedia.org/wiki/Monte_Carlo_integration}}, and has the advantage over numerical integration (which is based on evaluating the function at a fixed grid of points) that the function is only evaluated in places where there is non-negligible probability.
@@ -647,6 +651,7 @@ entropy is the uniform distribution}.
 
 
 \subsection{Mutual information}
+\label{sec:Mutual-information}
 \begin{definition}
 \textbf{Mutual information} or \textbf{MI}, is defined as follows:
 \begin{equation}
