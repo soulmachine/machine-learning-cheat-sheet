@@ -265,6 +265,7 @@ The above expression avoids the zero-count problem. In fact, this form of Bayesi
 
 
 \section{Naive Bayes classifiers}
+\label{sec:NBC}
 Assume the features are \textbf{conditionally independent} given the class label, then the class conditional density has the following form
 \begin{equation}
 p(\vec{x}|y,\vec{\theta})=\prod\limits_{j=1}^D p(x_j|y=c,\vec{\theta}_{jc}) \quad \text{where $\vec{x}$ is a $D$-dimensional feature vector}
@@ -321,6 +322,7 @@ where $N_{jkc} \triangleq \sum\limits_{i=1}^N \mathbb{I}(x_{ij}=a_{jk}, y_i=c)$ 
 
 
 \subsubsection{Bayesian naive Bayes}
+\label{sec:Bayesian-naive-Bayes}
 Use a Dir$(\vec{\alpha})$ prior for $\vec{\pi}$.
 
 In the case of binary features, use a Beta$(\beta0,\beta1)$ prior for each $\theta_{jc}$; in the case of categorical features, use a Dir$(\vec{\alpha})$ prior for each  $\vec{\theta}_{jc}$. Often we just take $\vec{\alpha}=\vec{1}$ and $\vec{\beta}=\vec{1}$, corresponding to \textbf{add-one} or \textbf{Laplace smoothing}.

@@ -23,6 +23,7 @@ In the hypothesis space, an evaluation function (also called objective function 
 
 
 \subsubsection{Loss function and risk function}
+\label{sec:Loss-function-and-risk-function}
 
 \begin{definition}
 In order to measure how well a function fits the training data, a \textbf{loss function} $L:Y \times Y \rightarrow R \geq 0$ is defined. For training example $(x_i,y_i)$, the loss of predicting the value $\widehat{y}$ is $L(y_i,\widehat{y})$.
@@ -38,7 +39,7 @@ The following is some common loss functions:
 
 \begin{definition}
 The risk of function $f$ is defined as the expected loss of $f$:
-\begin{equation}
+\begin{equation}\label{eqn:expected-loss}
 R_{exp}(f)=E_p\left[L\left(Y,f(X)\right)\right]=\int _{X \times Y} L\left(y,f(x)\right)P(x,y)\mathrm{d}x\mathrm{d}y
 \end{equation}
 which is also called expected loss or \textbf{risk function}.
@@ -89,6 +90,7 @@ Finally, we need a \textbf{training algorithm}(also called \textbf{learning algo
 
 
 \section{Cross validation}
+\label{sec:Cross-validation}
 \begin{definition}
 \textbf{Cross validation}, sometimes called \emph{rotation estimation}, is a \emph{model validation} technique for assessing how the results of a statistical analysis will generalize to an independent data set\footnote{\url{http://en.wikipedia.org/wiki/Cross-validation_(statistics)}}.
 \end{definition}

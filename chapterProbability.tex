@@ -49,7 +49,7 @@ F(x,y) \triangleq P(X \leq x, Y \leq y)=\begin{cases}
 \end{equation}
 
 \textbf{product rule}:
-\begin{equation}
+\begin{equation}\label{eqn:product-rule}
 p(X,Y)=P(X|Y)P(Y)
 \end{equation}
 
@@ -470,6 +470,7 @@ The correlation coefficient can viewed as a degree of linearity between $X$ and 
 
 
 \subsection{Multivariate Gaussian distribution}
+\label{sec:MVN}
 The \textbf{multivariate Gaussian} or \textbf{multivariate normal}(MVN) is the most widely used joint probability density function for continuous variables. We discuss MVNs in detail in Chapter 4; here we just give some definitions and plots.
 
 The pdf of the MVN in $D$ dimensions is defined by the following:
@@ -513,7 +514,7 @@ The pdf is defined as follows:
 \end{equation}
 where $B(\alpha_1,\alpha_2,\cdots,\alpha_K)$ is the natural generalization of the beta function to $K$ variables:
 \begin{equation}
-B(\alpha) \triangleq \dfrac{\prod\_{k=1}^K \Gamma(\alpha_k)}{\Gamma(\alpha_0)} \text{ where } \alpha_0 \triangleq \sum_{k=1}^K \alpha_k
+B(\alpha) \triangleq \dfrac{\prod_{k=1}^K \Gamma(\alpha_k)}{\Gamma(\alpha_0)} \text{ where } \alpha_0 \triangleq \sum_{k=1}^K \alpha_k
 \end{equation}
 
 Figure ~\ref{fig:3d-Dirichlet} shows some plots of the Dirichlet when $K=3$, and Figure ~\ref{fig:5d-Dirichlet} for some sampled probability vectors. We see that $\alpha_0$ controls the strength of the distribution (how peaked it is), and theαkcontrol where the peak occurs. For example, Dir$(1,1,1)$ is a uniform distribution, Dir$(2,2,2)$ is a broad distribution centered at $(1/3,1/3,1/3)$, and Dir$(20,20,20)$ is a narrow distribution centered at $(1/3,1/3,1/3)$.If $\alpha_k < 1$ for all $k$, we get “spikes” at the corner of the simplex.
@@ -573,7 +574,7 @@ F_Y(y)=P(Y \leq y)=P(g(X) \leq y)=\int\limits_{g(X) \leq y} f_X(x)\mathrm{d}x
 \end{equation}
 
 We can derive the pdf of $Y$ by differentiating the cdf:
-\begin{equation}
+\begin{equation}\label{eqn:General-transformations}
 f_Y(y)=f_X(x)|\dfrac{dx}{dy}|
 \end{equation}
 
@@ -597,6 +598,7 @@ this can also be written as
 
 
 \section{Monte Carlo approximation}
+\label{sec:Monte-Carlo-approximation}
 In general, computing the distribution of a function of an rv using the change of variables formula can be difficult. One simple but powerful alternative is as follows. First we generate $S$ samples from the distribution, call them $x_1,\cdots,x_S$. (There are many ways to generate such samples; one popular method, for high dimensional distributions, is called Markov chain Monte Carlo or MCMC; this will be explained in Chapter TODO.) Given the samples, we can approximate the distribution of $f(X)$ by using the empirical distribution of $\left\{f(x_s)\right\}_{s=1}^S$. This is called a \textbf{Monte Carlo approximation}\footnote{\url{http://en.wikipedia.org/wiki/Monte_Carlo_method}}, named after a city in Europe known for its plush gambling casinos.
 
 We can use Monte Carlo to approximate the expected value of any function of a random variable. We simply draw samples, and then compute the arithmetic mean of the function applied to the samples. This can be written as follows:
