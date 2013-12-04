@@ -1,0 +1,29 @@
+\chapter{Frequentist statistics}
+
+Attempts have been made to devise approaches to statistical inference that avoid treating parameters like random variables, and which thus avoid the use of priors and Bayes rule. Such approaches are known as \textbf{frequentist statistics}, \textbf{classical statistics} or \textbf{orthodox statistics}. Instead of being based on the posterior distribution, they are based on the concept of a sampling distribution.
+
+
+\section{Sampling distribution of an estimator}
+In frequentist statistics, a parameter estimate $\hat{\vec{\theta}}$ is computed by applying an \textbf{estimator} $\delta$ to some data $\mathcal{D}$, so $\hat{\vec{\theta}}=\delta(\mathcal{D})$. The parameter is viewed as fixed and the data as random, which is the exact opposite of the Bayesian approach. The uncertainty in the parameter estimate can be measured by computing the \textbf{sampling distribution} of the estimator. To understand this
+
+
+\subsection{Bootstrap}
+We might think of the bootstrap distribution as a “poor man’s” Bayes posterior, see (Hastie et al. 2001, p235) for details.
+
+
+\subsection{Large sample theory for the MLE *}
+
+
+
+\section{Frequentist decision theory}
+In frequentist or classical decision theory, there is a loss function and a likelihood, but there is no prior and hence no posterior or posterior expected loss. Thus there is no automatic way of deriving an optimal estimator, unlike the Bayesian case. Instead, in the frequentist approach, we are free to choose any estimator or decision procedure $f: \mathcal{X} \rightarrow \mathcal{Y}$ we want.
+
+Having chosen an estimator, we define its expected loss or \textbf{risk} as follows:
+\begin{equation}
+R_{\mathrm{exp}}(\theta,f) \triangleq \mathbb{E}_{p(\tilde{\mathcal{D}}|\theta^*)}[L(\theta^*, f(\tilde{\mathcal{D}}))]=\int L(\theta^*, f(\tilde{\mathcal{D}}))p(\tilde{\mathcal{D}}|\theta^*)\mathrm{d}\tilde{\mathcal{D}}
+\end{equation}
+where˜$\tilde{\mathcal{D}}$ is data sampled from “nature’s distribution”, which is represented by parameter $\theta^*$. In other words, the expectation is wrt the sampling distribution of the estimator. Compare this to the Bayesian posterior expected loss:
+\begin{equation}
+\rho(f|\mathcal{D},)
+\end{equation}
+
