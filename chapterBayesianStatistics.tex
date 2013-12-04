@@ -315,7 +315,13 @@ This is often called the \textbf{minimum mean squared error} estimate or \textbf
 The $\ell_2$ loss penalizes deviations from the truth quadratically, and thus is sensitive to outliers. A more robust alternative is the absolute or $\ell_1$ loss. The optimal estimate is the posterior median, i.e., a value $a$ such that $P(y<a|\vec{x})=P(y \geq a|\vec{x})=0.5$.
 
 \begin{proof}
-TODO
+\begin{align*}
+\rho(f)& =\int\limits_y L[y,f(\vec{x})]p(y|\vec{x})\mathrm{d}y=\int\limits_y |y-f(\vec{x})|p(y|\vec{x})\mathrm{d}y \\
+       & =\int\limits_y \left\{[f(\vec{x})-y]p(y<f(\vec{x})|\vec{x})+[y-f(\vec{x})]p(y \geq f(\vec{x})|\vec{x})\right\}\mathrm{d}y \\
+& \dfrac{\partial \rho}{\partial f}=\int\limits_y \left[p(y<f(\vec{x})|\vec{x})-p(y \geq f(\vec{x})|\vec{x})\right]\mathrm{d}y=0 \Rightarrow \\
+& p(y<f(\vec{x})|\vec{x})=p(y \geq f(\vec{x})|\vec{x})=0.5 \\
+& \therefore f(\vec{x})=\text{median}
+\end{align*}
 \end{proof}
 
 

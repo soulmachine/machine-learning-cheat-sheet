@@ -40,15 +40,15 @@ The following is some common loss functions:
 \begin{definition}
 The risk of function $f$ is defined as the expected loss of $f$:
 \begin{equation}\label{eqn:expected-loss}
-R_{exp}(f)=E_p\left[L\left(Y,f(X)\right)\right]=\int _{X \times Y} L\left(y,f(x)\right)P(x,y)\mathrm{d}x\mathrm{d}y
+R_{\mathrm{exp}}(f)=E_p\left[L\left(Y,f(X)\right)\right]=\int _{X \times Y} L\left(y,f(x)\right)P(x,y)\mathrm{d}x\mathrm{d}y
 \end{equation}
 which is also called expected loss or \textbf{risk function}.
 \end{definition}
 
 \begin{definition}
-The risk function $R_{exp}(f)$ can be estimated from the training data as
+The risk function $R_{\mathrm{exp}}(f)$ can be estimated from the training data as
 \begin{equation}
-R_{emp}(f)=\dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right)
+R_{\mathrm{emp}}(f)=\dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right)
 \end{equation}
 which is also called empirical loss or \textbf{empirical risk}.
 \end{definition}
@@ -66,21 +66,21 @@ The main algorithm that optimizes the zero-one-loss directly is the old perceptr
 \begin{definition}
 ERM(Empirical risk minimization)
 \begin{equation}
-\min\limits _{f \in \mathcal{F}} R_{emp}(f)=\min\limits _{f \in \mathcal{F}} \dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right)
+\min\limits _{f \in \mathcal{F}} R_{\mathrm{emp}}(f)=\min\limits _{f \in \mathcal{F}} \dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right)
 \end{equation}
 \end{definition}
 
 \begin{definition}
 Structural risk
 \begin{equation}
-R_{smp}(f)=\dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right) +\lambda J(f)
+R_{\mathrm{smp}}(f)=\dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right) +\lambda J(f)
 \end{equation}
 \end{definition}
 
 \begin{definition}
 SRM(Structural risk minimization)
 \begin{equation}
-\min\limits _{f \in \mathcal{F}} R_{srm}(f)=\min\limits _{f \in \mathcal{F}} \dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right) +\lambda J(f)
+\min\limits _{f \in \mathcal{F}} R_{\mathrm{srm}}(f)=\min\limits _{f \in \mathcal{F}} \dfrac{1}{N}\sum\limits_{i=1}^{N} L\left(y_i,f(x_i)\right) +\lambda J(f)
 \end{equation}
 \end{definition}
 
