@@ -30,8 +30,7 @@ R_{emp}(f)&=&-\sum\limits_i y_i(\vec{w}^T\vec{x}_i+b)\\
 \subsection{Primal form}
 Stochastic gradient descent, the pseudo code is as follows:
 \begin{algorithm}[htbp]
-    %\SetAlgoLined
-    \SetAlgoNoLine
+\caption{Perceptron learning algorithm, primal form}
   
     $\vec{w} \leftarrow 0;\; b \leftarrow 0;\; k \leftarrow 0$\;
     \While{no mistakes made within the for loop}{
@@ -43,7 +42,6 @@ Stochastic gradient descent, the pseudo code is as follows:
 			}
 		}
     }
-\caption{Perceptron learning algorithm, primal form}
 \end{algorithm}
 
 

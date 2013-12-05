@@ -184,6 +184,7 @@ where $\mu_1$ is the mean of the signal and $\mu_0$ is the mean of the noise, an
 
 
 \subsection{MLE for discriminant analysis}
+\label{sec:MLE-for-discriminant-analysis}
 The log-likelihood function is as follows:
 \begin{equation}
 p(\mathcal{D}|\vec{\theta})=\sum\limits_{c=1}^C{\sum\limits_{i:y_i=c}{\log\pi_c}}+\sum\limits_{c=1}^C{\sum\limits_{i:y_i=c}{\log\mathcal{N}(\vec{x}_i|\vec{\mu}_c,\vec{\Sigma}_c)}}
@@ -222,6 +223,7 @@ One drawback of diagonal LDA is that it depends on all of the features. In high 
 
 
 \section{Inference in jointly Gaussian distributions}
+\label{sec:Inference-in-jointly-Gaussian-distributions}
 Given a joint distribution, $p(\vec{x}_1,\vec{x}_2)$, it is useful to be able to compute marginals $p(\vec{x}_1)$ and conditionals $p(\vec{x}_1|\vec{x}_2)$. We discuss how to do this below, and then give some applications. These operations take $O(D^3)$ time in the worst case. See Section TODO for faster methods.
 
 

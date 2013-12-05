@@ -51,7 +51,6 @@ The EM algorithm is an efficient iterative procedure to compute the Maximum Like
 Each iteration of the EM algorithm consists of two processes: The E-step, and the M-step. In the expectation, or E-step, the missing data are estimated given the observed data and current estimate of the model parameters. This is achieved using the conditional expectation, explaining the choice of terminology. In the M-step, the likelihood function is maximized under the assumption that the missing data are known. The estimate of the missing data from the E-step are used in lieu of the actual missing data.
 
 \begin{algorithm}[htbp]
-    \SetAlgoNoLine
     \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
     \Input{observed data $\mathcal{X}=\{\vec{x}^{(1)},\vec{x}^{(2)},\cdots, \vec{x}^{(n)}$\},joint distribution $P(\mathcal{X},\vec{z}|\vec{\theta})$}
 	\Output{model's parameters $\vec{\theta}$}
