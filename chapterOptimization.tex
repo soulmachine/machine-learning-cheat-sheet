@@ -2,6 +2,31 @@
 \label{chap:Optimization-methods}
 
 
+\section{Convexity}
+\label{sec:Convexity}
+
+\begin{definition}
+(\textbf{Convex set}) We say aset $\mathcal{S}$ is convex if for any $\vec{x}_1, \vec{x}_2 \in \mathcal{S}$, we have
+\begin{equation}
+\lambda\vec{x}_1+(1-\lambda)\vec{x}_2 \in \mathcal{S}, \forall \lambda \in [0,1]
+\end{equation}
+\end{definition}
+
+\begin{definition}
+(\textbf{Convex function}) A function $f(\vec{x})$ is called convex if its \textbf{epigraph}(the set of points above the function) defines a convex set. Equivalently, a function $f(\vec{x})$ is called convex if it is defined on a convex set and if, for any $\vec{x}_1, \vec{x}_2 \in \mathcal{S}$, and for any $0 \leq \lambda \leq 1$, we have
+\begin{equation}
+f(\lambda\vec{x}_1+(1-\lambda)\vec{x}_2) \leq \lambda f(\vec{x}_1)+(1-\lambda)f(\vec{x}_2)
+\end{equation}
+\end{definition}
+
+A function is called \textbf{strictly convex} if the inequality is strict. A
+function $f(\vec{x})$ is \textbf{concave} if $-f(\vec{x})$ is convex. Examples of scalar convex functions include $x^2$, $e^x$, and $x\log x$(for $x>0$). Examples of scalar concave functions include $\log x$ and $\sqrt x$.
+
+Intuitively, a (strictly) convex function has a “bowl shape”, and hence has a unique global minimum $x^*$ corresponding to the bottom of the bowl. Hence its second derivative must be positive everywhere, $\frac{\mathrm{d}}{\mathrm{d}x}f(x)>0$. A twice-continuously differentiable, multivariate function $f$ is convex iff its Hessian is positive definite for all $\vec{x}$. In the machine learning context, the function $f$ often corresponds to the NLL.
+
+Models where the NLL is convex are desirable, since this means we can always find the globally optimal MLE. We will see many examples of this later in the book. However, many models of interest will not have concave likelihoods. In such cases, we will discuss ways to derive locally optimal parameter estimates.
+
+
 \section{Gradient descent}
 \label{sec:Gradient-descent}
 

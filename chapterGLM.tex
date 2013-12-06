@@ -1,0 +1,185 @@
+\chapter{Generalized linear models and the exponential family}
+\label{chap:GLM}
+
+
+\section{The exponential family}
+\label{sec:exponential-family}
+
+Before defining the exponential family, we mention several reasons why it is important:
+\begin{itemize}
+\item{It can be shown that, under certain regularity conditions, the exponential family is the only family of distributions with finite-sized sufficient statistics, meaning that we can compress the data into a fixed-sized summary without loss of information. This is particularly useful for online learning, as we will see later.}
+\item{The exponential family is the only family of distributions for which conjugate priors exist, which simplifies the computation of the posterior (see Section ~\ref{sec:Bayes-for-the-exponential-family}).}
+\item{The exponential family can be shown to be the family of distributions that makes the least set of assumptions subject to some user-chosen constraints (see Section ~\ref{sec:Maximum-entropy-derivation-of-the-exponential-family}).}
+\item{The exponential family is at the core of generalized linear models, as discussed in Section ~\ref{sec:GLMs}.}
+\item{The exponential family is at the core of variational inference, as discussed in Section TODO.}
+\end{itemize}
+
+
+\subsection{Definition}
+A pdf or pmf $p(\vec{x}|\vec{\theta})$,for $\vec{x} \in \mathbb{R}^m$ and $\vec{\theta} \in \mathbb{R}^D$, is said to be in the \textbf{exponential family} if it is of the form
+\begin{align}
+p(\vec{x}|\vec{\theta}) & =\dfrac{1}{Z(\vec{\theta})}h(\vec{x})\exp[\vec{\theta}^T\phi(\vec{x})] \\
+    & = h(\vec{x})\exp[\vec{\theta}^T\phi(\vec{x})-A(\vec{\theta})] \label{eqn:exponential-family}
+\end{align}
+where
+\begin{align}
+Z(\vec{\theta}) & =\int h(\vec{x})\exp[\vec{\theta}^T\phi(\vec{x})]\mathrm{d}\vec{x} \\
+A(\vec{\theta}) & =\log Z(\vec{\theta})
+\end{align}
+
+Here $\vec{\theta}$ are called the \textbf{natural parameters} or \textbf{canonical parameters}, $\phi(\vec{x}) \in \mathbb{R}^D$ is called a vector of \textbf{sufficient statistics}, $Z(\vec{\theta})$ is called the \textbf{partition function}, $A(\vec{\theta})$ is called the \textbf{log partition function} or \textbf{cumulant function}, and $h(\vec{x})$ is the a scaling constant, often 1. If $\phi(\vec{x})=\vec{x}$, we say it is a \textbf{natural exponential family}.
+
+Equation ~\eqref{eqn:exponential-family} can be generalized by writing
+\begin{equation}
+p(\vec{x}|\vec{\theta}) = h(\vec{x})\exp[\eta(\vec{\theta})^T\phi(\vec{x})-A(\eta(\vec{\theta}))]
+\end{equation}
+where $\eta$ is a function that maps the parameters $\vec{\theta}$ to the canonical parameters $\vec{\eta}=\eta(\vec{\theta})$.If $\mathrm{dim}(\vec{\theta})<\mathrm{dim}(\eta(\vec{\theta}))$, it is called a \textbf{curved exponential family}, which means we have more sufficient statistics than parameters. If $\eta(\vec{\theta})=\vec{\theta}$, the model is said to be in \textbf{canonical form}. We will assume models are in canonical form unless we state otherwise.
+
+
+\subsection{Examples}
+
+
+\subsubsection{Bernoulli}
+The Bernoulli for $x \in \{0,1\}$ can be written in exponential family form as follows:
+\begin{equation}
+\mathrm{Ber}(x|\mu)=\mu^x(1-\mu)^{1-x}=\exp[x\log\mu+(1-x)\log(1-\mu)]
+\end{equation}
+where $\phi(x)=(\mathbb{I}(x=0),\mathbb{I}(x=1))$ and $\vec{\theta}=(\log\mu,\log(1-\mu))$. 
+
+However, this representation is \textbf{over-complete} since $\vec{1}^T\phi(x)=\mathbb{I}(x=0)+\mathbb{I}(x=1)=1$. Consequently $\vec{\theta}$ is not uniquely identifiable. It is common to require that the representation be \textbf{minimal}, which means there is a unique $\theta$ associated with the distribution. In this case, we can just define
+\begin{align}
+\mathrm{Ber}(x|\mu) & =(1-\mu)\exp\left(x\log\dfrac{\mu}{1-\mu}\right) \\
+\text{where } \phi(x) & =x, \theta=\log\dfrac{\mu}{1-\mu}, Z=\dfrac{1}{1-\mu}  \nonumber
+\end{align}
+
+We can recover the mean parameter $\mu$ from the canonical parameter using
+\begin{equation}
+\mu=\mathrm{sigm}(\theta)=\dfrac{1}{1+e^{-\theta}}
+\end{equation}
+
+
+\subsubsection{Multinoulli}
+We can represent the multinoulli as a minimal exponential family as follows:
+\begin{align}
+\mathrm{Cat}(\vec{x}|\vec{\mu}) & = \prod\limits_{k=1}^K = \exp\left(\sum\limits_{k=1}^K x_k\log\mu_k\right) \nonumber \\
+    & = \exp\left[\sum\limits_{k=1}^{K-1} x_k\log\mu_k+(1-\sum\limits_{k=1}^{K-1} x_k)\log(1-\sum\limits_{k=1}^{K-1} \mu_k)\right] \nonumber \\
+	& = \exp\left[\sum\limits_{k=1}^{K-1} x_k\log\dfrac{\mu_k}{1-\sum_{k=1}^{K-1} \mu_k} + \log(1-\sum\limits_{k=1}^{K-1} \mu_k) \right] \nonumber \\
+	& = \exp\left[\sum\limits_{k=1}^{K-1} x_k\log\dfrac{\mu_k}{\mu_K}+\log\mu_K\right] \quad \text{, where } \mu_K \triangleq 1-\sum\limits_{k=1}^{K-1} \mu_k \nonumber
+\end{align}
+
+We can write this in exponential family form as follows:
+\begin{align}
+\mathrm{Cat}(\vec{x}|\vec{\mu}) & = \exp[\vec{\theta}^T\phi(\vec{x})-A(\vec{\theta})] \\
+\vec{\theta} & \triangleq (\log\dfrac{\mu_1}{\mu_K},\cdots,\log\dfrac{\mu_{K-1}}{\mu_K}) \\
+\phi(\vec{x}) & \triangleq (x_1,\cdots,x_{K-1})
+\end{align}
+
+We can recover the mean parameters from the canonical parameters using
+\begin{align}
+\mu_k & = \dfrac{e^{\theta_k}}{1+\sum_{j=1}^{K-1} e^{\theta_j}} \\
+\mu_K & = 1- \dfrac{\sum_{j=1}^{K-1} e^{\theta_j}}{1+\sum_{j=1}^{K-1} e^{\theta_j}}=\dfrac{1}{1+\sum_{j=1}^{K-1} e^{\theta_j}}
+\end{align}
+and hence
+\begin{equation}
+A(\vec{\theta]} = -\log\mu_K=\log(1+\sum\limits_{j=1}^{K-1} e^{\theta_j})
+\end{equation}
+
+
+\subsubsection{Univariate Gaussian}
+The univariate Gaussian can be written in exponential family form as follows:
+\begin{align}
+\mathcal{N}(x|\mu,\sigma^2) & =\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left[-\dfrac{1}{2\sigma^2}(x-\mu)^2\right] \nonumber \\
+    & = \dfrac{1}{\sqrt{2\pi}\sigma}\exp\left[-\dfrac{1}{2\sigma^2}x^2+\dfrac{\mu}{\sigma^2}x-\dfrac{1}{2\sigma^2}\mu^2\right] \nonumber \\
+	& = \dfrac{1}{Z(\vec{\theta})}\exp[\vec{\theta}^T\phi(x)]
+\end{align}
+where
+\begin{align}
+\vec{\theta} & = (\dfrac{\mu}{\sigma^2}, -\dfrac{1}{2\sigma^2}) \\
+\phi(x) & =(x,x^2) \\
+Z(\vec{\theta}) & =\sqrt{2\pi}\sigma\exp(\dfrac{\mu^2}{2\sigma^2})
+\end{align}
+
+
+\subsubsection{Non-examples}
+Not all distributions of interest belong to the exponential family. For example, the uniform distribution,$X \sim U(a,b)$, does not, since the support of the distribution depends on the parameters. Also, the Student T distribution (Section TODO) does not belong, since it does not have the required form.
+
+
+\subsection{Log partition function}
+An important property of the exponential family is that derivatives of the log partition function can be used to generate \textbf{cumulants} of the sufficient statistics.\footnote{The first and second cumulants of a distribution are its mean $\mathbb{E}[X]$ and variance $\mathrm{var}[X]$, whereas the first and second moments are its mean $\mathbb{E}[X]$ and $\mathbb{E}[X^2]$.} For this reason, $A(\vec{\theta})$ is sometimes called a \textbf{cumulant function}. We will prove this for a 1-parameter distribution; this can be generalized to a $K$-parameter distribution in a straightforward way. For the first derivative we have
+
+For the second derivative we have
+\begin{align}
+\dfrac{\mathrm{d} A}{\mathrm{d} \theta} & = \dfrac{\mathrm{d}}{\mathrm{d} \theta}\left\{\log\int\exp\left[\theta\phi(x)\right]h(x)\mathrm{d}x\right\} \nonumber \\
+    & = \dfrac{\frac{\mathrm{d}}{\mathrm{d} \theta}\int\exp\left[\theta\phi(x)\right]h(x)\mathrm{d}x}{\int\exp\left[\theta\phi(x)\right]h(x)\mathrm{d}x} \nonumber \\
+	& = \dfrac{\int\phi(x)exp\left[\theta\phi(x)\right]h(x)\mathrm{d}x}{\exp(A(\theta))} \nonumber \\
+	& = \int \phi(x)\exp\left[\theta\phi(x)-A(\theta)\right]h(x)\mathrm{d}x \nonumber \\
+	& = \int \phi(x)p(x)\mathrm{d}x=\mathbb{E}[\phi(x)]
+\end{align}
+
+For the second derivative we have
+\begin{align}
+\dfrac{\mathrm{d}^2 A}{\mathrm{d} \theta^2} & = \int \phi(x)\exp\left[\theta\phi(x)-A(\theta)\right]h(x)\left[\phi(x)-A'(\theta)\right]\mathrm{d}x \nonumber \\
+    & = \int \phi(x)p(x)\left[\phi(x)-A'(\theta)\right]\mathrm{d}x \nonumber \\
+	& = \int \phi^2(x)p(x)\mathrm{d}x-A'(\theta)\int \phi(x)p(x)\mathrm{d}x \nonumber \\
+	& = \mathbb{E}[\phi^2(x)]-\mathbb{E}[\phi(x)]^2=\mathrm{var}[\phi(x)]
+\end{align}
+
+In the multivariate case, we have that
+\begin{equation}
+\dfrac{\partial^2 A}{\partial \theta_i \partial \theta_j}=\mathbb{E}[\phi_i(x)\phi_j(x)]-\mathbb{E}[\phi_i(x)]\mathbb{E}[\phi_j(x)]
+\end{equation}
+and hence
+\begin{equation}
+\nabla^2A(\vec{\theta}) = \mathrm{cov}[\phi(\vec{x})]
+\end{equation}
+
+Since the covariance is positive definite, we see thatA(θ)is a convex function (see Section ~\ref{sec:Convexity}).
+
+
+\subsection{MLE for the exponential family}
+The likelihood of an exponential family model has the form
+\begin{equation}
+p(\mathcal{D}|\vec{\theta})=\left[\prod\limits_{i=1}^N h(\vec{x}_i)\right]g(\vec{\theta})^N\exp\left[\vec{\theta}^T\left(\sum\limits_{i=1}^N \phi(\vec{x}_i)\right)\right]
+\end{equation}
+
+We see that the sufficient statistics are $N$ and
+\begin{equation}
+\phi(\mathcal{D})=\sum\limits_{i=1}^N \phi(\vec{x}_i)=(\sum\limits_{i=1}^N \phi_1(\vec{x}_i),\cdots,\sum\limits_{i=1}^N \phi_K(\vec{x}_i))
+\end{equation}
+
+The \textbf{Pitman-Koopman-Darmois theorem} states that, under certain regularity conditions, the exponential family is the only family of distributions with finite sufficient statistics. (Here, finite means of a size independent of the size of the data set.)
+
+One of the conditions required in this theorem is that the support of the distribution not be dependent on the parameter.
+
+
+\subsection{Bayes for the exponential family}
+\label{sec:Bayes-for-the-exponential-family}
+TODO
+
+
+\subsubsection{Likelihood}
+
+
+
+\subsection{Maximum entropy derivation of the exponential family *}
+\label{sec:Maximum-entropy-derivation-of-the-exponential-family}
+
+
+
+\section{Generalized linear models (GLMs)}
+\label{sec:GLMs}
+Linear and logistic regression are examples of \textbf{generalized linear models}, or \textbf{GLM}s (McCullagh and Nelder 1989). These are models in which the output density is in the exponential family (Section ~\ref{sec:exponential-family}), and in which the mean parameters are a linear combination of the inputs, passed through a possibly nonlinear function, such as the logistic function. We describe GLMs in more detail below. We focus on scalar outputs for notational simplicity. (This excludes multinomial logistic regression, but this is just to simplify the presentation.)
+
+
+\subsection{Basics}
+
+
+
+\section{Probit regression}
+
+
+
+\section{Multi-task learning}
+
+
+
