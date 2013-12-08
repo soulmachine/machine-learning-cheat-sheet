@@ -22,4 +22,4 @@ This open-source book adopts the [Springer latex template](http://www.springer.c
     set `Default Compiler` to `XeLaTex`,  
     set `PDF Viewer` to `Internal PDF Viewer(windowed)`, so that when previewing it will pop up a standalone window, which will be convenient.
 4. Compile. Use Open `machine-learning-cheat-sheet.tex` with TeXstudio，click the green arrow on the menu bar, then it will start to compile.  
-    In the messages window below we can see the compilation command that TeXstudio is using is `xelatex -synctex=1 -interaction=nonstopmode "machine-learning-cheat-sheet".tex`
+    In the messages window below we can see the compilation command that TeXstudio is using is `xelatex -synctex=1 --enable-write18 -interaction=nonstopmode "machine-learning-cheat-sheet".tex`

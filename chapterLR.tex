@@ -200,7 +200,7 @@ Smoothing splines & Regr & Discrim & Non & Section 15.4.6 \\
 \label{sec:Dealing-with-missing-data}
 Sometimes some of the inputs (components of $\vec{x}$) are not observed; this could be due to a sensor failure, or a failure to complete an entry in a survey, etc. This is called the \textbf{missing data problem} (Little. and Rubin 1987). The ability to handle missing data in a principled way is one of the biggest advantages of generative models.
 
-To formalize our assumptions, we can associate a binary response variable $r_i \in \{0,1\}$ that specifies whether each value $\vec{x}i$ is observed or not. The joint model has the form $p(\vec{x}_i,r_i|\vec{\theta},\vec{\phi})=p(r_i|\vec{x}_i,\vec{\phi})p(\vec{x}_i|\vec{\theta})$, where $\vec{\phi}$ are the parameters controlling whether the item is observed or not. 
+To formalize our assumptions, we can associate a binary response variable $r_i \in \{0,1\}$ that specifies whether each value $\vec{x}_i$ is observed or not. The joint model has the form $p(\vec{x}_i,r_i|\vec{\theta},\vec{\phi})=p(r_i|\vec{x}_i,\vec{\phi})p(\vec{x}_i|\vec{\theta})$, where $\vec{\phi}$ are the parameters controlling whether the item is observed or not. 
 \begin{itemize}
 \item{If we assume $p(r_i|\vec{x}_i,\vec{\phi})=p(r_i|\vec{\phi})$, we say the data is \textbf{missing completely at random} or \textbf{MCAR}.}
 \item{If we assume $p(r_i|\vec{x}_i,\vec{\phi})=p(r_i|\vec{x}_i^o,\vec{\phi})$, where $\vec{x}_i^o$ is the observed part of $\vec{x}_i$, we say the data is \textbf{missing at random} or \textbf{MAR}.}

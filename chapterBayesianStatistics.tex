@@ -83,6 +83,8 @@ We find $p(\delta>0|\mathcal{D})=0.710$, which means you are better off buying f
 
 
 \section{Bayesian model selection}
+\label{sec:Bayesian-model-selection}
+
 In general, when faced with a set of models (i.e., families of parametric distributions) of different complexity, how should we choose the best one? This is called the \textbf{model selection} problem.
 
 One approach is to use cross-validation to estimate the generalization error of all the candidate models, and then to pick the model that seems the best. However, this requires fitting each model $K$ times, where $K$ is the number of CV folds. A more efficient approach is to compute the posterior over models,
