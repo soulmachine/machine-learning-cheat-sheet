@@ -144,18 +144,28 @@ where $1/\tau^2$ controls the strength of the prior. The corresponding MAP estim
 \end{equation}
 
 It is a simple exercise to show that this is equivalent to minimizing the following
-\begin{equation}
+\begin{equation}\label{eqn:Ridge-regression-J}
 J(\vec{w})=\dfrac{1}{N}\sum\limits_{i=1}^N (y_i-(w_0+\vec{w}^T\vec{x}_i))^2+\lambda\lVert\vec{w}\rVert^2 \quad \text{, where }\lambda \triangleq \dfrac{\sigma^2}{\tau^2}
 \end{equation}
 
 Here the first term is the MSE/ NLL as usual, and the second term, $\lambda \geq 0$, is a complexity penalty. The corresponding solution is given by
-\begin{equation}
+\begin{equation}\label{eqn:Ridge-regression-solution}
 \hat{\vec{w}}_{\mathrm{ridge}}=(\lambda\vec{I}_D+\vec{X}^T\vec{X})^{-1}\vec{X}^T\vec{y}
 \end{equation}
 
 This technique is known as \textbf{ridge regression},or \textbf{penalized least squares}. In general, adding a Gaussian prior to the parameters of a model to encourage them to be small is called $\ell_2$ \textbf{regularization} or \textbf{weight decay}. Note that the offset term $w_0$ is not regularized, since this just affects the height of the function, not its complexity.
 
 We will consider a variety of different priors in this book. Each of these corresponds to a different form of \textbf{regularization}. This technique is very widely used to prevent overfitting.
+
+
+\subsection{Numerically stable computation *}
+
+\begin{equation}\label{eqn:Ridge-regression-SVD}
+\hat{\vec{w}}_{\mathrm{ridge}}=\vec{V}(\vec{Z}^T\vec{Z}+\lambda\vec{I}_N)^{-1}\vec{Z}^T\vec{y}
+\end{equation}
+
+
+\subsection{Connection with PCA *}
 
 
 \subsection{Regularization effects of big data}
