@@ -586,17 +586,14 @@ For example, suppose $X \sim U(−1,1)$, and $Y=X^2$. Then $p_Y(y)=\dfrac{1}{2}y
 
 
 \subsection{Central limit theorem}
-
-\begin{theorem}
 Given $N$ random variables $X_1,X_2,\cdots,X_N$, each variable is \textbf{independent and identically distributed}\footnote{\url{http://en.wikipedia.org/wiki/Independent_identically_distributed}}(\textbf{iid} for short), and each has the same mean $\mu$ and variance $\sigma^2$, then
 \begin{equation}
 \dfrac{\sum\limits_{i=1}^n X_i-N\mu}{\sqrt{N}\sigma} \sim \mathcal{N}(0,1)
 \end{equation}
 this can also be written as
 \begin{equation}
-\dfrac{\bar{X}-\mu}{\sigma/\sqrt{N}} \sim \mathcal{N}(0,1) \text{ where } \bar{X} \triangleq \dfrac{1}{N}\sum\limits_{i=1}^n X_i
+\dfrac{\bar{X}-\mu}{\sigma/\sqrt{N}} \sim \mathcal{N}(0,1) \quad \text{, where } \bar{X} \triangleq \dfrac{1}{N}\sum\limits_{i=1}^n X_i
 \end{equation}
-\end{theorem}
 
 
 \section{Monte Carlo approximation}

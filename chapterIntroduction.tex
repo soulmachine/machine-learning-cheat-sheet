@@ -89,7 +89,33 @@ SRM(Structural risk minimization)
 Finally, we need a \textbf{training algorithm}(also called \textbf{learning algorithm}) to search among the classifiers in the the hypothesis space for the highest-scoring one. The choice of optimization technique is key to the \textbf{efficiency} of the model.
 
 
-\section{Cross validation}
+\section{Some basic concepts}
+
+
+\subsection{Parametric vs non-parametric models}
+
+
+\subsection{A simple non-parametric classifier: K-nearest neighbours}
+
+\subsubsection{Representation}
+\begin{equation}
+y=f(\vec{x})=\arg\min_{c}{\sum\limits_{\vec{x}_i \in N_k(\vec{x})} \mathbb{I}(y_i=c)}
+\end{equation}
+where $N_k(\vec{x})$ is the set of k points that are closest to point $\vec{x}$.
+
+Usually use \textbf{k-d tree} to accelerate the process of finding k nearest points.
+
+\subsubsection{Evaluation}
+No training is needed.
+
+\subsubsection{Optimization}
+No training is needed.
+
+
+\subsection{Overfitting}
+
+
+\subsection{Cross validation}
 \label{sec:Cross-validation}
 \begin{definition}
 \textbf{Cross validation}, sometimes called \emph{rotation estimation}, is a \emph{model validation} technique for assessing how the results of a statistical analysis will generalize to an independent data set\footnote{\url{http://en.wikipedia.org/wiki/Cross-validation_(statistics)}}.
@@ -101,3 +127,9 @@ Common types of cross-validation:
 \item 2-fold cross-validation. Also, called simple cross-validation or holdout method. This is the simplest variation of k-fold cross-validation, k=2.
 \item Leave-one-out cross-validation(\emph{LOOCV}). k=M, the number of original samples.
 \end{enumerate}
+
+
+\subsection{Model selection}
+When we have a variety of models of different complexity (e.g., linear or logistic regression models with different degree polynomials, or KNN classifiers with different values ofK), how should we pick the right one? A natural approach is to compute the \textbf{misclassification rate} on the training set for each method.
+
+
