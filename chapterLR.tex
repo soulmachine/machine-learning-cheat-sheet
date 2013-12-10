@@ -23,7 +23,7 @@ J(\vec{w}) & \triangleq \mathrm{NLL}(\vec{w})= -\ell(\vec{w}) = -\sum\limits_{i=
 
 Equation \eqref{eqn:cross-entropy-error} is also called the \textbf{cross-entropy} error function (see Equation \eqref{eqn:cross-entropy}).
 
-Unlike linear regression, we can no longer write down the MLE in closed form. Instead, we need to use an optimization algorithm to compute it, see Appendix ~\ref{chap:Optimization-methods}. For this, we need to derive the gradient and Hessian.
+Unlike linear regression, we can no longer write down the MLE in closed form. Instead, we need to use an optimization algorithm to compute it, see Appendix \ref{chap:Optimization-methods}. For this, we need to derive the gradient and Hessian.
 
 In the case of logistic regression, one can show that the gradient and Hessian of this are given by the following
 \begin{align}
@@ -46,9 +46,9 @@ $\ell_2$ regularization
 
 we can use $\ell_2$ regularization, just as we did with ridge regression. We note that the new objective, gradient and Hessian have the following forms:
 \begin{align}
-J'(\vec{w}) \triangleq \mathrm{NLL}(\vec{w})+\lambda \vec{w}^T\vec{w} \\
+J'(\vec{w}) & \triangleq \mathrm{NLL}(\vec{w})+\lambda \vec{w}^T\vec{w} \\
 \vec{g}'(\vec{w}) &= \vec{g}(\vec{w})+\lambda\vec{w} \\
-\vec{H}'(\vec{w}) &= \vec{H}(\vec{w})+\lambda\vec{I} \\
+\vec{H}'(\vec{w}) &= \vec{H}(\vec{w})+\lambda\vec{I}
 \end{align}
 
 It is a simple matter to pass these modified equations into any gradient-based optimizer.
@@ -145,7 +145,7 @@ TODO
 \begin{equation}
 \mathcal{H}:y=f(\vec{x})=\text{sign}(\vec{w}^T\vec{x}+b)
 \end{equation}
-where $\text{sign}(x)=\begin{cases}+1, & x \geq 0\\-1, & x<0\\\end{cases}$, see Fig. ~\ref{fig:perceptron}\footnote{\url{https://en.wikipedia.org/wiki/Perceptron}}.
+where $\text{sign}(x)=\begin{cases}+1, & x \geq 0\\-1, & x<0\\\end{cases}$, see Fig. \ref{fig:perceptron}\footnote{\url{https://en.wikipedia.org/wiki/Perceptron}}.
 
 \begin{figure}[hbtp]
 \centering
@@ -246,32 +246,32 @@ f(\vec{x})&=&\text{sign}\left(\sum\limits_{j=1}^{N} \alpha_jy_j\vec{x}_j \cdot \
 
 \subsection{Pros and cons of each approach}
 \begin{itemize}
-\item{\textbf{Easy to fit?} As we have seen, it is usually very easy to fit generative classifiers. For example, in Sections ~\ref{sec:NBC-Optimization} and ~\ref{sec:MLE-for-discriminant-analysis}, we show that we can fit a naive Bayes model and an LDA model by simple counting and averaging. By contrast, logistic regression requires solving a convex optimization problem (see Section ~\ref{sec:binomial-LR-Optimization} for the details), which is much slower.}
+\item{\textbf{Easy to fit?} As we have seen, it is usually very easy to fit generative classifiers. For example, in Sections \ref{sec:NBC-Optimization} and \ref{sec:MLE-for-discriminant-analysis}, we show that we can fit a naive Bayes model and an LDA model by simple counting and averaging. By contrast, logistic regression requires solving a convex optimization problem (see Section \ref{sec:binomial-LR-Optimization} for the details), which is much slower.}
 
 \item{\textbf{Fit classes separately?} In a generative classifier, we estimate the parameters of each class conditional density independently, so we do not have to retrain the model when we add more classes. In contrast, in discriminative models, all the parameters interact, so the whole model must be retrained if we add a new class. (This is also the case if we train a generative model to maximize a discriminative objective Salojarvi et al. (2005).)}
 
-\item{\textbf{Handle missing features easily?} Sometimes some of the inputs (components ofx) are not observed. In a generative classifier, there is a simple method for dealing with this, as we discuss in Section ~\ref{sec:Dealing-with-missing-data}. However, in a discriminative classifier, there is no principled solution to this problem, since the model assumes that $\vec{x}$is always available to be conditioned on (although see (Marlin 2008) for some heuristic approaches).}
+\item{\textbf{Handle missing features easily?} Sometimes some of the inputs (components ofx) are not observed. In a generative classifier, there is a simple method for dealing with this, as we discuss in Section \ref{sec:Dealing-with-missing-data}. However, in a discriminative classifier, there is no principled solution to this problem, since the model assumes that $\vec{x}$is always available to be conditioned on (although see (Marlin 2008) for some heuristic approaches).}
 
 \item{\textbf{Can handle unlabeled training data?} There is much interest in \textbf{semi-supervised learning}, which uses unlabeled data to help solve a supervised task. This is fairly easy to do using generative models (see e.g., (Lasserre et al. 2006; Liang et al. 2007)), but is much harder to do with discriminative models.}
 
 \item{\textbf{Symmetric in inputs and outputs?} We can run a generative model “backwards”, and infer probable inputs given the output by computing $p(\vec{x}|y)$. This is not possible with a discriminative model. The reason is that a generative model defines a joint distribution on $\vec{x}$ and $y$, and hence treats both inputs and outputs symmetrically.}
 
-\item{\textbf{Can handle feature preprocessing?} A big advantage of discriminative methods is that they allow us to preprocess the input in arbitrary ways, e.g., we can replace $\vec{x}$ with $\phi(\vec{x})$, which could be some basis function expansion, as illustrated in Figure ~\ref{fig:function-expansion}. It is often hard to define a generative model on such pre-processed data, since the new features are correlated in complex ways.}
+\item{\textbf{Can handle feature preprocessing?} A big advantage of discriminative methods is that they allow us to preprocess the input in arbitrary ways, e.g., we can replace $\vec{x}$ with $\phi(\vec{x})$, which could be some basis function expansion, as illustrated in Figure \ref{fig:function-expansion}. It is often hard to define a generative model on such pre-processed data, since the new features are correlated in complex ways.}
 
 \item{\textbf{Well-calibrated probabilities?} Some generative models, such as naive Bayes, make strong independence assumptions which are often not valid. This can result in very extreme posterior class probabilities (very near 0 or 1). Discriminative models, such as logistic regression, are usually better calibrated in terms of their probability estimates.}
 \end{itemize}
 
-See Table ~\ref{tab:List-of-various-models-for-classification} for a summary of the classification and regression techniques we cover in this book.
+See Table \ref{tab:List-of-various-models-for-classification} for a summary of the classification and regression techniques we cover in this book.
 
 \begin{longtable}{lllll}
 \hline\noalign{\smallskip}
 \textbf{Model} & \textbf{Classif/regr} & \textbf{Gen/Discr} & \textbf{Param/Non} & \textbf{Section} \\
 \noalign{\smallskip}\hline\noalign{\smallskip}
-Discriminant analysis & Classif & Gen & Param & Sec. ~\ref{sec:Linear-discriminant-analysis}, ~\ref{sec:MLE-for-discriminant-analysis} \\
-Naive Bayes classifier & Classif & Gen & Param & Sec. ~\ref{sec:NBC}, ~\ref{sec:Bayesian-naive-Bayes} \\
+Discriminant analysis & Classif & Gen & Param & Sec. \ref{sec:Linear-discriminant-analysis}, \ref{sec:MLE-for-discriminant-analysis} \\
+Naive Bayes classifier & Classif & Gen & Param & Sec. \ref{sec:NBC}, \ref{sec:Bayesian-naive-Bayes} \\
 Tree-augmented Naive Bayes classifier & Classif & Gen & Param & Sec. 10.2.1 \\
 Linear regression & Regr & Discrim & Param & Sec. 1.4.5, 7.3, 7.6 \\
-Logistic regression & Classif & Discrim & Param & Sec. 1.4.6, ~\ref{sec:IRLS}, ~\ref{sec:Gaussian-approximation-for-logistic-regression}, 21.8.1.1 \\
+Logistic regression & Classif & Discrim & Param & Sec. 1.4.6, \ref{sec:IRLS}, \ref{sec:Gaussian-approximation-for-logistic-regression}, 21.8.1.1 \\
 Sparse linear/ logistic regression & Both & Discrim & Param & Ch. 13 \\
 Mixture of experts & Both & Discrim & Param & Sec. 11.2.4 \\
 Multilayer perceptron (MLP)/ Neural network & Both & Discrim & Param & Ch. 16 \\
@@ -321,7 +321,7 @@ p(y=c|\vec{x}_{2:D},\vec{\theta}) & \propto p(y=c|\vec{\theta})p(\vec{x}_{2:D}|y
       & = \propto p(y=c|\vec{\theta})\sum\limits_{x_1}p(x_1, \vec{x}_{2:D}|y=c,\vec{\theta})
 \end{align}
 
-Similarly, in discriminant analysis, no matter what regularization method was used to estimate the parameters, we can always analytically marginalize out the missing variables (see Section ~\ref{sec:Inference-in-jointly-Gaussian-distributions}):
+Similarly, in discriminant analysis, no matter what regularization method was used to estimate the parameters, we can always analytically marginalize out the missing variables (see Section \ref{sec:Inference-in-jointly-Gaussian-distributions}):
 \begin{equation}
 p(\vec{x}_{2:D}|y=c,\vec{\theta})=\mathcal{N}(\vec{x}_{2:D}|\vec{\mu}_{c,2:D},\vec{\Sigma}_{c,2:D})
 \end{equation}

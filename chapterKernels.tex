@@ -142,7 +142,7 @@ Although it seems strange to fit a model to a single data point, it is important
 \end{equation}
 which is (up to a constant factor) the RBF kernel.
 
-It turns out that one can compute Equation ~\eqref{eqn:Probability-product-kernels} for a variety of generative models, including ones with latent variables, such as HMMs. This provides one way to define kernels on variable length sequences. Furthermore, this technique works even if the sequences are of real-valued vectors, unlike the string kernel in Section ~\ref{sec:String-kernels}. See (Jebara et al. 2004) for further details
+It turns out that one can compute Equation ~\eqref{eqn:Probability-product-kernels} for a variety of generative models, including ones with latent variables, such as HMMs. This provides one way to define kernels on variable length sequences. Furthermore, this technique works even if the sequences are of real-valued vectors, unlike the string kernel in Section \ref{sec:String-kernels}. See (Jebara et al. 2004) for further details
 
 
 \subsubsection{Fisher kernels}
@@ -173,7 +173,7 @@ We define a \textbf{kernel machine} to be a GLM where the input feature vector h
 
 where $\vec{\mu}_k \in \mathcal{X}$ are a set of $K$ centroids. If $\kappa$ is an RBF kernel, this is called an \textbf{RBF network}. We discuss ways to choose the $\vec{\mu}_k$ parameters below. We will call Equation \eqref{eqn:kernel-machine} a \textbf{kernelised feature vector}. Note that in this approach, the kernel need not be a Mercer kernel.
 
-We can use the kernelized feature vector for logistic regression by defining $p(y|\vec{x},\vec{\theta})=\mathrm{Ber}(y|\vec{w}^T\phi(\vec{x}))$. This provides a simple way to define a non-linear decision boundary. For example, see Figure ~\ref{fig:kenel-machine-xor}.
+We can use the kernelized feature vector for logistic regression by defining $p(y|\vec{x},\vec{\theta})=\mathrm{Ber}(y|\vec{w}^T\phi(\vec{x}))$. This provides a simple way to define a non-linear decision boundary. For example, see Figure \ref{fig:kenel-machine-xor}.
 
 \begin{figure}[hbtp]
 \centering
@@ -189,7 +189,7 @@ We can also use the kernelized feature vector inside a linear regression model b
 \label{sec:sparse-kernel-machines}
 The main issue with kernel machines is: how do we choose the centroids $\vec{\mu}_k$? We can use \textbf{sparse vector machine}, \textbf{L1VM}, \textbf{L2VM}, \textbf{RVM}, \textbf{SVM}.
 
-In Figure ~\ref{fig:L2VM-L1VM-RVM-SVM-2d}, we compare L2VM, L1VM, RVM and an SVM using the same RBF kernel on a binary classification problem in 2d.
+In Figure \ref{fig:L2VM-L1VM-RVM-SVM-2d}, we compare L2VM, L1VM, RVM and an SVM using the same RBF kernel on a binary classification problem in 2d.
 
 \begin{figure}[hbtp]
 \centering
@@ -198,7 +198,7 @@ In Figure ~\ref{fig:L2VM-L1VM-RVM-SVM-2d}, we compare L2VM, L1VM, RVM and an SVM
 \label{fig:L2VM-L1VM-RVM-SVM-2d} 
 \end{figure}
 
-In Figure ~\ref{fig:L2VM-L1VM-RVM-SVM-1d}, we compare L2VM, L1VM, RVM and an SVM using an RBF kernel on a 1d regression problem. 
+In Figure \ref{fig:L2VM-L1VM-RVM-SVM-1d}, we compare L2VM, L1VM, RVM and an SVM using an RBF kernel on a 1d regression problem. 
 \begin{figure}[hbtp]
 \centering
     \includegraphics[scale=.70]{L2VM-L1VM-RVM-SVM-1d.png}
@@ -220,7 +220,7 @@ then by replacing all $<\vec{x}_i,\vec{x}_j>$ with $\kappa(\vec{x}_i,\vec{x}_j)$
 
 
 \subsection{Kernelized K-medoids clustering}
-\textbf{K-medoids algorothm} is similar to K-means(see Section ~\ref{sec:K-means}), but instead of representing each cluster’s centroid by the mean of all data vectors assigned to this cluster, we make each centroid be one of the data vectors themselves. Thus we always deal with integer indexes, rather than data objects.
+\textbf{K-medoids algorothm} is similar to K-means(see Section \ref{sec:K-means}), but instead of representing each cluster’s centroid by the mean of all data vectors assigned to this cluster, we make each centroid be one of the data vectors themselves. Thus we always deal with integer indexes, rather than data objects.
 
 This algorithm can be kernelized by using Equation \eqref{eqn:Euclidean-distance} to replace the distance computation.
 
@@ -263,7 +263,7 @@ So we have succesfully kernelized ridge regression by changing from primal to du
 
 
 \subsubsection{Computational cost}
-The cost of computing the dual variables $\vec{\alpha}$ is $O(N^3)$, whereas the cost of computing the primal variables $\vec{w}$ is $O(D^3)$. Hence the kernel method can be useful in high dimensional settings, even if we only use a linear kernel (c.f., the SVD trick in Equation \eqref{eqn:Ridge-regression-SVD}). However, prediction using the dual variables takes $O(ND)$ time, while prediction using the primal variables only takes $O(D)$ time. We can speedup prediction by making $\vec{\alpha}$ sparse, as we discuss in Section ~\ref{sec:SVMs}.
+The cost of computing the dual variables $\vec{\alpha}$ is $O(N^3)$, whereas the cost of computing the primal variables $\vec{w}$ is $O(D^3)$. Hence the kernel method can be useful in high dimensional settings, even if we only use a linear kernel (c.f., the SVD trick in Equation \eqref{eqn:Ridge-regression-SVD}). However, prediction using the dual variables takes $O(ND)$ time, while prediction using the primal variables only takes $O(D)$ time. We can speedup prediction by making $\vec{\alpha}$ sparse, as we discuss in Section \ref{sec:SVMs}.
 
 
 \subsection{Kernel PCA}
@@ -272,7 +272,7 @@ TODO
 
 \section{Support vector machines (SVMs)}
 \label{sec:SVMs}
-In Section ~\ref{sparse-kernel-machines}, we saw one way to derive a sparse kernel machine, namely by using a GLM with kernel basis functions, plus a sparsity-promoting prior such as $\ell_1$ or ARD. An alternative approach is to change the objective function from negative log likelihood to some other loss function, as we discussed in Section ~\ref{sec:Surrogate-loss-functions}. In particular, consider the $\ell_2$ regularized empirical risk function
+In Section \ref{sparse-kernel-machines}, we saw one way to derive a sparse kernel machine, namely by using a GLM with kernel basis functions, plus a sparsity-promoting prior such as $\ell_1$ or ARD. An alternative approach is to change the objective function from negative log likelihood to some other loss function, as we discussed in Section \ref{sec:Surrogate-loss-functions}. In particular, consider the $\ell_2$ regularized empirical risk function
 \begin{equation}
 J(\vec{w}, \lambda)=\sum\limits{i=1}^N L(y_i, \hat{y_i})+\lambda\lVert\vec{w}\rVert^2 \quad \text{, where } \hat{y_i}=\vec{w}^T\vec{x}_i+w_0
 \end{equation}
@@ -288,7 +288,7 @@ Note that SVMs are very unnatural from a probabilistic point of view.
 \item{Finally, SVMs do not result in probabilistic outputs, which causes various difficulties, especially in the multi-class classification setting (see Section 14.5.2.4 TODO for details).}
 \end{itemize}
 
-It is possible to obtain sparse, probabilistic, multi-class kernel-based classifiers, which work as well or better than SVMs, using techniques such as the L1VM or RVM, discussed in Section ~\ref{sec:sparse-kernel-machines}. However, we include a discussion of SVMs, despite their non-probabilistic nature, for two main reasons. 
+It is possible to obtain sparse, probabilistic, multi-class kernel-based classifiers, which work as well or better than SVMs, using techniques such as the L1VM or RVM, discussed in Section \ref{sec:sparse-kernel-machines}. However, we include a discussion of SVMs, despite their non-probabilistic nature, for two main reasons. 
 \begin{itemize}
 \item{First, they are very popular and widely used, so all students of machine learning should know about them.}
 \item{Second, they have some computational advantages over probabilistic methods in the structured output case; see Section 19.7 TODO.}
@@ -435,7 +435,7 @@ This is a standard quadratic problem in $2N+D+1$ variables.
 
 \subsection{Choosing $C$}
 \label{sec:SVM-Choosing-C}
-SVMs for both classification and regression require that you specify the kernel function and the parameter $C$. Typically $C$ is chosen by cross-validation. Note, however, that $C$ interacts quite strongly with the kernel parameters. For example, suppose we are using an RBF kernel with precision $\gamma=\frac{1}{2\sigma^2}$. If $\gamma=5$, corresponding to narrow kernels, we need heavy regularization, and hence small $C$(so $\lambda=1/C$is big). If $\gamma=1$, a larger value of $C$should be used. So we see that $\gamma$ and $C$ are tightly coupled. This is illustrated in Figure ~\ref{fig:choosing-C}, which shows the CV estimate of the 0-1 risk as a function of $C$ and $\gamma$.
+SVMs for both classification and regression require that you specify the kernel function and the parameter $C$. Typically $C$ is chosen by cross-validation. Note, however, that $C$ interacts quite strongly with the kernel parameters. For example, suppose we are using an RBF kernel with precision $\gamma=\frac{1}{2\sigma^2}$. If $\gamma=5$, corresponding to narrow kernels, we need heavy regularization, and hence small $C$(so $\lambda=1/C$is big). If $\gamma=1$, a larger value of $C$should be used. So we see that $\gamma$ and $C$ are tightly coupled. This is illustrated in Figure \ref{fig:choosing-C}, which shows the CV estimate of the 0-1 risk as a function of $C$ and $\gamma$.
 
 \begin{figure}[hbtp]
 \centering
@@ -454,16 +454,16 @@ TODO see MLAPP Section 14.5.5
 
 
 \subsection{Summary of key points}
-Summarizing the above discussion, we recognize that SVM classifiers involve three key ingredients: the kernel trick, sparsity, and the large margin principle. The kernel trick is necessary to prevent underfitting, i.e., to ensure that the feature vector is sufficiently rich that a linear classifier can separate the data. (Recall from Section ~\ref{sec:Mercer-kernels} that any Mercer kernel can be viewed as implicitly defining a potentially high dimensional feature vector.) If the original features are already high dimensional (as in many gene expression and text classification problems), it suffices to use a linear kernel, $\kappa(\vec{x},\vec{x}')=\vec{x}^T\vec{x}'$ , which is equivalent to working with the original features.
+Summarizing the above discussion, we recognize that SVM classifiers involve three key ingredients: the kernel trick, sparsity, and the large margin principle. The kernel trick is necessary to prevent underfitting, i.e., to ensure that the feature vector is sufficiently rich that a linear classifier can separate the data. (Recall from Section \ref{sec:Mercer-kernels} that any Mercer kernel can be viewed as implicitly defining a potentially high dimensional feature vector.) If the original features are already high dimensional (as in many gene expression and text classification problems), it suffices to use a linear kernel, $\kappa(\vec{x},\vec{x}')=\vec{x}^T\vec{x}'$ , which is equivalent to working with the original features.
 
 The sparsity and large margin principles are necessary to prevent overfitting, i.e., to ensure that we do not use all the basis functions. These two ideas are closely related to each other, and both arise (in this case) from the use of the hinge loss function. However, there are other methods of achieving sparsity (such as $\ell_1$), and also other methods of maximizing the margin(such as boosting). A deeper discussion of this point takes us outside of the scope of this book. See e.g., (Hastie et al. 2009) for more information.
 
 
 \section{Comparison of discriminative kernel methods}
-We have mentioned several different methods for classification and regression based on kernels, which we summarize in Table ~\ref{tab:Comparison-of-kernel-based-classifiers}. (GP stands for “Gaussian process”, which we discuss in Chapter 15 TODO.) The columns have the following meaning:
+We have mentioned several different methods for classification and regression based on kernels, which we summarize in Table \ref{tab:Comparison-of-kernel-based-classifiers}. (GP stands for “Gaussian process”, which we discuss in Chapter 15 TODO.) The columns have the following meaning:
 \begin{itemize}
 \item{Optimize $\vec{w}$: a key question is whether the objective $J(\vec{w}=-\log p(\mathcal{D}|\vec{w})-\log p(\vec{w}))$ is convex or not. L2VM, L1VM and SVMs have convex objectives. RVMs do not. GPs are Bayesian methods that do not perform parameter estimation.}
-\item{Optimize kernel: all the methods require that one “tune” the kernel parameters, such as the bandwidth of the RBF kernel, as well as the level of regularization. For methods based on Gaussians, including L2VM, RVMs and GPs, we can use efficient gradient based optimizers to maximize the marginal likelihood. For SVMs, and L1VM, we must use cross validation, which is slower (see Section ~\ref{sec:SVM-Choosing-C}).}
+\item{Optimize kernel: all the methods require that one “tune” the kernel parameters, such as the bandwidth of the RBF kernel, as well as the level of regularization. For methods based on Gaussians, including L2VM, RVMs and GPs, we can use efficient gradient based optimizers to maximize the marginal likelihood. For SVMs, and L1VM, we must use cross validation, which is slower (see Section \ref{sec:SVM-Choosing-C}).}
 \item{Sparse: L1VM, RVMs and SVMs are sparse kernel methods, in that they only use a subset of the training examples. GPs and L2VM are not sparse: they use all the training examples. The principle advantage of sparsity is that prediction at test time is usually faster. In addition, one can sometimes get improved accuracy.}
 \item{Probabilistic: All the methods except for SVMs produce probabilistic output of the form $p(y|\vec{x})$. SVMs produce a “confidence” value that can be converted to a probability, but such probabilities are usually very poorly calibrated (see Section 14.5.2.3 TODO).}
 \item{Multiclass: All the methods except for SVMs naturally work in the multiclass setting, by using a multinoulli output instead of Bernoulli. The SVM can be made into a multiclass classifier, but there are various difficulties with this approach, as discussed in Section 14.5.2.4 TODO.}

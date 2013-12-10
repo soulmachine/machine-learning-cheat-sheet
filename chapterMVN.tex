@@ -5,7 +5,7 @@ In this chapter, we discuss the \textbf{multivariate Gaussian} or \textbf{multiv
 
 
 \section{Basics}
-Recall from Section ~\ref{sec:MVN} that the pdf for an MVN in $D$ dimensions is defined by the following:
+Recall from Section \ref{sec:MVN} that the pdf for an MVN in $D$ dimensions is defined by the following:
 \begin{equation}
 \mathcal{N}(\vec{x}|\vec{\mu},\Sigma) \triangleq \dfrac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}\exp\left[-\dfrac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu})\right]
 \end{equation}
@@ -24,7 +24,7 @@ where $y_i \triangleq \vec{u}_i^T(\vec{x}-\vec{\mu})$. Recall that the equation 
 \dfrac{y_1^2}{\lambda_1}+\dfrac{y_2^2}{\lambda_2}=1
 \end{equation}
 
-Hence we see that the contours of equal probability density of a Gaussian lie along ellipses. This is illustrated in Figure ~\ref{fig:2d-MVN}. The eigenvectors determine the orientation of the ellipse, and the eigenvalues determine how elogonated it is.
+Hence we see that the contours of equal probability density of a Gaussian lie along ellipses. This is illustrated in Figure \ref{fig:2d-MVN}. The eigenvectors determine the orientation of the ellipse, and the eigenvalues determine how elogonated it is.
 
 \begin{figure}[hbtp]
 \centering
@@ -77,7 +77,7 @@ When we compute the probability of $\vec{x}$ under each class conditional densit
 \label{fig:2d-Gaussians-Visualization} 
 \end{figure}
 
-As an example, Figure ~\ref{fig:2d-Gaussians-Visualization} shows two Gaussian class-conditional densities in 2d, representing the height and weight of men and women. We can see that the features are correlated, as is to be expected (tall people tend to weigh more). The ellipses for each class contain 95\% of the probability mass. If we have a uniform prior over classes, we can classify a new test vector as follows:
+As an example, Figure \ref{fig:2d-Gaussians-Visualization} shows two Gaussian class-conditional densities in 2d, representing the height and weight of men and women. We can see that the features are correlated, as is to be expected (tall people tend to weigh more). The ellipses for each class contain 95\% of the probability mass. If we have a uniform prior over classes, we can classify a new test vector as follows:
 \begin{equation}
 y=\arg\max_{c} (\vec{x}-\vec{\mu}_c)^T\vec{\Sigma}_c^{-1}(\vec{x}-\vec{\mu}_c)
 \end{equation}
@@ -89,7 +89,7 @@ By plugging in the definition of the Gaussian density to Equation ~\eqref{eqn:Ge
 p(y|\vec{x},\vec{\theta})=\dfrac{\pi_c|2\pi\vec{\Sigma}_c|^{-\frac{1}{2}}\exp\left[-\frac{1}{2}(\vec{x}-\vec{\mu})^T\vec{\Sigma}^{-1}(\vec{x}-\vec{\mu})\right]}{\sum_{c'}\pi_{c'}|2\pi\vec{\Sigma}_{c'}|^{-\frac{1}{2}}\exp\left[-\frac{1}{2}(\vec{x}-\vec{\mu})^T\vec{\Sigma}^{-1}(\vec{x}-\vec{\mu})\right]}
 \end{equation}
 
-Thresholding this results in a quadratic function ofx. The result is known as quadratic discriminant analysis(QDA). Figure ~\ref{fig:QDA} gives some examples of what the decision boundaries look like in 2D.
+Thresholding this results in a quadratic function ofx. The result is known as quadratic discriminant analysis(QDA). Figure \ref{fig:QDA} gives some examples of what the decision boundaries look like in 2D.
 
 \begin{figure}[hbtp]
 \centering
@@ -174,7 +174,7 @@ p(y=1|\vec{x},\vec{\theta})=\text{sigm}(\vec{w}^T(\vec{x}-\vec{x}_0))
 \label{fig:2d-LDA} 
 \end{figure}
 
-If $\vec{\Sigma}=\sigma^2\vec{I}$, then $\vec{w}$ is in the direction of $\vec{\mu}_1-\vec{\mu}_0$. So we classify the point based on whether its projection is closer to $\vec{\mu}_0$ or $\vec{\mu}_1$ . This is illustrated in Figure ~\ref{fig:2d-LDA}. Furthemore, if $\vec{\pi}_1=\vec{\pi}_0$, then $\vec{x}_0=\frac{1}{2}(\vec{\mu}_1+\vec{\mu}_0)$, which is half way between the means. If we make $\vec{\pi}_1>\vec{\pi}_0$, then $\vec{x}_0$ gets closer to $\vec{\mu}_0$, so more of the line belongs to class 1 a \emph{priori}. Conversely if $\vec{\pi}_1<\vec{\pi}_0$, the boundary shifts right. Thus we see that the class prior, πc, just changes the decision threshold, and not the overall geometry, as we claimed above. (A similar argument applies in the multi-class case.)
+If $\vec{\Sigma}=\sigma^2\vec{I}$, then $\vec{w}$ is in the direction of $\vec{\mu}_1-\vec{\mu}_0$. So we classify the point based on whether its projection is closer to $\vec{\mu}_0$ or $\vec{\mu}_1$ . This is illustrated in Figure \ref{fig:2d-LDA}. Furthemore, if $\vec{\pi}_1=\vec{\pi}_0$, then $\vec{x}_0=\frac{1}{2}(\vec{\mu}_1+\vec{\mu}_0)$, which is half way between the means. If we make $\vec{\pi}_1>\vec{\pi}_0$, then $\vec{x}_0$ gets closer to $\vec{\mu}_0$, so more of the line belongs to class 1 a \emph{priori}. Conversely if $\vec{\pi}_1<\vec{\pi}_0$, the boundary shifts right. Thus we see that the class prior, πc, just changes the decision threshold, and not the overall geometry, as we claimed above. (A similar argument applies in the multi-class case.)
 
 The magnitude of $\vec{w}$ determines the steepness of the logistic function, and depends on how well-separated the means are, relative to the variance. In psychology and signal detection theory, it is common to define the \textbf{discriminability} of a signal from the background noise using a quantity called \textbf{d-prime}:
 \begin{equation}
@@ -201,10 +201,10 @@ The MLE for each parameter is as follows:
 \subsection{Strategies for preventing overfitting}
 The speed and simplicity of the MLE method is one of its greatest appeals. However, the MLE can badly overfit in high dimensions. In particular, the MLE for a full covariance matrix is singular if $N_c <D$. And even when $N_c >D$, the MLE can be ill-conditioned, meaning it is close to singular. There are several possible solutions to this problem:
 \begin{itemize}
-\item{Use a diagonal covariance matrix for each class, which assumes the features are conditionally independent; this is equivalent to using a naive Bayes classifier (Section ~\ref{sec:NBC})}.
-\item{Use a full covariance matrix, but force it to be the same for all classes,$\vec{\Sigma}_c=\vec{\Sigma}$. This is an example of \textbf{parameter tying} or \textbf{parameter sharing}, and is equivalent to LDA (Section ~\ref{sec:Linear-discriminant-analysis}).}
+\item{Use a diagonal covariance matrix for each class, which assumes the features are conditionally independent; this is equivalent to using a naive Bayes classifier (Section \ref{sec:NBC})}.
+\item{Use a full covariance matrix, but force it to be the same for all classes,$\vec{\Sigma}_c=\vec{\Sigma}$. This is an example of \textbf{parameter tying} or \textbf{parameter sharing}, and is equivalent to LDA (Section \ref{sec:Linear-discriminant-analysis}).}
 \item{Use a diagonal covariance matrix and forced it to be shared. This is called diagonal covariance LDA, and is discussed in Section TODO.}
-\item{Use a full covariance matrix, but impose a prior and then integrate it out. If we use a conjugate prior, this can be done in closed form, using the results from Section TODO; this is analogous to the “Bayesian naive Bayes” method in Section ~\ref{sec:Bayesian-naive-Bayes}. See (Minka 2000f) for details.}
+\item{Use a full covariance matrix, but impose a prior and then integrate it out. If we use a conjugate prior, this can be done in closed form, using the results from Section TODO; this is analogous to the “Bayesian naive Bayes” method in Section \ref{sec:Bayesian-naive-Bayes}. See (Minka 2000f) for details.}
 \item{Fit a full or diagonal covariance matrix by MAP estimation. We discuss two different kindsof prior below.}
 \item{Project the data into a low dimensional subspace and fit the Gaussians there. See Section TODO for a way to find the best (most discriminative) linear projection.}
 \end{itemize}

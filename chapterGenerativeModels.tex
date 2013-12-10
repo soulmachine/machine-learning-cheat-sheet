@@ -13,7 +13,7 @@ Psychological research has shown that people can learn concepts from positive ex
 
 We can think of learning the meaning of a word as equivalent to \textbf{concept learning}, which in turn is equivalent to binary classification. To see this, define $f(\vec{x})=1$ if xis an example of the concept $C$, and $f(\vec{x})=0$ otherwise. Then the goal is to learn the indicator function $f$, which just defines which elements are in the set $C$.
 
-For pedagogical purposes, we will consider a very simple example of concept learning called the \textbf{number game}, based on part of Josh Tenenbaum’s PhD thesis (Tenenbaum 1999), see Figure ~\ref{fig:Empirical-predictive-distribution}. 
+For pedagogical purposes, we will consider a very simple example of concept learning called the \textbf{number game}, based on part of Josh Tenenbaum’s PhD thesis (Tenenbaum 1999), see Figure \ref{fig:Empirical-predictive-distribution}. 
 
 \begin{figure}[hbtp]
 \centering
@@ -36,7 +36,7 @@ The prior is decided by human, not machines, so it is subjective. The subjectivi
 
 However, the prior is the mechanism by which background knowledge can be brought to bear on a problem. Without this, rapid learning (i.e., from small samples sizes) is impossible.
 
-So, what prior should we use? For illustration purposes, let us use a simple prior which puts uniform probability on 30 simple arithmetical concepts, such as “even numbers”, “odd numbers”, “prime numbers”, “numbers ending in 9”, etc. We also include two “unnatural” concepts, namely “powers of 2, plus 37” and “powers of 2, except 32”, but give them low prior weight. See Figure ~\ref{fig:posterior1}(a) for a plot of this prior. 
+So, what prior should we use? For illustration purposes, let us use a simple prior which puts uniform probability on 30 simple arithmetical concepts, such as “even numbers”, “odd numbers”, “prime numbers”, “numbers ending in 9”, etc. We also include two “unnatural” concepts, namely “powers of 2, plus 37” and “powers of 2, except 32”, but give them low prior weight. See Figure \ref{fig:posterior1}(a) for a plot of this prior. 
 
 
 \subsection{Posterior}
@@ -46,9 +46,9 @@ p(h|\mathcal{D}) \triangleq \dfrac{p(\mathcal{D}|h)p(h)}{\sum_{h' \in \mathcal{H
 \end{equation}
 where $\mathbb{I}(\mathcal{D} \in h)p(h)$ is 1 \textbf{iff}(iff and only if) all the data are in the extension of the hypothesis $h$.
 
-Figure ~\ref{fig:posterior1} plots the prior, likelihood and posterior after seeing $\mathcal{D}=\{16\}$. We see that the posterior is a combination of prior and likelihood. In the case of most of the concepts, the prior is uniform, so the posterior is proportional to the likelihood. However, the “unnatural” concepts of “powers of 2, plus 37” and “powers of 2, except 32” have low posterior support, despite having high likelihood, due to the low prior. Conversely, the concept of odd numbers has low posterior support, despite having a high prior, due to the low likelihood.
+Figure \ref{fig:posterior1} plots the prior, likelihood and posterior after seeing $\mathcal{D}=\{16\}$. We see that the posterior is a combination of prior and likelihood. In the case of most of the concepts, the prior is uniform, so the posterior is proportional to the likelihood. However, the “unnatural” concepts of “powers of 2, plus 37” and “powers of 2, except 32” have low posterior support, despite having high likelihood, due to the low prior. Conversely, the concept of odd numbers has low posterior support, despite having a high prior, due to the low likelihood.
 
-Figure ~\ref{fig:posterior2} plots the prior, likelihood and posterior after seeing $\mathcal{D}=\{16,8,2,64\}$. Now the likelihood is much more peaked on the powers of two concept, so this dominates the posterior.
+Figure \ref{fig:posterior2} plots the prior, likelihood and posterior after seeing $\mathcal{D}=\{16,8,2,64\}$. Now the likelihood is much more peaked on the powers of two concept, so this dominates the posterior.
 
 \begin{figure}[hbtp]
 \centering
@@ -90,7 +90,7 @@ p(\tilde{\vec{x}}|\mathcal{D}) \triangleq \mathbb{E}_{h|\mathcal{D}}[p(\tilde{\v
 \end{cases}
 \end{equation}
 
-This is just a weighted average of the predictions of each individual hypothesis and is called \textbf{Bayes model averaging}(Hoeting et al. 1999). This is illustrated in Figure ~\ref{fig:posterior-predictive-distribution}. The dots at the bottom show the predictions from each hypothesis; the vertical curve on the right shows the weight associated with each hypothesis. If we multiply each row by its weight and add up, we get the distribution at the top.
+This is just a weighted average of the predictions of each individual hypothesis and is called \textbf{Bayes model averaging}(Hoeting et al. 1999). This is illustrated in Figure \ref{fig:posterior-predictive-distribution}. The dots at the bottom show the predictions from each hypothesis; the vertical curve on the right shows the weight associated with each hypothesis. If we multiply each row by its weight and add up, we get the distribution at the top.
 
 \begin{figure}[hbtp]
 \centering
@@ -129,7 +129,7 @@ p(\theta|\mathcal{D}_a,\mathcal{D}_b)& = p(\theta,\mathcal{D}_b|\mathcal{D}_a)p(
                &\propto p(\theta,\mathcal{D}_b|\mathcal{D}_a) \\
                & = p(\mathcal{D}_b,\theta|\mathcal{D}_a) \\
 			   & = p(\mathcal{D}_b|\theta)p(\theta|\mathcal{D}_a) \\
-			   & \text{Combine Equation ~\ref{eqn:beta-binomial-posterior} and ~\ref{eqn:binomial-pmf}} \\
+			   & \text{Combine Equation \ref{eqn:beta-binomial-posterior} and \ref{eqn:binomial-pmf}} \\
 			   & =\text{Bin}(N_1^b|\theta, N_1^b+N_0^b)\text{Beta}(\theta|N_1^a+a,N_0^a+b) \\
 			   & =\text{Beta}(\theta|N_1^a+N_1^b+a,N_0^a+N_0^b+b)
 \end{align*}
@@ -138,7 +138,7 @@ This makes Bayesian inference particularly well-suited to \textbf{online learnin
 
 \subsubsection{Posterior mean and mode}
 \label{sec:beta-binomial-Posterior-mean-and-mode}
-From Table ~\ref{tab:beta-distribution}, the posterior mean is given by
+From Table \ref{tab:beta-distribution}, the posterior mean is given by
 \begin{equation}
 \bar{\theta}=\dfrac{a+N_1}{a+b+N}
 \end{equation}
@@ -182,7 +182,7 @@ Let us now derive a simple Bayesian solution to the problem. We will use a unifo
 p(\tilde{x}|\mathcal{D})=\dfrac{N_1+1}{N_0+N_1+1}
 \end{equation}
 
-This justifies the common practice of adding 1 to the empirical counts, normalizing and then plugging them in, a technique known as \textbf{add-one smoothing}. (Note that plugging in the MAP parameters would not have this smoothing effect, since the mode becomes the MLE if $a=b=1$, see Section ~\ref{sec:beta-binomial-Posterior-mean-and-mode}.)
+This justifies the common practice of adding 1 to the empirical counts, normalizing and then plugging them in, a technique known as \textbf{add-one smoothing}. (Note that plugging in the MAP parameters would not have this smoothing effect, since the mode becomes the MLE if $a=b=1$, see Section \ref{sec:beta-binomial-Posterior-mean-and-mode}.)
 
 \subsubsection{Predicting the outcome of multiple future trials}
 Suppose now we were interested in predicting the number of heads, $\tilde{x}$, in $M$ future trials. This is given by
@@ -206,7 +206,7 @@ This distribution has the following mean and variance
 \text{mean}=M\dfrac{a}{a+b} \text{ , var}=\dfrac{Mab}{(a+b)^2}\dfrac{a+b+M}{a+b+1}
 \end{equation}
 
-This process is illustrated in Figure ~\ref{fig:beta-binomial-distribution}. We start with a Beta$(2,2)$ prior, and plot the posterior predictive density after seeing $N_1 =3$ heads and $N_0 =17$ tails. Figure ~\ref{fig:beta-binomial-distribution}(b) plots a plug-in approximation using a MAP estimate. We see that the Bayesian prediction has longer tails, spreading its probability mass more widely, and is therefore less prone to overfitting and blackswan type paradoxes.
+This process is illustrated in Figure \ref{fig:beta-binomial-distribution}. We start with a Beta$(2,2)$ prior, and plot the posterior predictive density after seeing $N_1 =3$ heads and $N_0 =17$ tails. Figure \ref{fig:beta-binomial-distribution}(b) plots a plug-in approximation using a MAP estimate. We see that the Bayesian prediction has longer tails, spreading its probability mass more widely, and is therefore less prone to overfitting and blackswan type paradoxes.
 
 \begin{figure}[hbtp]
 \centering
@@ -363,7 +363,7 @@ Since an NBC is fitting a joint distribution over potentially many features, it 
 
 One common approach to tackling both of these problems is to perform \textbf{feature selection}, to remove “irrelevant” features that do not help much with the classification problem. The simplest approach to feature selection is to evaluate the relevance of each feature separately, and then take the top K,whereKis chosen based on some tradeoff between accuracy and complexity. This approach is known as \textbf{variable ranking}, \textbf{filtering}, or \textbf{screening}.
 
-One way to measure relevance is to use mutual information (Section ~\ref{sec:Mutual-information}) between feature $X_j$ and the class label $Y$
+One way to measure relevance is to use mutual information (Section \ref{sec:Mutual-information}) between feature $X_j$ and the class label $Y$
 \begin{equation}
 \mathbb{I}(X_j,Y)=\sum\limits_{x_j}{\sum\limits_{y}{p(x_j,y)\log \dfrac{p(x_j,y)}{p(x_j)p(y)}}}
 \end{equation}

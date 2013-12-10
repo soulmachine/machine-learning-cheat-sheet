@@ -8,9 +8,9 @@
 Before defining the exponential family, we mention several reasons why it is important:
 \begin{itemize}
 \item{It can be shown that, under certain regularity conditions, the exponential family is the only family of distributions with finite-sized sufficient statistics, meaning that we can compress the data into a fixed-sized summary without loss of information. This is particularly useful for online learning, as we will see later.}
-\item{The exponential family is the only family of distributions for which conjugate priors exist, which simplifies the computation of the posterior (see Section ~\ref{sec:Bayes-for-the-exponential-family}).}
-\item{The exponential family can be shown to be the family of distributions that makes the least set of assumptions subject to some user-chosen constraints (see Section ~\ref{sec:Maximum-entropy-derivation-of-the-exponential-family}).}
-\item{The exponential family is at the core of generalized linear models, as discussed in Section ~\ref{sec:GLMs}.}
+\item{The exponential family is the only family of distributions for which conjugate priors exist, which simplifies the computation of the posterior (see Section \ref{sec:Bayes-for-the-exponential-family}).}
+\item{The exponential family can be shown to be the family of distributions that makes the least set of assumptions subject to some user-chosen constraints (see Section \ref{sec:Maximum-entropy-derivation-of-the-exponential-family}).}
+\item{The exponential family is at the core of generalized linear models, as discussed in Section \ref{sec:GLMs}.}
 \item{The exponential family is at the core of variational inference, as discussed in Section TODO.}
 \end{itemize}
 
@@ -133,7 +133,7 @@ and hence
 \nabla^2A(\vec{\theta}) = \mathrm{cov}[\phi(\vec{x})]
 \end{equation}
 
-Since the covariance is positive definite, we see that $A(\vec{\theta})$ is a convex function (see Section ~\ref{sec:Convexity}).
+Since the covariance is positive definite, we see that $A(\vec{\theta})$ is a convex function (see Section \ref{sec:Convexity}).
 
 
 \subsection{MLE for the exponential family}
@@ -168,7 +168,7 @@ TODO
 
 \section{Generalized linear models (GLMs)}
 \label{sec:GLMs}
-Linear and logistic regression are examples of \textbf{generalized linear models}, or \textbf{GLM}s (McCullagh and Nelder 1989). These are models in which the output density is in the exponential family (Section ~\ref{sec:exponential-family}), and in which the mean parameters are a linear combination of the inputs, passed through a possibly nonlinear function, such as the logistic function. We describe GLMs in more detail below. We focus on scalar outputs for notational simplicity. (This excludes multinomial logistic regression, but this is just to simplify the presentation.)
+Linear and logistic regression are examples of \textbf{generalized linear models}, or \textbf{GLM}s (McCullagh and Nelder 1989). These are models in which the output density is in the exponential family (Section \ref{sec:exponential-family}), and in which the mean parameters are a linear combination of the inputs, passed through a possibly nonlinear function, such as the logistic function. We describe GLMs in more detail below. We focus on scalar outputs for notational simplicity. (This excludes multinomial logistic regression, but this is just to simplify the presentation.)
 
 
 \subsection{Basics}

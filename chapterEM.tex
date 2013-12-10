@@ -3,13 +3,13 @@
 
 
 \section{Latent variable models}
-In Chapter ~\ref{chap:DGM} we showed how graphical models can be used to define high-dimensional joint probability distributions. The basic idea is to model dependence between two variables by adding an edge between them in the graph. (Technically the graph represents conditional
+In Chapter \ref{chap:DGM} we showed how graphical models can be used to define high-dimensional joint probability distributions. The basic idea is to model dependence between two variables by adding an edge between them in the graph. (Technically the graph represents conditional
 independence, but you get the point.)
 
 An alternative approach is to assume that the observed variables are correlated because they arise from a hidden common “cause”. Model with hidden variables are also known as \textbf{latent variable models} or \textbf{LVM}s. As we will see in this chapter, such models are harder to fit than models with no latent variables. However, they can have significant advantages, for two main reasons.
 \begin{itemize}
 \item{First, LVMs often have fewer parameters than models that directly represent correlation in the visible space.}
-\item{Second, the hidden variables in an LVM can serve as a \textbf{bottleneck}, which computes a compressed representation of the data. This forms the basis of unsupervised learning, as we will see. Figure ~\ref{fig:latent-variable-model} illustrates some generic LVM structures that can be used for this purpose.}
+\item{Second, the hidden variables in an LVM can serve as a \textbf{bottleneck}, which computes a compressed representation of the data. This forms the basis of unsupervised learning, as we will see. Figure \ref{fig:latent-variable-model} illustrates some generic LVM structures that can be used for this purpose.}
 \end{itemize}
 
 \begin{figure}[hbtp]
@@ -26,7 +26,7 @@ The simplest form of LVM is when $z_i \in \{1,\cdots,K\}$, representing a discre
 p(\vec{x}_i|\vec{\theta})=\sum\limits_{k=1}^K \pi_kp_k(\vec{x}_i|\vec{\theta})
 \end{equation}
 
-Depending on the form of the likelihood $p(\vec{x}_i|\vec{z}_i)$ and the prior $p(\vec{z}_i)$, we can generate a variety of different models, as summarized in Table ~\ref{tab:popular-directed-latent-variable-models}.
+Depending on the form of the likelihood $p(\vec{x}_i|\vec{z}_i)$ and the prior $p(\vec{z}_i)$, we can generate a variety of different models, as summarized in Table \ref{tab:popular-directed-latent-variable-models}.
 
 \begin{longtable}{llll}
 \hline\noalign{\smallskip}
@@ -85,13 +85,13 @@ The difference between generative classifiers and mixture models only arises at 
 
 
 \subsection{Mixtures of experts}
-Section 14.7.3 TODO described how to use mixture models in the context of generative classifiers. We can also use them to create discriminative models for classification and regression. For example, consider the data in Figure ~\ref{fig:mixture-of-experts}(a). It seems like a good model would be three different linear regression functions, each applying to a different part of the input space. We can model this by allowing the mixing weights and the mixture densities to be input-dependent:
+Section 14.7.3 TODO described how to use mixture models in the context of generative classifiers. We can also use them to create discriminative models for classification and regression. For example, consider the data in Figure \ref{fig:mixture-of-experts}(a). It seems like a good model would be three different linear regression functions, each applying to a different part of the input space. We can model this by allowing the mixing weights and the mixture densities to be input-dependent:
 \begin{align}
 p(y_i|\vec{x}_i,z_i=k,\vec{\theta}) & =\mathcal{N}(y_i|\vec{w}_k^T\vec{x},\sigma_k^2) \\
 p(z_i | \vec{x}_i,\vec{\theta}) & = \mathrm{Cat}(z_i|\mathcal{S}(\vec{V}^T\vec{x}_i))
 \end{align}
 
-See Figure ~\ref{fig:mixture-of-experts2}(a) for the DGM.
+See Figure \ref{fig:mixture-of-experts2}(a) for the DGM.
 
 \begin{figure}[hbtp]
 \centering
@@ -107,7 +107,7 @@ See Figure ~\ref{fig:mixture-of-experts2}(a) for the DGM.
 \label{fig:mixture-of-experts2} 
 \end{figure}
 
-This model is called a \textbf{mixture of experts} or MoE (Jordan and Jacobs 1994). The idea is that each submodel is considered to be an “expert” in a certain region of input space. The function $p(z_i | \vec{x}_i,\vec{\theta})$ is called a \textbf{gating function}, and decides which expert to use, depending on the input values. For example, Figure ~\ref{fig:mixture-of-experts}(b) shows how the three experts have “carved up” the 1d input space, Figure ~\ref{fig:mixture-of-experts}(a) shows the predictions of each expert individually (in this case, the experts are just linear regression models), and Figure ~\ref{fig:mixture-of-experts}(c) shows the overall prediction of the model, obtained using
+This model is called a \textbf{mixture of experts} or MoE (Jordan and Jacobs 1994). The idea is that each submodel is considered to be an “expert” in a certain region of input space. The function $p(z_i | \vec{x}_i,\vec{\theta})$ is called a \textbf{gating function}, and decides which expert to use, depending on the input values. For example, Figure \ref{fig:mixture-of-experts}(b) shows how the three experts have “carved up” the 1d input space, Figure \ref{fig:mixture-of-experts}(a) shows the predictions of each expert individually (in this case, the experts are just linear regression models), and Figure \ref{fig:mixture-of-experts}(c) shows the overall prediction of the model, obtained using
 \begin{equation}
 p(y_i|\vec{x}_i,\vec{\theta})=\sum\limits_{k=1}^K p(z_i=k | \vec{x}_i,\vec{\theta})p(y_i|\vec{x}_i,z_i=k,\vec{\theta})
 \end{equation}
@@ -132,7 +132,7 @@ For many models in machine learning and statistics, computing the ML or MAP para
 
 One approach is to use a generic gradient-based optimizer to find a local minimum of the NLL$(\vec{\theta})$. However, we often have to enforce constraints, such as the fact that covariance matrices must be positive definite, mixing weights must sum to one, etc., which can be tricky. In such cases, it is often much simpler (but not always faster) to use an algorithm called \textbf{expectation maximization},or \textbf{EM} for short (Dempster et al. 1977; Meng and van Dyk 1997; McLachlan and Krishnan 1997). This is is an efficient iterative algorithm to compute the ML or MAP estimate in the presence of missing or hidden data, often with closed-form updates at each step. Furthermore, the algorithm automatically enforce the required constraints.
 
-See Table ~\ref{tab:summary-of-the-applications-of-EM} for a summary of the applications of EM in this book.
+See Table \ref{tab:summary-of-the-applications-of-EM} for a summary of the applications of EM in this book.
 
 \begin{longtable}{ll}
 \hline\noalign{\smallskip}
@@ -175,7 +175,7 @@ This cannot be computed, since $\vec{z}_i$ is unknown. So let us define the \tex
 \begin{equation}\label{eqn:auxiliary-function}
 Q(\vec{\theta},\vec{\theta}^{t-1}) \triangleq \mathbb{E}_{\vec{z}|\mathcal{D},\theta^{t-1}}\left[\ell_c(\vec{\theta})\right]=\mathbb{E}\left[\ell_c(\vec{\theta})| \mathcal{D},\theta^{t-1}\right]
 \end{equation}
-where $t$ is the current iteration number. $Q$ is called the \textbf{auxiliary function}(see Section ~\ref{sec:Derivation-of-the-Q-function} for derivation). The expectation is taken wrt the old parameters, $\vec{\theta}^{t-1}$, and the observed data $\mathcal{D}$. The goal of the E-step is to compute $Q(\vec{\theta},\vec{\theta}^{t-1})$, or rather, the parameters inside of it which the MLE(or MAP) depends on; these are known as the \textbf{expected sufficient statistics} or \textbf{ESS}. In the M-step, we optimize the $Q$ function wrt $\vec{\theta}$:
+where $t$ is the current iteration number. $Q$ is called the \textbf{auxiliary function}(see Section \ref{sec:Derivation-of-the-Q-function} for derivation). The expectation is taken wrt the old parameters, $\vec{\theta}^{t-1}$, and the observed data $\mathcal{D}$. The goal of the E-step is to compute $Q(\vec{\theta},\vec{\theta}^{t-1})$, or rather, the parameters inside of it which the MLE(or MAP) depends on; these are known as the \textbf{expected sufficient statistics} or \textbf{ESS}. In the M-step, we optimize the $Q$ function wrt $\vec{\theta}$:
 \begin{equation}
 \vec{\theta}^t=\arg\max_{\vec{\theta}} Q(\vec{\theta},\vec{\theta}^{t-1})
 \end{equation}
@@ -299,7 +299,7 @@ p(\vec{\pi}) & = \mathrm{Dir}(\vec{\pi}|\vec{\alpha}) \\
 p(\vec{\mu}_k,\vec{\Sigma}_k) & = \mathrm{NIW}(\vec{\mu}_k,\vec{\Sigma}_k|\vec{m}_0,\kappa_0,\nu_0,\vec{S}_0)
 \end{align*}
 
-From Equation \eqref{eqn:Dir-MAP} and Section ~\ref{sec:Posterior-distribution-of-mu-and-Sigma}, the MAP estimate is given by
+From Equation \eqref{eqn:Dir-MAP} and Section \ref{sec:Posterior-distribution-of-mu-and-Sigma}, the MAP estimate is given by
 \begin{align}
 \hat{\pi}_k & = \frac{\sum_{i=1}^N r_{ik}+\alpha_k-1}{N+\sum_{k=1}^K \alpha_k-K} \\
 \hat{\vec{\mu}}_k & = \frac{\sum_{i=1}^N r_{ik}\vec{x}_i + \kappa_0\vec{m}_0}{\sum_{i=1}^N r_{ik} + \kappa_0} \\
@@ -388,7 +388,7 @@ The exact algorithm is as follows:
 \label{sec:Derivation-of-the-Q-function}
 
 \begin{theorem}
-(\textbf{Jensen's inequality}) Let $f$ be a convex function(see Section ~\ref{sec:Convexity}) defined on a convex set $\mathcal{S}$ . If $\vec{x}_1, \vec{x}_2, \cdots , \vec{x}_n \in \mathcal{S}$ and $\lambda_1, \lambda_2, \cdots , \lambda_n \geq 0$ with $\sum\limits_{i=1}^n \lambda_i=1$,
+(\textbf{Jensen's inequality}) Let $f$ be a convex function(see Section \ref{sec:Convexity}) defined on a convex set $\mathcal{S}$ . If $\vec{x}_1, \vec{x}_2, \cdots , \vec{x}_n \in \mathcal{S}$ and $\lambda_1, \lambda_2, \cdots , \lambda_n \geq 0$ with $\sum\limits_{i=1}^n \lambda_i=1$,
 \begin{equation}
 f\left(\sum\limits_{i=1}^n \lambda_i\vec{x}_i\right) \leq \sum\limits_{i=1}^n {\lambda_i f(\vec{x}_i)}
 \end{equation}
@@ -429,7 +429,7 @@ Now let's proof why the $Q$ function should look like Equation \eqref{eqn:auxili
 
 \subsubsection{Expected complete data log likelihood is a lower bound}
 
-Note that $\ell(\vec{\theta}) \geq B(\vec{\theta},\vec{\theta}^{t-1})$, and $\ell(\vec{\theta}^{t-1}) \geq B(\vec{\theta}^{t-1},\vec{\theta}^{t-1})$, which means $B(\vec{\theta},\vec{\theta}^{t-1})$ is an lower bound of $\ell(\vec{\theta})$. If we maximize $B(\vec{\theta},\vec{\theta}^{t-1})$, then $\ell(\vec{\theta})$ gets maximized, see Figure ~\ref{fig:EM-algorithm}.
+Note that $\ell(\vec{\theta}) \geq B(\vec{\theta},\vec{\theta}^{t-1})$, and $\ell(\vec{\theta}^{t-1}) \geq B(\vec{\theta}^{t-1},\vec{\theta}^{t-1})$, which means $B(\vec{\theta},\vec{\theta}^{t-1})$ is an lower bound of $\ell(\vec{\theta})$. If we maximize $B(\vec{\theta},\vec{\theta}^{t-1})$, then $\ell(\vec{\theta})$ gets maximized, see Figure \ref{fig:EM-algorithm}.
 
 \begin{figure}[hbtp]
 \centering
@@ -543,7 +543,7 @@ When using LVMs, we must specify the number of latent variables, which controls 
 
 
 \subsection{Model selection for probabilistic models}
-The optimal Bayesian approach, discussed in Section ~\ref{sec:Bayesian-model-selection}, is to pick the model with the largest marginal likelihood, $K^*=\arg\max_k p(\mathcal{D}|k)$.
+The optimal Bayesian approach, discussed in Section \ref{sec:Bayesian-model-selection}, is to pick the model with the largest marginal likelihood, $K^*=\arg\max_k p(\mathcal{D}|k)$.
 
 There are two problems with this. First, evaluating the marginal likelihood for LVMs is quite difficult. In practice, simple approximations, such as BIC, can be used (see e.g., (Fraley and Raftery 2002)). Alternatively, we can use the cross-validated likelihood as a performance measure, although this can be slow, since it requires fitting each model $F$ times, where Fis the number of CV folds.
 
@@ -573,7 +573,7 @@ Suppose we want to fit a joint density model by maximum likelihood, but we have 
 \hat{\vec{\theta}}=\arg\max_{\vec{\theta}} p(\vec{X}_v|\vec{\theta}, \vec{O})
 \end{equation}
 
-Under the missing at random assumption (see Section ~\ref{sec:Dealing-with-missing-data}), we have
+Under the missing at random assumption (see Section \ref{sec:Dealing-with-missing-data}), we have
 
 TODO
 

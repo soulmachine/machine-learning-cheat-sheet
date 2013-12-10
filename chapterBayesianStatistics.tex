@@ -10,19 +10,19 @@ The posterior $p(\vec{\theta}|\mathcal{D})$ summarizes everything we know about 
 
 
 \subsection{MAP estimation}
-We can easily compute a \textbf{point estimate} of an unknown quantity by computing the posterior mean, median or mode. In Section ~\ref{sec:Bayesian-decision-theory}, we discuss how to use decision theory to choose between these methods. Typically the posterior mean or median is the most appropriate choice for a realvalued quantity, and the vector of posterior marginals is the best choice for a discrete quantity. However, the posterior mode, aka the MAP estimate, is the most popular choice because it reduces to an optimization problem, for which efficient algorithms often exist. Futhermore, MAP estimation can be interpreted in non-Bayesian terms, by thinking of the log prior as a regularizer (see Section TODO for more details).
+We can easily compute a \textbf{point estimate} of an unknown quantity by computing the posterior mean, median or mode. In Section \ref{sec:Bayesian-decision-theory}, we discuss how to use decision theory to choose between these methods. Typically the posterior mean or median is the most appropriate choice for a realvalued quantity, and the vector of posterior marginals is the best choice for a discrete quantity. However, the posterior mode, aka the MAP estimate, is the most popular choice because it reduces to an optimization problem, for which efficient algorithms often exist. Futhermore, MAP estimation can be interpreted in non-Bayesian terms, by thinking of the log prior as a regularizer (see Section TODO for more details).
 
 Although this approach is computationally appealing, it is important to point out that there are various drawbacks to MAP estimation, which we briefly discuss below. This will provide motivation for the more thoroughly Bayesian approach which we will study later in this chapter(and elsewhere in this book).
 
 
 \subsubsection{No measure of uncertainty}
-The most obvious drawback of MAP estimation, and indeed of any other \emph{point estimate} such as the posterior mean or median, is that it does not provide any measure of uncertainty. In many applications, it is important to know how much one can trust a given estimate. We can derive such confidence measures from the posterior, as we discuss in Section ~\ref{sec:Credible-intervals}.
+The most obvious drawback of MAP estimation, and indeed of any other \emph{point estimate} such as the posterior mean or median, is that it does not provide any measure of uncertainty. In many applications, it is important to know how much one can trust a given estimate. We can derive such confidence measures from the posterior, as we discuss in Section \ref{sec:Credible-intervals}.
 
 \subsubsection{Plugging in the MAP estimate can result in overfitting}
-If we don’t model the uncertainty in our parameters, then our predictive distribution will be overconfident. Overconfidence in predictions is particularly problematic in situations where we may be risk averse; see Section ~\ref{sec:Bayesian-decision-theory} for details.
+If we don’t model the uncertainty in our parameters, then our predictive distribution will be overconfident. Overconfidence in predictions is particularly problematic in situations where we may be risk averse; see Section \ref{sec:Bayesian-decision-theory} for details.
 
 \subsubsection{The mode is an untypical point}
-Choosing the mode as a summary of a posterior distribution is often a very poor choice, since the mode is usually quite untypical of the distribution, unlike the mean or median. The basic problem is that the mode is a point of measure zero, whereas the mean and median take the volume of the space into account. See Figure ~\ref{fig:untypical-point}.
+Choosing the mode as a summary of a posterior distribution is often a very poor choice, since the mode is usually quite untypical of the distribution, unlike the mean or median. The basic problem is that the mode is a point of measure zero, whereas the mean and median take the volume of the space into account. See Figure \ref{fig:untypical-point}.
 
 \begin{figure}[hbtp]
 \centering
@@ -31,7 +31,7 @@ Choosing the mode as a summary of a posterior distribution is often a very poor 
 \label{fig:untypical-point} 
 \end{figure}
 
-How should we summarize a posterior if the mode is not a good choice? The answer is to use decision theory, which we discuss in Section ~\ref{sec:Bayesian-decision-theory}. The basic idea is to specify a loss function, where $L(\theta,\hat{\theta})$ is the loss you incur if the truth is $\theta$ and your estimate is $\hat{\theta}$. If we use 0-1 loss $L(\theta,\hat{\theta})=\mathbb{I}(\theta \neq \hat{\theta})$(see section ~\ref{sec:Loss-function-and-risk-function}), then the optimal estimate is the posterior mode. 0-1 loss means you only get “points” if you make no errors, otherwise you get nothing: there is no “partial credit” under this loss function! For continuous-valued quantities, we often prefer to use squared error loss, $L(\theta,\hat{\theta})=(\theta-\hat{\theta})^2$ ; the corresponding optimal estimator is then the posterior mean, as we show in Section ~\ref{sec:Bayesian-decision-theory}. Or we can use a more robust loss function, $L(\theta,\hat{\theta})=|\theta-\hat{\theta}|$, which gives rise to the posterior median.
+How should we summarize a posterior if the mode is not a good choice? The answer is to use decision theory, which we discuss in Section \ref{sec:Bayesian-decision-theory}. The basic idea is to specify a loss function, where $L(\theta,\hat{\theta})$ is the loss you incur if the truth is $\theta$ and your estimate is $\hat{\theta}$. If we use 0-1 loss $L(\theta,\hat{\theta})=\mathbb{I}(\theta \neq \hat{\theta})$(see section \ref{sec:Loss-function-and-risk-function}), then the optimal estimate is the posterior mode. 0-1 loss means you only get “points” if you make no errors, otherwise you get nothing: there is no “partial credit” under this loss function! For continuous-valued quantities, we often prefer to use squared error loss, $L(\theta,\hat{\theta})=(\theta-\hat{\theta})^2$ ; the corresponding optimal estimator is then the posterior mean, as we show in Section \ref{sec:Bayesian-decision-theory}. Or we can use a more robust loss function, $L(\theta,\hat{\theta})=|\theta-\hat{\theta}|$, which gives rise to the posterior median.
 
 \subsubsection{MAP estimation is not invariant to reparameterization *}
 A more subtle problem with MAP estimation is that the result we get depends on how we parameterize the probability distribution. Changing from one representation to another equivalent representation changes the result, which is not very desirable, since the units of measurement are arbitrary (e.g., when measuring distance, we can use centimetres or inches).
@@ -46,7 +46,7 @@ through $f$. Let $\hat{x}=\arg\max_x p_x(x)$ be the MAP estimate for $x$. In gen
 \label{fig:mode-reparameterization} 
 \end{figure}
 
-We can derive the distribution of $y$ using Monte Carlo simulation (see Section ~\ref{sec:Monte-Carlo-approximation}). The result is shown in Figure ~\ref{sec:mode-reparameterization}. We see that the original Gaussian has become “squashed” by the sigmoid nonlinearity. In particular, we see that the mode of the transformed distribution is not equal to the transform of the original mode.
+We can derive the distribution of $y$ using Monte Carlo simulation (see Section \ref{sec:Monte-Carlo-approximation}). The result is shown in Figure \ref{sec:mode-reparameterization}. We see that the original Gaussian has become “squashed” by the sigmoid nonlinearity. In particular, we see that the mode of the transformed distribution is not equal to the transform of the original mode.
 
 The MLE does not suffer from this since the likelihood is a function, not a probability density. Bayesian inference does not suffer from this problem either, since the change of measure is taken into account when integrating over the parameter space.
 
@@ -99,7 +99,7 @@ If we use a uniform prior over models, this amounts to picking the model which m
 p(\mathcal{D}|m)=\int{p(\mathcal{D}|\vec{\theta})p(\vec{\theta}|m)}\mathrm{d}\vec{\theta}
 \end{equation}
 
-This quantity is called the \textbf{marginal likelihood}, the \textbf{integrated likelihood}, or the \textbf{evidence} for model $m$. The details on how to perform this integral will be discussed in Section ~\ref{sec:Computing-the-marginal-likelihood}. But first we give an intuitive interpretation of what this quantity means.
+This quantity is called the \textbf{marginal likelihood}, the \textbf{integrated likelihood}, or the \textbf{evidence} for model $m$. The details on how to perform this integral will be discussed in Section \ref{sec:Computing-the-marginal-likelihood}. But first we give an intuitive interpretation of what this quantity means.
 
 
 \subsection{Bayesian Occam's razor}
@@ -110,9 +110,9 @@ One way to understand the Bayesian Occam’s razor is to notice that the margina
 p(D)=p((\vec{x}_1,y_1))p((\vec{x}_2,y_2)|(\vec{x}_1,y_1))p((\vec{x}_3,y_3)|(\vec{x}_1,y_1):(\vec{x}_2,y_2))\cdots p((\vec{x}_N,y_N)|(\vec{x}_1,y_1):(\vec{x}_{N-1},y_{N-1}))
 \end{equation}
 
-This is similar to a leave-one-out cross-validation estimate (Section ~\ref{sec:Cross-validation}) of the likelihood, since we predict each future point given all the previous ones. (Of course, the order of the data does not matter in the above expression.) If a model is too complex, it will overfit the “early” examples and will then predict the remaining ones poorly.
+This is similar to a leave-one-out cross-validation estimate (Section \ref{sec:Cross-validation}) of the likelihood, since we predict each future point given all the previous ones. (Of course, the order of the data does not matter in the above expression.) If a model is too complex, it will overfit the “early” examples and will then predict the remaining ones poorly.
 
-Another way to understand the Bayesian Occam’s razor effect is to note that probabilities must sum to one. Hence $\sum_{p(\mathcal{D}')} p(m|\mathcal{D}')=1$, where the sum is over all possible data sets. Complex models, which can predict many things, must spread their probability mass thinly, and hence will not obtain as large a probability for any given data set as simpler models. This is sometimes called the \textbf{conservation of probability mass} principle, and is illustrated in Figure ~\ref{fig:Bayesian-Occams-razor}.
+Another way to understand the Bayesian Occam’s razor effect is to note that probabilities must sum to one. Hence $\sum_{p(\mathcal{D}')} p(m|\mathcal{D}')=1$, where the sum is over all possible data sets. Complex models, which can predict many things, must spread their probability mass thinly, and hence will not obtain as large a probability for any given data set as simpler models. This is sometimes called the \textbf{conservation of probability mass} principle, and is illustrated in Figure \ref{fig:Bayesian-Occams-razor}.
 
 \begin{figure}[hbtp]
 \centering
@@ -121,7 +121,7 @@ Another way to understand the Bayesian Occam’s razor effect is to note that pr
 \label{fig:Bayesian-Occams-razor} 
 \end{figure}
 
-When using the Bayesian approach, we are not restricted to evaluating the evidence at a finite grid of values. Instead, we can use numerical optimization to find $\lambda^*=\arg\max_{\lambda}p(\mathcal{D}|\lambda)$. This technique is called \textbf{empirical Bayes} or \textbf{type II maximum likelihood} (see Section ~\ref{sec:Empirical-Bayes} for details). An example is shown in Figure TODO(b): we see that the curve has a similar shape to the CV estimate, but it can be computed more efficiently.
+When using the Bayesian approach, we are not restricted to evaluating the evidence at a finite grid of values. Instead, we can use numerical optimization to find $\lambda^*=\arg\max_{\lambda}p(\mathcal{D}|\lambda)$. This technique is called \textbf{empirical Bayes} or \textbf{type II maximum likelihood} (see Section \ref{sec:Empirical-Bayes} for details). An example is shown in Figure TODO(b): we see that the curve has a similar shape to the CV estimate, but it can be computed more efficiently.
 
 
 \subsection{Computing the marginal likelihood (evidence)}
@@ -284,7 +284,7 @@ Hence the \textbf{Bayes estimator}, also called the \textbf{Bayes decision rule}
 
 
 \subsubsection{MAP estimate minimizes 0-1 loss}
-When $L(y,f(x))$ is \textbf{0-1 loss}(Section ~\ref{sec:Loss-function-and-risk-function}), we can proof that MAP estimate minimizes 0-1 loss, 
+When $L(y,f(x))$ is \textbf{0-1 loss}(Section \ref{sec:Loss-function-and-risk-function}), we can proof that MAP estimate minimizes 0-1 loss, 
 \begin{align*}
 \arg\min\limits_{f \in \mathcal{H}} \rho(f)& =\arg\min\limits_{f \in \mathcal{H}} \sum\limits_{i=1}^K{L[C_k,f(\vec{x})]p(C_k|\vec{x})} \\
          & =\arg\min\limits_{f \in \mathcal{H}} \sum\limits_{i=1}^K{\mathbb{I}(f(\vec{x}) \neq C_k)p(C_k|\vec{x})} \\
