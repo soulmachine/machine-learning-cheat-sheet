@@ -308,8 +308,68 @@ From Equation \eqref{eqn:Dir-MAP} and Section ~\ref{sec:Posterior-distribution-o
 \end{align}
 
 
-\subsubsection{K-means algorithm}
+\subsection{EM for K-means}
 \label{sec:K-means}
+
+\subsubsection{Representation}
+\begin{equation}
+y_j=k \text{ if } \|\vec{x}_j-\vec{\mu}_k\|_2^2 \text{ is minimal}
+\end{equation}
+where $\vec{\mu}_k$ \ is\ the centroid of cluster k.
+
+
+\subsubsection{Evaluation}
+\begin{equation}
+\arg\min\limits_{\vec{\mu}} \sum_{j=1}^N {\sum_{k=1}^K}\gamma_{jk}{\|\vec{x}_j-\vec{\mu}_k\|_2^2}
+\end{equation}
+
+The hidden variable is $\gamma_{jk}$, which's meanining is:
+\begin{equation} \nonumber
+\gamma_{jk}=\begin{cases}
+1, & \text{if } \|\vec{x}_j-\vec{\mu}_k\|_2 \text{ is minimal for } \vec{\mu}_k \\
+0, & \text{otherwise}
+\end{cases}
+\end{equation}
+
+
+\subsubsection{Optimization}
+E-Step:
+\begin{equation}
+\gamma_{jk}^{(i+1)}=\begin{cases} 
+1, & \text{if } \|\vec{x}_j-\vec{\mu}_k^{(i)}\|_2 \text{ is minimal for } \vec{\mu}_k^{(i)} \\ 
+0, & \text{otherwise}
+\end{cases}
+\end{equation}
+
+M-Step:
+\begin{equation}
+\vec{\mu}_{k}^{(i+1)}= \frac{\sum_{j=1}^N{\gamma_{jk}^{(i+1)}\vec{x}_j}}{\sum \gamma_{jk}^{(i+1)}}
+\end{equation}
+
+
+\subsubsection{Tricks}
+
+\textbf{Choosing $k$}
+
+TODO
+
+\textbf{Choosing the initial centroids(seeds)}
+
+\begin{enumerate}
+\item  \textbf{K-means++}.
+
+The intuition that spreading out the k initial cluster centers is a good thing is behind this approach: the first cluster center is chosen uniformly at random from the data points that are being clustered, after which each subsequent cluster center is chosen from the remaining data points with probability proportional to its squared distance from the point's closest existing cluster center\footnote{\url{http://en.wikipedia.org/wiki/K-means++}}.
+
+The exact algorithm is as follows:
+\begin{enumerate}
+\item Choose one center uniformly at random from among the data points.
+\item For each data point \vec{x}, compute $D(\vec{x})$, the distance between \vec{x} and the nearest center that has already been chosen.
+\item Choose one new data point at random as a new center, using a weighted probability distribution where a point \vec{x} is chosen with probability proportional to $D(\vec{x})^2$.
+\item Repeat Steps 2 and 3 until $k$ centers have been chosen.
+\item Now that the initial centers have been chosen, proceed using standard k-means clustering.
+\end{enumerate}
+\item TODO
+\end{enumerate}
 
 
 \subsection{EM for mixture of experts}

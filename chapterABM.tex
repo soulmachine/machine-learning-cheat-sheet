@@ -1,16 +1,17 @@
-\chapter{AdaBoost}
+\chapter{Adaptive basis function models}
 
 
-\section{Representation}
+\section{AdaBoost}
 
+
+\subsection{Representation}
 \begin{equation}
 y=\text{sign}(f(\vec{x}))=\text{sign}\left(\sum\limits_{i=1}^m \alpha_mG_m(\vec{x})\right)
 \end{equation}
 where $G_m(\vec{x})$ are sub classifiers.
 
 
-\section{Evaluation}
-
+\subsection{Evaluation}
 \begin{equation} \nonumber
 L(y,f(\vec{x}))=\exp[-yf(\vec{x})] \text{  i.e., exponential loss function}
 \end{equation}
@@ -25,21 +26,21 @@ Define $\bar{w}_{mi}=\exp{[-y_i(f_{m-1}(\vec{x}_i)]}$, which is constant w.r.t. 
 \end{equation}
 
 
-\section{Optimization}
+\subsection{Optimization}
 
-\subsection{Input}
+
+\subsubsection{Input}
 \begin{eqnarray*}
 & \mathcal{D}=\{(\vec{x}_1,y_1),(\vec{x}_2,y2),\dots,(\vec{x}_N,y_N)\} \text{ ,where } \vec{x}_i \in \mathbb{R}^D,\ y_i \in \{-1,+1\} \\
 & \text{ Weak classifiers } \{G_1,G_2,\dots,G_m\}
 \end{eqnarray*}
 
 
-\subsection{Output}
+\subsubsection{Output}
 Final classifier: $G(x)$
 
 
-\subsection{Algorithm}
-
+\subsubsection{Algorithm}
 \begin{enumerate}
 \item Initialize the weights' distribution of training data(when $m=1$)
 \begin{equation}\nonumber
