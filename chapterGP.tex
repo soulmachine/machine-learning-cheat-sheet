@@ -1,0 +1,43 @@
+\chapter{Gaussian processes}
+
+
+\section{Introduction}
+In supervised learning, we observe some inputs $\vec{x}_i$ and some outputs $y_i$. We assume that $y_i =f(\vec{x}_i)$, for some unknown function $f$, possibly corrupted by noise. The optimal approach is to infer a \emph{distribution over functions} given the data, $p(f|\mathcal{D})$, and then to use this to make predictions given new inputs, i.e., to compute
+\begin{equation}
+p(y|\vec{x},\mathcal{D})=\int p(y|f,\vec{x})p(f|\mathcal{D})\mathrm{d}f
+\end{equation}
+
+Up until now, we have focussed on parametric representations for the function $f$, so that instead of inferring $p(f|\mathcal{D})$, we infer $p(\vec{\theta}|\mathcal{D})$. In this chapter, we discuss a way to perform Bayesian inference over functions themselves.
+
+Our approach will be based on \textbf{Gaussian processes} or \textbf{GP}s. A GP defines a prior over functions, which can be converted into a posterior over functions once we have seen some data. 
+
+It turns out that, in the regression setting, all these computations can be done in closed form, in $O(N^3)$ time. (We discuss faster approximations in Section \ref{sec:Approximation-methods-for-large-datasets}.) In the classification setting, we must use approximations, such as the Gaussian approximation, since the posterior is no longer exactly Gaussian.
+
+GPs can be thought of as a Bayesian alternative to the kernel methods we discussed in Chapter \ref{chap:Kernels}, including L1VM, RVM and SVM.
+
+
+\section{GPs for regression}
+Let the prior on the regression function be a GP, denoted by
+\begin{equation}
+f(\vec{x}) \sim GP(m(\vec{x}),\kappa(\vec{x},\vec{x}'))
+\end{equation}
+where $m(\vec{x}$ is the mean function and $\kappa(\vec{x},\vec{x}')$ is the kernel or covariance function, i.e.,
+\begin{align}
+m(\vec{x} & = \mathbb{E}[f(\vec{x})] \\
+\kappa(\vec{x},\vec{x}') & = \mathbb{E}[(f(\vec{x})-m(\vec{x}))(f(\vec{x})-m(\vec{x}))^T], \kappa \text{ is a positive definite kernel}
+\end{align}
+
+
+\section{GPs meet GLMs}
+
+
+\section{Connection with other methods}
+
+
+\section{GP latent variable model}
+
+
+\section{Approximation methods for large datasets}
+\label{sec:Approximation-methods-for-large-datasets}
+
+
