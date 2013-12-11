@@ -2,25 +2,16 @@
 
 \section{Generative classifier}
 \begin{equation}\label{eqn:Generative-classifier}
-p(y|\vec{x},\vec{\theta})=\dfrac{p(y=c|\vec{\theta})p(\vec{x}|y=c,\vec{\theta})}{\sum_{c'}{p(y=c'|\vec{\theta})p(\vec{x}|y=c',\vec{\theta})}}
+p(y=c|\vec{x},\vec{\theta})=\dfrac{p(y=c|\vec{\theta})p(\vec{x}|y=c,\vec{\theta})}{\sum_{c'}{p(y=c'|\vec{\theta})p(\vec{x}|y=c',\vec{\theta})}}
 \end{equation}
 
-This is called a \textbf{generative classifier}, since it specifies how to generate the data using the \textbf{class conditional density} $p(\vec{x}|y=c)$ and the class prior $p(y=c)$. 
+This is called a \textbf{generative classifier}, since it specifies how to generate the data using the \textbf{class conditional density} $p(\vec{x}|y=c)$ and the class prior $p(y=c)$. An alternative approach is to directly fit the class posterior, $p(y=c|\vec{x})$ ;this is known as a \textbf{discriminative classifier}. 
 
 
 \section{Bayesian concept learning}
 Psychological research has shown that people can learn concepts from positive examples alone (Xu and Tenenbaum 2007).
 
 We can think of learning the meaning of a word as equivalent to \textbf{concept learning}, which in turn is equivalent to binary classification. To see this, define $f(\vec{x})=1$ if xis an example of the concept $C$, and $f(\vec{x})=0$ otherwise. Then the goal is to learn the indicator function $f$, which just defines which elements are in the set $C$.
-
-For pedagogical purposes, we will consider a very simple example of concept learning called the \textbf{number game}, based on part of Josh Tenenbaum’s PhD thesis (Tenenbaum 1999), see Figure \ref{fig:Empirical-predictive-distribution}. 
-
-\begin{figure}[hbtp]
-\centering
-    \includegraphics[scale=.70]{Empirical-predictive-distribution.png}
-\caption{Empirical predictive distribution averaged over 8 humans in the number game. First two rows: after seeing $\mathcal{D}={16}$ and $\mathcal{D}={60}$. This illustrates diffuse similarity. Third row: after seeing $\mathcal{D}={16,8,2,64}$. This illustrates rule-like behaviour (powers of 2). Bottom row: after seeing $\mathcal{D}={16,23,19,20}$. This illustrates focussed similarity (numbers near 20). Source: Figure 5.5 of (Tenenbaum 1999).}
-\label{fig:Empirical-predictive-distribution} 
-\end{figure}
 
 
 \subsection{Likelihood}
@@ -36,8 +27,6 @@ The prior is decided by human, not machines, so it is subjective. The subjectivi
 
 However, the prior is the mechanism by which background knowledge can be brought to bear on a problem. Without this, rapid learning (i.e., from small samples sizes) is impossible.
 
-So, what prior should we use? For illustration purposes, let us use a simple prior which puts uniform probability on 30 simple arithmetical concepts, such as “even numbers”, “odd numbers”, “prime numbers”, “numbers ending in 9”, etc. We also include two “unnatural” concepts, namely “powers of 2, plus 37” and “powers of 2, except 32”, but give them low prior weight. See Figure \ref{fig:posterior1}(a) for a plot of this prior. 
-
 
 \subsection{Posterior}
 The posterior is simply the likelihood times the prior, normalized.
@@ -46,32 +35,15 @@ p(h|\mathcal{D}) \triangleq \dfrac{p(\mathcal{D}|h)p(h)}{\sum_{h' \in \mathcal{H
 \end{equation}
 where $\mathbb{I}(\mathcal{D} \in h)p(h)$ is 1 \textbf{iff}(iff and only if) all the data are in the extension of the hypothesis $h$.
 
-Figure \ref{fig:posterior1} plots the prior, likelihood and posterior after seeing $\mathcal{D}=\{16\}$. We see that the posterior is a combination of prior and likelihood. In the case of most of the concepts, the prior is uniform, so the posterior is proportional to the likelihood. However, the “unnatural” concepts of “powers of 2, plus 37” and “powers of 2, except 32” have low posterior support, despite having high likelihood, due to the low prior. Conversely, the concept of odd numbers has low posterior support, despite having a high prior, due to the low likelihood.
-
-Figure \ref{fig:posterior2} plots the prior, likelihood and posterior after seeing $\mathcal{D}=\{16,8,2,64\}$. Now the likelihood is much more peaked on the powers of two concept, so this dominates the posterior.
-
-\begin{figure}[hbtp]
-\centering
-    \includegraphics[scale=.60]{posterior1.png}
-\caption{Prior, likelihood and posterior for $\mathcal{D}=\{16\}$. Based on (Tenenbaum 1999).}
-\label{fig:posterior1} 
-\end{figure}
-
-\begin{figure}[hbtp]
-\centering
-    \includegraphics[scale=.60]{posterior2.png}
-\caption{Prior, likelihood and posterior for $\mathcal{D}=\{16,8,2,64\}$. Based on (Tenenbaum 1999).}
-\label{fig:posterior2} 
-\end{figure}
-
 In general, when we have enough data, the posterior $p(h|\mathcal{D})$ becomes peaked on a single concept, namely the MAP estimate, i.e.,
 \begin{equation}
 p(h|\mathcal{D}) \rightarrow \hat{h}^{MAP}
 \end{equation}
 where $\hat{h}^{MAP}$ is the posterior mode,
-\begin{equation}
-\hat{h}^{MAP} \triangleq \arg\max\limits_h p(h|\mathcal{D})=\arg\max\limits_h p(\mathcal{D}|h)p(h)=\arg\max\limits_h [\log p(\mathcal{D}|h) + \log p(h)]
-\end{equation}
+\begin{equation}\begin{split}
+\hat{h}^{MAP} & \triangleq \arg\max\limits_h p(h|\mathcal{D})=\arg\max\limits_h p(\mathcal{D}|h)p(h) \\
+    & =\arg\max\limits_h [\log p(\mathcal{D}|h) + \log p(h)]
+\end{split}\end{equation}
 
 Since the likelihood term depends exponentially on $N$, and the prior stays constant, as we get more and more data, the MAP estimate converges towards the \textbf{maximum likelihood estimate} or \textbf{MLE}:
 \begin{equation}
@@ -85,19 +57,12 @@ In other words, if we have enough data, we see that the \textbf{data overwhelms 
 The concept of \textbf{posterior predictive distribution}\footnote{\url{http://en.wikipedia.org/wiki/Posterior_predictive_distribution}} is normally used in a Bayesian context, where it makes use of the entire posterior distribution of the parameters given the observed data to yield a probability distribution over an interval rather than simply a point estimate. 
 \begin{equation}
 p(\tilde{\vec{x}}|\mathcal{D}) \triangleq \mathbb{E}_{h|\mathcal{D}}[p(\tilde{\vec{x}}|h)] = \begin{cases}
-\sum\limits_{h}p(\tilde{\vec{x}}|h)p(h|\mathcal{D}) &\text{ , discrete parameters}\\
-\int_{h}p(\tilde{\vec{x}}|h)p(h|\mathcal{D})\mathrm{d}h &\text{ , continuous parameters}
+\sum_h p(\tilde{\vec{x}}|h)p(h|\mathcal{D}) \\
+\int p(\tilde{\vec{x}}|h)p(h|\mathcal{D})\mathrm{d}h
 \end{cases}
 \end{equation}
 
-This is just a weighted average of the predictions of each individual hypothesis and is called \textbf{Bayes model averaging}(Hoeting et al. 1999). This is illustrated in Figure \ref{fig:posterior-predictive-distribution}. The dots at the bottom show the predictions from each hypothesis; the vertical curve on the right shows the weight associated with each hypothesis. If we multiply each row by its weight and add up, we get the distribution at the top.
-
-\begin{figure}[hbtp]
-\centering
-    \includegraphics[scale=.70]{posterior-predictive-distribution.png}
-\caption{Posterior over hypotheses and the corresponding predictive distribution after seeing one example,$\mathcal{D}=\{16\}$. A dot means this number is consistent with this hypothesis. The graph $p(h|\mathcal{D})$ on the right is the weight given to hypothesis $h$. By taking a weighed sum of dots, we get $p(\tilde{\vec{x}}|\mathcal{D})$(top). Based on Figure 2.9 of (Tenenbaum 1999).}
-\label{fig:posterior-predictive-distribution} 
-\end{figure}
+This is just a weighted average of the predictions of each individual hypothesis and is called \textbf{Bayes model averaging}(Hoeting et al. 1999). 
 
 
 \section{The beta-binomial model}
@@ -119,9 +84,10 @@ The parameters of the prior are called \textbf{hyper-parameters}.
 
 
 \subsection{Posterior}
-\begin{equation}\label{eqn:beta-binomial-posterior}
-p(\theta|\mathcal{D}) \propto \text{Bin}(N_1|N_1+N_0,\theta)\text{Beta}(\theta|a,b)=\text{Beta}(\theta|N_1+a,N_0b)
-\end{equation}
+\begin{equation}\begin{split}\label{eqn:beta-binomial-posterior}
+p(\theta|\mathcal{D}) & \propto \text{Bin}(N_1|N_1+N_0,\theta)\text{Beta}(\theta|a,b) \\
+    & =\text{Beta}(\theta|N_1+a,N_0b)
+\end{split}\end{equation}
 
 Note that updating the posterior sequentially is equivalent to updating in a single batch. To see this, suppose we have two data sets $\mathcal{D}_a$ and $\mathcal{D}_b$ with sufficient statistics $N_1^a,N_0^a$ and $N_1^b,N_0^b$. Let $N_1=N_1^a+N_1^b$ and $N_0=N_0^a+N_0^b$ be the sufficient statistics of the combined datasets. In batch mode we have
 \begin{align*}
@@ -172,8 +138,9 @@ So far, we have been focusing on inference of the unknown parameter(s). Let us n
 
 Consider predicting the probability of heads in a single future trial under a Beta$(a, b)$posterior. We have
 \begin{align}
-p(\tilde{x}|\mathcal{D})& =\int_0^1 p(\tilde{x}|\theta)p(\theta|\mathcal{D})\mathrm{d}\theta \\
-                        & =\int_0^1 \theta\text{Beta}(\theta|a,b)\mathrm{d}\theta=\mathbb{E}[\theta|\mathcal{D}]=\dfrac{a}{a+b}
+p(\tilde{x}|\mathcal{D})& =\int_0^1 p(\tilde{x}|\theta)p(\theta|\mathcal{D})\mathrm{d}\theta \nonumber \\
+                        & =\int_0^1 \theta\text{Beta}(\theta|a,b)\mathrm{d}\theta \nonumber \\
+						& =\mathbb{E}[\theta|\mathcal{D}]=\dfrac{a}{a+b}
 \end{align}
 
 \subsubsection{Overfitting and the black swan paradox}
@@ -210,7 +177,8 @@ This process is illustrated in Figure \ref{fig:beta-binomial-distribution}. We s
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.50]{beta-binomial-distribution.png}
+\subfloat[]{\includegraphics[scale=.60]{beta-binomial-distribution-a.png}} \\
+\subfloat[]{\includegraphics[scale=.60]{beta-binomial-distribution-b.png}}
 \caption{(a) Posterior predictive distributions after seeing $N_1=3,N_0=17$. (b) MAP estimation.}
 \label{fig:beta-binomial-distribution} 
 \end{figure}
@@ -268,7 +236,7 @@ The above expression avoids the zero-count problem. In fact, this form of Bayesi
 \label{sec:NBC}
 Assume the features are \textbf{conditionally independent} given the class label, then the class conditional density has the following form
 \begin{equation}
-p(\vec{x}|y,\vec{\theta})=\prod\limits_{j=1}^D p(x_j|y=c,\vec{\theta}_{jc}) \quad \text{where $\vec{x}$ is a $D$-dimensional feature vector}
+p(\vec{x}|y,\vec{\theta})=\prod\limits_{j=1}^D p(x_j|y=c,\vec{\theta}_{jc})
 \end{equation}
 
 The resulting model is called a \textbf{naive Bayes classifier}(NBC).
@@ -289,9 +257,10 @@ We now discuss how to “train” a naive Bayes classifier. This usually means c
 
 \subsubsection{MLE for NBC}
 The probability for a single data case is given by
-\begin{equation}
-p(\vec{x}_i,y_i|\vec{\theta})=p(y_i|\vec{\pi})\prod\limits_j p(x_{ij}|\vec{\theta}_j)=\prod\limits_c \pi_c^{\mathbb{I}(y_i=c)} \prod\limits_j\prod\limits_c p(x_{ij}|\vec{\theta}_{jc})^{\mathbb{I}(y_i=c)}
-\end{equation}
+\begin{equation}\begin{split}
+p(\vec{x}_i,y_i|\vec{\theta}) & =p(y_i|\vec{\pi})\prod\limits_j p(x_{ij}|\vec{\theta}_j) \\
+  & =\prod\limits_c \pi_c^{\mathbb{I}(y_i=c)} \prod\limits_j\prod\limits_c p(x_{ij}|\vec{\theta}_{jc})^{\mathbb{I}(y_i=c)}
+\end{split}\end{equation}
 
 Hence the log-likelihood is given by
 \begin{equation}
@@ -330,9 +299,10 @@ In the case of binary features, use a Beta$(\beta0,\beta1)$ prior for each $\the
 
 \subsection{Using the model for prediction}
 The goal is to compute
-\begin{equation}
-y=f(\vec{x})=\arg\max\limits_{c}{P(y=c|\vec{x},\vec{\theta})}=P(y=c|\vec{\theta})\prod_{j=1}^D P(x_j|y=c,\vec{\theta})
-\end{equation}
+\begin{equation}\begin{split}
+y=f(\vec{x}) & =\arg\max\limits_{c}{P(y=c|\vec{x},\vec{\theta})} \\
+   & =P(y=c|\vec{\theta})\prod_{j=1}^D P(x_j|y=c,\vec{\theta})
+\end{split}\end{equation}
 
 We can the estimate parameters using MLE or MAP, then the posterior predictive density is obtained by simply plugging in the parameters $\bar{\vec{\theta}}$(MLE) or $\hat{\vec{\theta}}$(MAP). 
 
@@ -342,18 +312,21 @@ Or we can use BMA, just integrate out the unknown parameters.
 \subsection{The log-sum-exp trick}
 when using generative classifiers of any kind, computing the posterior over class labels using Equation \eqref{eqn:Generative-classifier} can fail due to \textbf{numerical underflow}. The problem is that $p(\vec{x}|y=c)$ is often a very small number, especially if \vec{x} is a high-dimensional vector. This is because we require that $\sum_{\vec{x}}p(\vec{x}|y)=1$, so the probability of observing any particular high-dimensional vector is small. The obvious solution is to take logs when applying Bayes rule, as follows:
 \begin{equation}
-\log p(y=c|\vec{x},\vec{\theta})=b_c-\log\left(\sum\limits_{c'}e^{b_{c'}}\right) \quad \text{where } b_c \triangleq \log p(\vec{x}|y=c,\vec{\theta})+\log p(y=c|\vec{\theta})
+\log p(y=c|\vec{x},\vec{\theta})=b_c-\log\left(\sum\limits_{c'}e^{b_{c'}}\right)
 \end{equation}
+where $b_c \triangleq \log p(\vec{x}|y=c,\vec{\theta})+\log p(y=c|\vec{\theta})$.
 
-we can factor out the largest term, and just represent the remaining numbers relative to that. For example,
-\begin{equation}
-\log(e^{-120}+e^{-121})=\log(e^{-120}(1+e^{-1}))=\log(1+e^{-1})-120
-\end{equation}
+We can factor out the largest term, and just represent the remaining numbers relative to that. For example,
+\begin{equation}\begin{split}
+\log(e^{-120}+e^{-121}) & =\log(e^{-120}(1+e^{-1})) \\
+   & =\log(1+e^{-1})-120
+\end{split}\end{equation}
 
 In general, we have
 \begin{equation}
-\sum\limits_{c}e^{b_{c}}=\log\left[(\sum e^{b_c-B})e^B\right]=\log\left(\sum e^{b_c-B}\right)+B \quad \text{where } B \triangleq \max\{b_c\}
+\sum\limits_{c}e^{b_{c}}=\log\left[(\sum e^{b_c-B})e^B\right]=\log\left(\sum e^{b_c-B}\right)+B
 \end{equation}
+where $B \triangleq \max\{b_c\}$.
 
 This is called the \textbf{log-sum-exp} trick, and is widely used. 
 
@@ -376,17 +349,15 @@ where $\pi_c=p(y=c)$, $\theta_{jc}=p(x_j=1|y=c)$, and $\theta_j=p(x_j=1)=\sum_{c
 
 
 \subsection{Classifying documents using bag of words}
-\textbf{Document classification} is the problem of classifying text documents into different categories. One simple approach is to represent each document as a binary vector, which records whether each word is present or not, so $x_{ij} =1$ iff word $j$ occurs in document $i$, otherwise $x_{ij}=0$. We can then use the following class conditional density:
-\begin{equation}
-p(\vec{x}_i|y_i=c,\vec{\theta})=
-\end{equation}
+\textbf{Document classification} is the problem of classifying text documents into different categories.
 
 
 \subsubsection{Bernoulli product model}
-Represent each document as a binary vector, which records whether each word is present or not, so $x_{ij} =1$ iff word $j$ occurs in document $i$, otherwise $x_{ij} =0$. We can then use the following class conditional density:
-\begin{equation}
-p(\vec{x}_i|y_i=c,\vec{\theta})=\prod\limits_{j=1}^D \text{Ber}(x_{ij}|\theta_{jc})=\prod\limits_{j=1}^D \theta_{jc}^{\mathbb{I}(x_{ij})}(1-\theta_{jc})^{1-\mathbb{I}(x_{ij})}
-\end{equation}
+One simple approach is to represent each document as a binary vector, which records whether each word is present or not, so $x_{ij} =1$ iff word $j$ occurs in document $i$, otherwise $x_{ij}=0$. We can then use the following class conditional density:
+\begin{equation}\begin{split}
+p(\vec{x}_i|y_i=c,\vec{\theta}) & =\prod\limits_{j=1}^D \mathrm{Ber}(x_{ij}|\theta_{jc}) \\
+  & =\prod\limits_{j=1}^D \theta_{jc}^{x_{ij}}(1-\theta_{jc})^{1-x_{ij}}
+\end{split}\end{equation}
 
 This is called the \textbf{Bernoulli product model}, or the \textbf{binary independence model}.
 
@@ -405,9 +376,10 @@ The multinomial model cannot capture the burstiness phenomenon. To see why, note
 Various ad hoc heuristics have been proposed to improve the performance of the multinomial document classifier (Rennie et al. 2003). We now present an alternative class conditional density that performs as well as these ad hoc methods, yet is probabilistically sound (Madsen et al. 2005).
 
 Suppose we simply replace the multinomial class conditional density with the \textbf{Dirichlet Compound Multinomial} or \textbf{DCM} density, defined as follows:
-\begin{equation}
-p(\vec{x}_i|y_i=c,\vec{\alpha})=\int \text{Mu}(\vec{x}_i|N_i,\vec{\theta}_c)\text{Dir}(\vec{\theta}_c|\vec{\alpha}_c)=\dfrac{N_i!}{\prod_{j=1}^D x_{ij}!}\prod\limits_{j=1}^D\dfrac{B(\vec{x}_i+\vec{\alpha}_c)}{B(\vec{\alpha}_c)}
-\end{equation}
+\begin{equation}\begin{split}
+p(\vec{x}_i|y_i=c,\vec{\alpha}) & =\int \text{Mu}(\vec{x}_i|N_i,\vec{\theta}_c)\text{Dir}(\vec{\theta}_c|\vec{\alpha}_c) \\
+   & =\dfrac{N_i!}{\prod_{j=1}^D x_{ij}!}\prod\limits_{j=1}^D\dfrac{B(\vec{x}_i+\vec{\alpha}_c)}{B(\vec{\alpha}_c)}
+\end{split}\end{equation}
 
 (This equation is derived in Equation TODO.) Surprisingly this simple change is all that is needed to capture the burstiness phenomenon. The intuitive reason for this is as follows: After seeing one occurence of a word, say wordj, the posterior counts on θj gets updated, making another occurence of wordjmore likely. By contrast, ifθj is fixed, then the occurences of each word are independent. The multinomial model corresponds to drawing a ball from an urn with Kcolors of ball, recording its color, and then replacing it. By contrast, the DCM model corresponds to drawing a ball, recording its color, and then replacing it with one additional copy; this is called the \textbf{Polya urn}.
 

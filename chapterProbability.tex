@@ -25,8 +25,8 @@ We denote a random event by defining a \textbf{random variable} $X$.
 
 \begin{equation}
 F(x) \triangleq P(X \leq x)=\begin{cases}
-\sum_{u \leq x}p(u), & \text{descrete random variable}\\
-\int_{-\infty}^{x} f(u)\mathrm{d}u, & \text{continuous random variable}\\
+\sum_{u \leq x}p(u) & \text{, discrete}\\
+\int_{-\infty}^{x} f(u)\mathrm{d}u & \text{, continuous}\\
 \end{cases}
 \end{equation}
 
@@ -45,8 +45,8 @@ We denote joint CDF by $F(x,y) \triangleq P(X \leq x \cap Y \leq y)=P(X \leq x ,
 
 \begin{equation}
 F(x,y) \triangleq P(X \leq x, Y \leq y)=\begin{cases}
-\sum_{u \leq x, v \leq y}p(u,v), & \text{descrete}\\
-\int_{-\infty}^{x}\int_{-\infty}^{y} f(u,v)\mathrm{d}u\mathrm{d}v, & \text{continuous}\\
+\sum_{u \leq x, v \leq y}p(u,v) \\
+\int_{-\infty}^{x}\int_{-\infty}^{y} f(u,v)\mathrm{d}u\mathrm{d}v \\
 \end{cases}
 \end{equation}
 
@@ -57,12 +57,14 @@ p(X,Y)=P(X|Y)P(Y)
 
 \textbf{Chain rule}:
 \begin{equation}
-p(X_{1:N})=p(X_1)p(X_2|X_1)p(X_3|X_2,X_1)...p(X_N|X_{1:N-1})
+p(X_{1:N})=p(X_1)p(X_3|X_2,X_1)...p(X_N|X_{1:N-1})
 \end{equation}
 
 
 \subsubsection{Marginal distribution}
 \textbf{Marginal CDF}:
+\begin{figure*}[!t]
+\normalsize
 \begin{equation}
 \begin{cases}
 F_X(x) \triangleq F(x,+\infty)=\begin{cases}
@@ -75,8 +77,11 @@ F_Y(y) \triangleq F(+\infty,y)=\begin{cases}
 \end{cases}\\
 \end{cases}
 \end{equation}
+\hrulefill
+\vspace*{4pt}
+\end{figure*}
 
-\textbf{Marginal PMF or PDF}:
+\textbf{Marginal PMF and PDF}:
 \begin{equation}
 \begin{cases}
 \begin{cases}
@@ -105,15 +110,12 @@ f_{X|Y}(x|y)=\dfrac{f(x,y)}{f_Y(y)}
 
 \subsection{Bayes rule}
 \begin{equation}
-p(Y=y|X=x)=\dfrac{p(X=x,Y=y)}{p(X=x)}=\dfrac{p(X=x|Y=y)p(Y=y)}{\sum_{y'}p(X=x|Y=y')p(Y=y')}
+\begin{split}
+p(Y=y|X=x) & =\dfrac{p(X=x,Y=y)}{p(X=x)} \\
+           & =\dfrac{p(X=x|Y=y)p(Y=y)}{\sum_{y'}p(X=x|Y=y')p(Y=y')}
+\end{split}
 \end{equation}
 
-\subsubsection{Example: Generative classifiers}
-\begin{equation}
-p(y=c|\vec{x},\vec{\theta})=\dfrac{p(\vec{x}|y=c,\vec{\theta})p(y=c|\vec{\theta})}{\sum_{c'}p(\vec{x}|y=c',\vec{\theta})p(y=c'|\vec{\theta})}
-\end{equation}
-
-This is called a \textbf{generative classifier}, since it specifies how to generate the data using the class conditional density $p(\vec{x}|y=c)$ and the class prior $p(y = c)$. An alternative approach is to directly fit the class posterior, $p(y=c|\vec{x})$ ;this is known as a \textbf{discriminative classifier}. 
 
 \subsection{Independence and conditional independence}
 We say $X$ and $Y$ are unconditionally independent or marginally independent, denoted $X \perp Y$, if we can represent the joint as the product of the two marginals, i.e.,
@@ -133,10 +135,12 @@ Since the cdf $F$ is a monotonically increasing function, it has an inverse; let
 The most familiar property of a distribution is its \textbf{mean},or \textbf{expected value}, denoted by $\mu$. For discrete rv’s, it is defined as $\mathbb{E}[X] \triangleq \sum_{x \in \mathcal{X}}xp(x)$, and for continuous rv’s, it is defined as $\mathbb{E}[X] \triangleq \int_{\mathcal{X}}xp(x)\mathrm{d}x$. If this integral is not finite, the mean is not defined (we will see some examples of this later). 
 
 The \textbf{variance} is a measure of the “spread” of a distribution, denoted by $\sigma^2$. This is defined as follows:
-\begin{eqnarray}
-var[X]&=&\mathbb{E}[(X-\mu)^2]=\int{(x-\mu)^2p(x)\mathrm{d}x}\\
-      &=&\int{x^2p(x)\mathrm{d}x}\int{{\mu}^2p(x)\mathrm{d}x}-2\mu\int{xp(x)\mathrm{d}x}=\mathbb{E}[X^2]-{\mu}^2
-\end{eqnarray}
+\begin{align}
+var[X]& =\mathbb{E}[(X-\mu)^2] \\
+      & =\int{(x-\mu)^2p(x)\mathrm{d}x} \nonumber \\
+      & =\int{x^2p(x)\mathrm{d}x}+{\mu}^2\int{p(x)\mathrm{d}x}-2\mu\int{xp(x)\mathrm{d}x} \nonumber \\
+	  & =\mathbb{E}[X^2]-{\mu}^2
+\end{align}
 
 from which we derive the useful result
 \begin{equation}
@@ -184,8 +188,9 @@ p(\vec{x}) \triangleq \prod\limits_{k=1}^K\theta_k^{\mathbb{I}(x_k=1)}
 \begin{definition}
 Suppose we toss a K-sided dice $n$ times. Let $\vec{x} =(x_1,x_2,\cdots,x_K) \in \{0,1,\cdots,n\}^K$ be a random vector, where $x_j$ is the number of times side $j$ of the dice occurs, then we say $X$ has a \textbf{multinomial distribution}, written as $X \sim \text{Mu}(n, \vec{\theta})$. The pmf is given by 
 \begin{equation}\label{eqn:multinomial-pmf}
-p(\vec{x}) \triangleq \dbinom{n}{x_1 \cdots x_k} \prod\limits_{k=1}^K\theta_k^{x_k} \quad \text{where} \dbinom{n}{x_1 \cdots x_k} \triangleq \dfrac{n!}{x_1!x_2! \cdots x_K!}
+p(\vec{x}) \triangleq \dbinom{n}{x_1 \cdots x_k} \prod\limits_{k=1}^K\theta_k^{x_k}
 \end{equation}
+where $\dbinom{n}{x_1 \cdots x_k} \triangleq \dfrac{n!}{x_1!x_2! \cdots x_K!}$
 \end{definition}
 
 Bernoulli distribution is just a special case of a Binomial distribution with $n=1$, and so is multinoulli distribution as to multinomial distribution. See Table \ref{tab:multinomial-summary} for a summary.
@@ -209,7 +214,7 @@ Multinomial & - & - & $\vec{x} \in \{0,1,\cdots,n\}^K, \sum_{k=1}^K x_k=n$ \\
 
 \subsection{The Poisson distribution}
 \begin{definition}
-We say that $X \in \{0,1,2,\cdots\}$ has a \textbf{Poisson distribution} with parameter $\lambda>0$, written $X \sim \text{Poi}(\lambda)$, if its pmf is
+We say that $X \in \{0,1,2,\cdots\}$ has a \textbf{Poisson distribution} with parameter $\lambda>0$, written as $X \sim \text{Poi}(\lambda)$, if its pmf is
 \begin{equation}
 p(x|\lambda)=e^{-\lambda}\dfrac{\lambda^x}{x!}
 \end{equation}
@@ -267,9 +272,9 @@ In this section we present some commonly used univariate (one-dimensional) conti
 \centering
 \begin{tabular}{cccccc}
 \hline\noalign{\smallskip}
-Name & Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
 \noalign{\smallskip}\svhline\noalign{\smallskip}
-Gaussian distribution & $X \sim \mathcal{N}(\mu,\sigma^2)$ & $\dfrac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2\sigma^2}\left(x-\mu\right)^2}$ & $\mu$ & $\mu$ & $\sigma^2$ \\
+$X \sim \mathcal{N}(\mu,\sigma^2)$ & $\dfrac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2\sigma^2}\left(x-\mu\right)^2}$ & $\mu$ & $\mu$ & $\sigma^2$ \\
 \noalign{\smallskip}\hline
 \end{tabular}
 \end{table} 
@@ -292,9 +297,9 @@ See (Jaynes 2003, ch 7) for a more extensive discussion of why Gaussians are so 
 \centering
 \begin{tabular}{cccccc}
 \hline\noalign{\smallskip}
-Name & Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
 \noalign{\smallskip}\svhline\noalign{\smallskip}
-Student's t-distribution & $X \sim \mathcal{T}(\mu,\sigma^2,\nu)$ & $\dfrac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\nu\pi}\Gamma(\frac{\nu}{2})}\left[1+\dfrac{1}{\nu}\left(\dfrac{x-\mu}{\nu}\right)^2\right]$ & $\mu$ & $\mu$ & $\dfrac{\nu\sigma^2}{\nu-2}$ \\
+$X \sim \mathcal{T}(\mu,\sigma^2,\nu)$ & $\dfrac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\nu\pi}\Gamma(\frac{\nu}{2})}\left[1+\dfrac{1}{\nu}\left(\dfrac{x-\mu}{\nu}\right)^2\right]$ & $\mu$ & $\mu$ & $\dfrac{\nu\sigma^2}{\nu-2}$ \\
 \noalign{\smallskip}\hline
 \end{tabular}
 \end{table}
@@ -306,7 +311,8 @@ $\mu$ is the mean, $\sigma^2>0$ is the scale parameter, and $\nu>0$ is called th
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.70]{pdfs-for-NTL.png}
+\subfloat[]{\includegraphics[scale=.70]{pdfs-for-NTL-a.png}} \\
+\subfloat[]{\includegraphics[scale=.70]{pdfs-for-NTL-b.png}}
 \caption{(a) The pdf’s for a $\mathcal{N}(0,1)$, $\mathcal{T}(0,1,1)$ and $Lap(0,1/\sqrt{2})$. The mean is 0 and the variance is 1 for both the Gaussian and Laplace. The mean and variance of the Student is undefined when $\nu=1$.(b) Log of these pdf’s. Note that the Student distribution is not log-concave for any parameter value, unlike the Laplace distribution, which is always log-concave (and log-convex...) Nevertheless, both are unimodal.}
 \label{fig:pdfs-for-NTL} 
 \end{figure}
@@ -317,7 +323,8 @@ As an illustration of the robustness of the Student distribution, consider Figur
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.60]{robustness.png}
+\subfloat[]{\includegraphics[scale=.70]{robustness-a.png}} \\
+\subfloat[]{\includegraphics[scale=.70]{robustness-b.png}}
 \caption{Illustration of the effect of outliers on fitting Gaussian, Student and Laplace distributions. (a) No outliers (the Gaussian and Student curves are on top of each other). (b) With outliers. We see that the Gaussian is more affected by outliers than the Student and Laplace distributions.}
 \label{fig:robustness} 
 \end{figure}
@@ -333,9 +340,9 @@ To ensure finite variance, we require $\nu>2$. It is common to use $\nu=4$, whic
 \centering
 \begin{tabular}{cccccc}
 \hline\noalign{\smallskip}
-Name & Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
 \noalign{\smallskip}\svhline\noalign{\smallskip}
-Laplace distribution & $X \sim \text{Lap}(\mu,b)$ & $\dfrac{1}{2b}\exp\left(-\dfrac{|x-\mu|}{b}\right)$ & $\mu$ & $\mu$ & $2b^2$ \\
+$X \sim \text{Lap}(\mu,b)$ & $\dfrac{1}{2b}\exp\left(-\dfrac{|x-\mu|}{b}\right)$ & $\mu$ & $\mu$ & $2b^2$ \\
 \noalign{\smallskip}\hline
 \end{tabular}
 \end{table}
@@ -352,27 +359,19 @@ Its robustness to outliers is illustrated in Figure \ref{fig:robustness}. It als
 \centering
 \begin{tabular}{ccccccc}
 \hline\noalign{\smallskip}
-Name & Written as & $X$ & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
+Written as & $X$ & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
 \noalign{\smallskip}\svhline\noalign{\smallskip}
-Gamma distribution & $X \sim \text{Ga}(a,b)$ & $x \in \mathbb{R}^+$ & $\dfrac{b^a}{\Gamma(a)}x^{a-1}e^{-xb}$ & $\dfrac{a}{b}$ & $\dfrac{a-1}{b}$ & $\dfrac{a}{b^2}$ \\
+$X \sim \text{Ga}(a,b)$ & $x \in \mathbb{R}^+$ & $\dfrac{b^a}{\Gamma(a)}x^{a-1}e^{-xb}$ & $\dfrac{a}{b}$ & $\dfrac{a-1}{b}$ & $\dfrac{a}{b^2}$ \\
 \noalign{\smallskip}\hline
 \end{tabular}
 \end{table} 
-
-% \begin{longtable}{ccccccc}
-% \caption{Summary of Gamma distribution.} \\
-% \hline\noalign{\smallskip}
-% Name & Written as & $X$ & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
-% \noalign{\smallskip}\hline\noalign{\smallskip}
-% Gamma distribution & $X \sim \text{Ga}(a,b)$ & $x \in \mathbb{R}^+$ & $\dfrac{b^a}{\Gamma(a)}x^{a-1}e^{-xb}$ & $\dfrac{a}{b}$ & $\dfrac{a-1}{b}$ & $\dfrac{a}{b^2}$ \\
-% \noalign{\smallskip}\hline
-% \end{longtable}
 
 Here $a>0$ is called the shape parameter and $b>0$ is called the rate parameter. See Figure \ref{fig:gamma-distribution} for some plots.
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.60]{gamma-distribution.png}
+\subfloat[]{\includegraphics[scale=.50]{gamma-distribution-a.png}} \\
+\subfloat[]{\includegraphics[scale=.50]{gamma-distribution-b.png}}
 \caption{Some Ga$(a, b=1)$ distributions. If $a \leq 1$, the mode is at 0, otherwise it is $>0$.As we increase the rate $b$, we reduce the horizontal scale, thus squeezing everything leftwards and upwards. (b) An empirical pdf of some rainfall data, with a fitted Gamma distribution superimposed.}
 \label{fig:gamma-distribution} 
 \end{figure}
@@ -380,7 +379,7 @@ Here $a>0$ is called the shape parameter and $b>0$ is called the rate parameter.
 
 \subsection{The beta distribution}
 
-\begin{table}
+\begin{table*}
 \caption{Summary of Beta distribution}\label{tab:beta-distribution}
 \centering
 \begin{tabular}{ccccccc}
@@ -390,7 +389,7 @@ Name & Written as & $X$ & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
 Beta distribution & $X \sim \text{Beta}(a,b)$ & $x \in [0,1]$ & $\dfrac{1}{B(a,b)}x^{a-1}(1-x)^{b-1}$ & $\dfrac{a}{a+b}$ & $\dfrac{a-1}{a+b-2}$ & $\dfrac{ab}{(a+b)^2(a+b+1)}$ \\
 \noalign{\smallskip}\hline
 \end{tabular}
-\end{table} 
+\end{table*} 
 
 Here $B(a, b)$is the beta function,
 \begin{equation}
@@ -409,7 +408,7 @@ See Figure \ref{fig:beta-distribution} for plots of some beta distributions. We 
 
 \subsection{Pareto distribution}
 
-\begin{table}
+\begin{table*}
 \caption{Summary of Pareto distribution}
 \centering
 \begin{tabular}{ccccccc}
@@ -419,7 +418,7 @@ Name & Written as & $X$ & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
 Pareto distribution & $X \sim \text{Pareto}(k,m)$ & $x \geq m$ & $km^kx^{-(k+1)}\mathbb{I}(x \geq m)$ & $\dfrac{km}{k-1} \text{ if } k > 1$ & $m$ & $\dfrac{m^2k}{(k-1)^2(k-2)} \text{ if } k>2$ \\
 \noalign{\smallskip}\hline
 \end{tabular}
-\end{table} 
+\end{table*} 
 
 The \textbf{Pareto distribution} is used to model the distribution of quantities that exhibit \textbf{long tails}, also called \textbf{heavy tails}.
 
@@ -427,7 +426,8 @@ As $k \rightarrow \infty$, the distribution approaches $\delta(x-m)$. See Figure
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.50]{Pareto-distribution.png}
+\subfloat[]{\includegraphics[scale=.50]{Pareto-distribution-a.png}} \\
+\subfloat[]{\includegraphics[scale=.50]{Pareto-distribution-b.png}}
 \caption{(a) The Pareto distribution Pareto$(x|m, k)$ for $m=1$. (b) The pdf on a log-log scale.}
 \label{fig:Pareto-distribution} 
 \end{figure}
@@ -443,20 +443,23 @@ The joint probability distribution can be expressed either in terms of a \textbf
 \begin{definition}
 The \textbf{covariance} between two rv’s $X$ and $Y$ measures the degree to which $X$ and $Y$ are (linearly) related. Covariance is defined as
 \begin{equation}
-Cov[X,Y] \triangleq \mathbb{E}\left[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])\right]=\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]
+\begin{split}
+Cov[X,Y] & \triangleq \mathbb{E}\left[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])\right] \\
+         & =\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]
+\end{split}
 \end{equation}
 \end{definition}
 
 \begin{definition}
 If $X$ is a $D$-dimensional random vector, its \textbf{covariance matrix} is defined to be the following symmetric, positive definite matrix:
-\begin{eqnarray}
-Cov[X] &\triangleq& \mathbb{E}\left[(X-\mathbb{E}[X])(X-\mathbb{E}[X])^T\right] \\
-       &=& \left( \begin{array}{cccc}
+\begin{align}
+Cov[X] & \triangleq \mathbb{E}\left[(X-\mathbb{E}[X])(X-\mathbb{E}[X])^T\right] \\
+       &  = \left( \begin{array}{cccc}
            \text{var}[X_1] & \text{Cov}[X_1,X_2] & \cdots & \text{Cov}[X_1,X_D] \\
            \text{Cov}[X_2,X_1] & \text{var}[X_2] & \cdots & \text{Cov}[X_2,X_D] \\
 		   \vdots & \vdots & \ddots & \vdots \\
            \text{Cov}[X_D,X_1] & \text{Cov}[X_D,X_2] & \cdots & \text{var}[X_D] \end{array} \right)
-\end{eqnarray}
+\end{align}
 \end{definition}
 
 \begin{definition}
@@ -476,12 +479,12 @@ A \textbf{correlation matrix} has the form
 \end{equation}
 
 The correlation coefficient can viewed as a degree of linearity between $X$ and $Y$, see Figure \ref{fig:Correlation-examples}.
-\begin{figure}[hbtp]
+\begin{figure*}[hbtp]
 \centering
     \includegraphics[scale=.80]{Correlation-examples.png}
 \caption{Several sets of $(x, y)$ points, with the Pearson correlation coefficient of $x$ and $y$ for each set. Note that the correlation reflects the noisiness and direction of a linear relationship (top row), but not the slope of that relationship (middle), nor many aspects of nonlinear relationships (bottom). N.B.: the figure in the center has a slope of 0 but in that case the correlation coefficient is undefined because the variance of $Y$ is zero.Source:\url{http://en.wikipedia.org/wiki/Correlation}}
 \label{fig:Correlation-examples} 
-\end{figure}
+\end{figure*}
 
 \textbf{Uncorrelated does not imply independent}. For example, let $X \sim U(-1,1)$ and $Y =X^2$. Clearly $Y$ is dependent on $X$(in fact, $Y$ is uniquely determined by $X$), yet one can show that corr$[X, Y]=0$. Some striking examples of this fact are shown in Figure \ref{fig:Correlation-examples}. This shows several data sets where there is clear dependence between $X$ and $Y$, and yet the correlation coefficient is 0. A more general measure of dependence between random variables is mutual information, see Section TODO.
 
@@ -500,7 +503,10 @@ Figure \ref{fig:2d-Gaussions} plots some MVN densities in 2d for three different
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.60]{2d-Gaussions.png}
+\subfloat[]{\includegraphics[scale=.60]{2d-Gaussions-a.png}} \\
+\subfloat[]{\includegraphics[scale=.60]{2d-Gaussions-b.png}} \\
+\subfloat[]{\includegraphics[scale=.60]{2d-Gaussions-c.png}} \\
+\subfloat[]{\includegraphics[scale=.60]{2d-Gaussions-d.png}}
 \caption{We show the level sets for 2d Gaussians. (a) A full covariance matrix has elliptical contours.(b) A diagonal covariance matrix is an axis aligned ellipse. (c) A spherical covariance matrix has a circular shape. (d) Surface plot for the spherical Gaussian in (c).}
 \label{fig:2d-Gaussions} 
 \end{figure}
@@ -508,10 +514,11 @@ Figure \ref{fig:2d-Gaussions} plots some MVN densities in 2d for three different
 
 \subsection{Multivariate Student's t-distribution}
 A more robust alternative to the MVN is the multivariate Student's t-distribution, whose pdf is given by
-\begin{eqnarray}
-\mathcal{T}(x|\vec{\mu},\Sigma,\nu) &\triangleq& \dfrac{\Gamma(\frac{\nu+D}{2})}{\Gamma(\frac{\nu}{2})}\dfrac{|\Sigma|^{-\frac{1}{2}}}{\left(\nu\pi\right)^{\frac{D}{2}}}\left[1+\dfrac{1}{\nu}\left(\vec{x}-\vec{\mu}\right)^T\Sigma^{-1}\left(\vec{x}-\vec{\mu}\right)\right]^{-\frac{\nu+D}{2}} \\
-  &=& \dfrac{\Gamma(\frac{\nu+D}{2})}{\Gamma(\frac{\nu}{2})}\dfrac{|\Sigma|^{-\frac{1}{2}}}{\left(\nu\pi\right)^{\frac{D}{2}}}\left[1+\left(\vec{x}-\vec{\mu}\right)^T\vec{V}^{-1}\left(\vec{x}-\vec{\mu}\right)\right]^{-\frac{\nu+D}{2}}
-\end{eqnarray}
+\begin{align}
+& \mathcal{T}(x|\vec{\mu},\Sigma,\nu) \nonumber \\
+& \triangleq \dfrac{\Gamma(\frac{\nu+D}{2})}{\Gamma(\frac{\nu}{2})}\dfrac{|\Sigma|^{-\frac{1}{2}}}{\left(\nu\pi\right)^{\frac{D}{2}}}\left[1+\dfrac{1}{\nu}\left(\vec{x}-\vec{\mu}\right)^T\Sigma^{-1}\left(\vec{x}-\vec{\mu}\right)\right]^{-\frac{\nu+D}{2}} \\
+&= \dfrac{\Gamma(\frac{\nu+D}{2})}{\Gamma(\frac{\nu}{2})}\dfrac{|\Sigma|^{-\frac{1}{2}}}{\left(\nu\pi\right)^{\frac{D}{2}}}\left[1+\left(\vec{x}-\vec{\mu}\right)^T\vec{V}^{-1}\left(\vec{x}-\vec{\mu}\right)\right]^{-\frac{\nu+D}{2}}
+\end{align}
 where $\Sigma$ is called the scale matrix (since it is not exactly the covariance matrix) and $\vec{V}=\nu\Sigma$. This has fatter tails than a Gaussian. The smaller $\nu$ is, the fatter the tails. As $\nu \rightarrow \infty$, the distribution tends towards a Gaussian. The distribution has the following properties
 \begin{equation}
 \text{mean}=\vec{\mu} \text{ , mode}=\vec{\mu} \text{ , Cov}= \dfrac{\nu}{\nu-2}\Sigma
@@ -538,15 +545,19 @@ Figure \ref{fig:3d-Dirichlet} shows some plots of the Dirichlet when $K=3$, and 
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.60]{3d-Dirichlet.png}
+\subfloat[]{\includegraphics[scale=.50]{3d-Dirichlet-a.png}} \\
+\subfloat[]{\includegraphics[scale=.60]{3d-Dirichlet-b.png}} \\
+\subfloat[]{\includegraphics[scale=.60]{3d-Dirichlet-c.png}} \\
+\subfloat[]{\includegraphics[scale=.60]{3d-Dirichlet-d.png}}
 \caption{(a) The Dirichlet distribution when $K=3$ defines a distribution over the simplex, which can be represented by the triangular surface. Points on this surface satisfy $0 \leq \theta_k \leq 1$ and $\sum_{k=1}^K \theta_k=1$. (b) Plot of the Dirichlet density when $\vec{\alpha}=(2,2,2)$. (c) $\vec{\alpha}=(20,2,2)$.}
 \label{fig:3d-Dirichlet} 
 \end{figure}
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.60]{5d-Dirichlet.png}
-\caption{Samples from a 5-dimensional symmetric Dirichlet distribution for different parameter values. (a) $\vec{\alpha}=(0.1,\cdots,0.1)$. This results in very sparse distributions, with many 0s. (b) $\vec{\alpha}=(1,\cdots,1)$. This results in more uniform (and dense) distributions.} 
+\subfloat[$\vec{\alpha}=(0.1,\cdots,0.1)$. This results in very sparse distributions, with many 0s.]{\includegraphics[scale=.60]{5d-Dirichlet-a.png}} \\
+\subfloat[$\vec{\alpha}=(1,\cdots,1)$. This results in more uniform (and dense) distributions.]{\includegraphics[scale=.60]{5d-Dirichlet-b.png}}
+\caption{Samples from a 5-dimensional symmetric Dirichlet distribution for different parameter values.} 
 \label{fig:5d-Dirichlet} 
 \end{figure}
 
@@ -617,8 +628,9 @@ In general, computing the distribution of a function of an rv using the change o
 
 We can use Monte Carlo to approximate the expected value of any function of a random variable. We simply draw samples, and then compute the arithmetic mean of the function applied to the samples. This can be written as follows:
 \begin{equation}
-\mathbb{E}[g(X)]=\int g(x)p(x)\mathrm{d}x \approx \dfrac{1}{S}\sum\limits_{s=1}^S f(x_s) \text{ , where } x_s \sim p(X)
+\mathbb{E}[g(X)]=\int g(x)p(x)\mathrm{d}x \approx \dfrac{1}{S}\sum\limits_{s=1}^S f(x_s)
 \end{equation}
+where $x_s \sim p(X)$.
 
 This is called \textbf{Monte Carlo integration}\footnote{\url{http://en.wikipedia.org/wiki/Monte_Carlo_integration}}, and has the advantage over numerical integration (which is based on evaluating the function at a fixed grid of points) that the function is only evaluated in places where there is non-negligible probability.
 
@@ -646,9 +658,10 @@ One way to measure the dissimilarity of two probability distributions, $p$ and $
 \sum\limits_{x}{p(x)\log_2\dfrac{p(x)}{q(x)}}
 \end{equation}
 where the sum gets replaced by an integral for pdfs\footnote{The KL divergence is not a distance, since it is asymmetric. One symmetric version of the KL divergence is the \textbf{Jensen-Shannon divergence}, defined as $JS(p_1,p_2)=0.5\mathbb{KL}(p_1||q)+0.5\mathbb{KL}(p_2||q)$,where $q=0.5p_1+0.5p_2$}. The KL divergence is only defined if P and Q both sum to 1 and if $q(x)=0$ implies $p(x)=0$ for all $x$(absolute continuity). If the quantity  $0\ln0$ appears in the formula, it is interpreted as zero because $\lim\limits_{x \to 0}x\ln x$. We can rewrite this as
-\begin{equation}
-\mathbb{KL}(p||q) \triangleq \sum\limits_{x}{p(x)\log_2p(x)}-\sum\limits_{k=1}^{K}{p(x)\log_2q(x)}=\mathbb{H}(p)-\mathbb{H}(p,q)
-\end{equation}
+\begin{equation}\begin{split}
+\mathbb{KL}(p||q) & \triangleq \sum\limits_{x}{p(x)\log_2p(x)}-\sum\limits_{k=1}^{K}{p(x)\log_2q(x)} \\
+    & =\mathbb{H}(p)-\mathbb{H}(p,q)
+\end{split}\end{equation}
 where $\mathbb{H}(p,q)$ is called the \textbf{cross entropy},
 \begin{equation}\label{eqn:cross-entropy}
 \mathbb{H}(p,q)=\sum\limits_{x}{p(x)\log_2q(x)}
@@ -670,9 +683,10 @@ entropy is the uniform distribution}.
 \label{sec:Mutual-information}
 \begin{definition}
 \textbf{Mutual information} or \textbf{MI}, is defined as follows:
-\begin{equation}
-\mathbb{I}(X;Y) \triangleq \mathbb{KL}(P(X,Y)||P(X)P(X))=\sum\limits_x\sum\limits_yp(x,y)\log\dfrac{p(x,y)}{p(x)p(y)}
-\end{equation}
+\begin{equation}\begin{split}
+\mathbb{I}(X;Y) & \triangleq \mathbb{KL}(P(X,Y)||P(X)P(X)) \\
+    & =\sum\limits_x\sum\limits_yp(x,y)\log\dfrac{p(x,y)}{p(x)p(y)}
+\end{split}\end{equation}
 We have $\mathbb{I}(X;Y) \geq 0$ with equality if $P(X,Y)=P(X)P(Y)$. That is, the MI is zero if the variables are independent.
 \end{definition}
 

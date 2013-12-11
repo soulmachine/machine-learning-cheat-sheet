@@ -2,7 +2,7 @@
 
 \section{Types of machine learning}
 \begin{equation}\nonumber
-\text{Machine learning}\begin{cases}
+\begin{cases}
 \text{Supervised learning} \begin{cases} \text{Classfication} \\ \text{Regression} \end{cases}\\
 \text{Unsupervised learning} \begin{cases} \text{Discovering clusters} \\ \text{Discovering latent factors} \\ \text{Discovering graph structure} \\ \text{Matrix completion} \end{cases}\\
 \end{cases}
@@ -31,16 +31,16 @@ In order to measure how well a function fits the training data, a \textbf{loss f
 
 The following is some common loss functions:
 \begin{enumerate}
-\item 0-1 loss function $L(Y,f(X))=I(Y,f(X))=\begin{cases} 1, & Y=f(X) \\ 0, & Y \neq f(X) \end{cases}$
+\item 0-1 loss function \\ $L(Y,f(X))=I(Y,f(X))=\begin{cases} 1, & Y=f(X) \\ 0, & Y \neq f(X) \end{cases}$
 \item Quadratic loss function $L(Y,f(X))=\left(Y-f(X)\right)^2$
 \item Absolute loss function $L(Y,f(X))=\abs{Y-f(X)}$
-\item Logarithmic loss function $L(Y,P(Y|X))=-\log{P(Y|X)}$
+\item Logarithmic loss function \\ $L(Y,P(Y|X))=-\log{P(Y|X)}$
 \end{enumerate}
 
 \begin{definition}
 The risk of function $f$ is defined as the expected loss of $f$:
 \begin{equation}\label{eqn:expected-loss}
-R_{\mathrm{exp}}(f)=E_p\left[L\left(Y,f(X)\right)\right]=\int _{X \times Y} L\left(y,f(x)\right)P(x,y)\mathrm{d}x\mathrm{d}y
+R_{\mathrm{exp}}(f)=E\left[L\left(Y,f(X)\right)\right]=\int L\left(y,f(x)\right)P(x,y)\mathrm{d}x\mathrm{d}y
 \end{equation}
 which is also called expected loss or \textbf{risk function}.
 \end{definition}
