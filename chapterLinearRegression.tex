@@ -107,15 +107,16 @@ Equation \eqref{eqn:normal-equation} is known as the \textbf{normal equation}.
 See Figure \ref{fig:graphical-interpretation-of-OLS}.
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.60]{graphical-interpretation-of-OLS.png}
+    \includegraphics[scale=.50]{graphical-interpretation-of-OLS.png}
 \caption{Graphical interpretation of least squares for $N=3$ examples and $D=2$ features. $\tilde{\vec{x}}_1$ and $\tilde{\vec{x}}_2$˜ are vectors in $\mathbb{R}^3$; together they define a 2D plane. $\vec{y}$ is also a vector in $\mathbb{R}^3$ but does not lie on this 2D plane. The orthogonal projection of $\vec{y}$ onto this plane is denoted $\hat{\vec{y}}$. The red line from $\vec{y}$ to $\hat{\vec{y}}$ is the residual, whose norm we want to minimize. For visual clarity, all vectors have been converted to unit norm.}
 \label{fig:graphical-interpretation-of-OLS} 
 \end{figure}
 
 To minimize the norm of the residual, $\vec{y}-\hat{\vec{y}}$, we want the residual vector to be orthogonal to every column of $\vec{X}$,so˜ $\tilde{\vec{x}}_j(\vec{y}-\hat{\vec{y}})=0$ for $j=1:D$. Hence
-\begin{equation}
-\tilde{\vec{x}}_j(\vec{y}-\hat{\vec{y}})=0 \Rightarrow \vec{X}^T(\vec{y}-\vec{X}\vec{w})=0 \Rightarrow \vec{w}=(\vec{X}^T\vec{X})^{-1}\vec{X}^T\vec{y}
-\end{equation}
+\begin{equation}\begin{split}
+\tilde{\vec{x}}_j(\vec{y}-\hat{\vec{y}})=0 & \Rightarrow \vec{X}^T(\vec{y}-\vec{X}\vec{w})=0 \\
+                                           & \Rightarrow \vec{w}=(\vec{X}^T\vec{X})^{-1}\vec{X}^T\vec{y}
+\end{split}\end{equation}
 
 
 \subsection{SGD}
@@ -145,7 +146,7 @@ where $1/\tau^2$ controls the strength of the prior. The corresponding MAP estim
 
 It is a simple exercise to show that this is equivalent to minimizing the following
 \begin{equation}\label{eqn:Ridge-regression-J}
-J(\vec{w})=\dfrac{1}{N}\sum\limits_{i=1}^N (y_i-(w_0+\vec{w}^T\vec{x}_i))^2+\lambda\lVert\vec{w}\rVert^2 \quad \text{, where }\lambda \triangleq \dfrac{\sigma^2}{\tau^2}
+J(\vec{w})=\dfrac{1}{N}\sum\limits_{i=1}^N (y_i-(w_0+\vec{w}^T\vec{x}_i))^2+\lambda\lVert\vec{w}\rVert^2 , \lambda \triangleq \dfrac{\sigma^2}{\tau^2}
 \end{equation}
 
 Here the first term is the MSE/ NLL as usual, and the second term, $\lambda \geq 0$, is a complexity penalty. The corresponding solution is given by

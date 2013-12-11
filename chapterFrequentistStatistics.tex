@@ -19,9 +19,10 @@ We might think of the bootstrap distribution as a “poor man’s” Bayes poste
 In frequentist or classical decision theory, there is a loss function and a likelihood, but there is no prior and hence no posterior or posterior expected loss. Thus there is no automatic way of deriving an optimal estimator, unlike the Bayesian case. Instead, in the frequentist approach, we are free to choose any estimator or decision procedure $f: \mathcal{X} \rightarrow \mathcal{Y}$ we want.
 
 Having chosen an estimator, we define its expected loss or \textbf{risk} as follows:
-\begin{equation}
-R_{\mathrm{exp}}(\theta,f) \triangleq \mathbb{E}_{p(\tilde{\mathcal{D}}|\theta^*)}[L(\theta^*, f(\tilde{\mathcal{D}}))]=\int L(\theta^*, f(\tilde{\mathcal{D}}))p(\tilde{\mathcal{D}}|\theta^*)\mathrm{d}\tilde{\mathcal{D}}
-\end{equation}
+\begin{equation}\begin{split}
+R_{\mathrm{exp}}(\theta,f) & \triangleq \mathbb{E}_{p(\tilde{\mathcal{D}}|\theta^*)}[L(\theta^*, f(\tilde{\mathcal{D}}))] \\
+    & =\int L(\theta^*, f(\tilde{\mathcal{D}}))p(\tilde{\mathcal{D}}|\theta^*)\mathrm{d}\tilde{\mathcal{D}}
+\end{split}\end{equation}
 where˜$\tilde{\mathcal{D}}$ is data sampled from “nature’s distribution”, which is represented by parameter $\theta^*$. In other words, the expectation is wrt the sampling distribution of the estimator. Compare this to the Bayesian posterior expected loss:
 \begin{equation}
 \rho(f|\mathcal{D},)

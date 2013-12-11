@@ -26,7 +26,8 @@ Choosing the mode as a summary of a posterior distribution is often a very poor 
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.70]{untypical-point.png}
+\subfloat[]{\includegraphics[scale=.50]{untypical-point-a.png}} \\
+\subfloat[]{\includegraphics[scale=.50]{untypical-point-b.png}}
 \caption{(a) A bimodal distribution in which the mode is very untypical of the distribution. The thin blue vertical line is the mean, which is arguably a better summary of the distribution, since it is near the majority of the probability mass. (b) A skewed distribution in which the mode is quite different from the mean.}
 \label{fig:untypical-point} 
 \end{figure}
@@ -76,7 +77,10 @@ Let $\theta_1$ and $\theta_2$ be the unknown reliabilities of the two sellers. S
 
 We want to compute $p(\theta_1 >\theta_2|\mathcal{D})$. For convenience, let us define $\delta=\theta_1-\theta_2$ as the difference in the rates. (Alternatively we might want to work in terms of the log-odds ratio.) We can compute the desired quantity using numerical integration
 \begin{equation}
-p(\delta>0|\mathcal{D})=\int_0^1{\int_0^1{\mathbb{I}(\theta_1>\theta_2)\text{Beta}(\theta_1|91,11)\text{Beta}(\theta_2|3,1)}\mathrm{d}\theta_1}\mathrm{d}\theta_2
+\begin{split}
+p(\delta>0|\mathcal{D}) & = \int_0^1\int_0^1 \mathbb{I}(\theta_1>\theta_2)\text{Beta}(\theta_1|91,11) \\
+                        & \quad \text{Beta}(\theta_2|3,1)\mathrm{d}\theta_1\mathrm{d}\theta_2
+\end{split}
 \end{equation}
 
 We find $p(\delta>0|\mathcal{D})=0.710$, which means you are better off buying from seller 1! 
@@ -106,9 +110,11 @@ This quantity is called the \textbf{marginal likelihood}, the \textbf{integrated
 One might think that using $p(\mathcal{D}|m)$ to select models would always favour the model with the most parameters. This is true if we use $p(\mathcal{D}|\hat{\vec{\theta}}_m)$ to select models, where $\hat{\vec{\theta}}_m)$ is the MLE or MAP estimate of the parameters for model $m$, because models with more parameters will fit the data better, and hence achieve higher likelihood. However, if we integrate out the parameters, rather than maximizing them, we are automatically protected from overfitting: models with more parameters do not necessarily have higher \emph{marginal likelihood}. This is called the \textbf{Bayesian Occam’s razor} effect (MacKay 1995b; Murray and Ghahramani 2005), named after the principle known as \textbf{Occam’s razor}, which says one should pick the simplest model that adequately explains the data.
 
 One way to understand the Bayesian Occam’s razor is to notice that the marginal likelihood can be rewritten as follows, based on the chain rule of probability (Equation ~\eqref{eqn:product-rule}):
-\begin{equation}
-p(D)=p((\vec{x}_1,y_1))p((\vec{x}_2,y_2)|(\vec{x}_1,y_1))p((\vec{x}_3,y_3)|(\vec{x}_1,y_1):(\vec{x}_2,y_2))\cdots p((\vec{x}_N,y_N)|(\vec{x}_1,y_1):(\vec{x}_{N-1},y_{N-1}))
-\end{equation}
+\begin{equation}\begin{split}
+p(D) & =p((\vec{x}_1,y_1))p((\vec{x}_2,y_2)|(\vec{x}_1,y_1)) \\
+     & \quad p((\vec{x}_3,y_3)|(\vec{x}_1,y_1):(\vec{x}_2,y_2))\cdots \\
+	 & \quad p((\vec{x}_N,y_N)|(\vec{x}_1,y_1):(\vec{x}_{N-1},y_{N-1}))
+\end{split}\end{equation}
 
 This is similar to a leave-one-out cross-validation estimate (Section \ref{sec:Cross-validation}) of the likelihood, since we predict each future point given all the previous ones. (Of course, the order of the data does not matter in the above expression.) If a model is too complex, it will overfit the “early” examples and will then predict the remaining ones poorly.
 
@@ -145,7 +151,8 @@ So assuming the relevant normalization constants are tractable, we have an easy 
 Let us apply the above result to the Beta-binomial model. Since we know $p(\vec{\theta}|\mathcal{D})=\mathrm{Beta}(\vec{\theta}|a',b')$, where $a'=a+N_1$, $b'=b+N_0$, we know the normalization constant of the posterior is $B(a',b')$. Hence
 \begin{align}
 p(\theta|\mathcal{D})& =\dfrac{p(\mathcal{D}|\theta)p(\theta)}{p(\mathcal{D})} \\
-    & =\dfrac{1}{p(\mathcal{D})}\left[\dfrac{1}{B(a,b)}\theta^{a-1}(1-\theta)^{b-1}\right]\left[\dbinom{N}{N_1}\theta^{N_1}(1-\theta)^{N_0}\right] \\
+    & =\dfrac{1}{p(\mathcal{D})}\left[\dfrac{1}{B(a,b)}\theta^{a-1}(1-\theta)^{b-1}\right] \nonumber \\
+	& \quad \left[\dbinom{N}{N_1}\theta^{N_1}(1-\theta)^{N_0}\right] \\
 	& =\dbinom{N}{N_1}\dfrac{1}{p(\mathcal{D})}\dfrac{1}{B(a,b)}\left[\theta^{a+N_1-1}(1-\theta)^{b+N_0-1}\right]
 \end{align}
 
@@ -168,8 +175,8 @@ p(\mathcal{D}) & =\dfrac{B(\vec{N}+\vec{\alpha})}{B(\vec{\alpha})} \\
 Consider the case of an MVN with a conjugate NIW prior. Let $Z_0$ be the normalizer for the prior, $Z_N$ be normalizer for the posterior, and let $Z_{\ell}(2\pi)^{ND/2}=$ be the normalizer for the likelihood. Then it is easy to see that
 \begin{align}
 p(\mathcal{D})& =\dfrac{Z_N}{Z_0Z_{\ell}} \\
-   & = \dfrac{1}{\pi^{ND/2}}\dfrac{1}{2^{ND/2}}\dfrac{\left(\frac{2\pi}{\kappa_N}\right)^{D/2}|\vec{S}_N|^{-\nu_N/2}2^{(\nu_0+N)D/2}\Gamma_D(\nu_N/2)}{\left(\frac{2\pi}{\kappa_0}\right)^{D/2}|\vec{S}_0|^{-\nu_0/2}2^{\nu_0D/2}\Gamma_D(\nu_0/2)} \\
-   & \dfrac{1}{\pi^{ND/2}}\left(\dfrac{\kappa_0}{\kappa_N}\right)^{D/2}\dfrac{|\vec{S}_0|^{\nu_0/2}}{|\vec{S}_N|^{\nu_N/2}}\dfrac{\Gamma_D(\nu_N/2)}{\Gamma_D(\nu_0/2)}
+   & = \dfrac{1}{(2\pi)^{ND/2}}\dfrac{\left(\frac{2\pi}{\kappa_N}\right)^{D/2}|\vec{S}_N|^{-\nu_N/2}2^{(\nu_0+N)D/2}\Gamma_D(\nu_N/2)}{\left(\frac{2\pi}{\kappa_0}\right)^{D/2}|\vec{S}_0|^{-\nu_0/2}2^{\nu_0D/2}\Gamma_D(\nu_0/2)} \\
+   & = \dfrac{1}{\pi^{ND/2}}\left(\dfrac{\kappa_0}{\kappa_N}\right)^{D/2}\dfrac{|\vec{S}_0|^{\nu_0/2}}{|\vec{S}_N|^{\nu_N/2}}\dfrac{\Gamma_D(\nu_N/2)}{\Gamma_D(\nu_0/2)}
 \end{align}
 
 \subsubsection{BIC approximation to log marginal likelihood}
@@ -256,8 +263,10 @@ This is an example of a \textbf{hierarchical Bayesian model}, also called a \tex
 \noalign{\smallskip}\svhline\noalign{\smallskip}
 Maximum likelihood & $\hat{\vec{\theta}}=\arg\max_{\vec{\theta}} p(\mathcal{D}|\vec{\theta})$ \\
 MAP estimation & $\hat{\vec{\theta}}=\arg\max_{\vec{\theta}} p(\mathcal{D}|\vec{\theta})p(\vec{\theta}|\vec{\eta})$ \\
-ML-II (\textbf{Empirical Bayes}) & $\hat{\vec{\eta}}=\arg\max_{\vec{\eta}} \int p(\mathcal{D}|\vec{\theta})p(\vec{\theta}|\vec{\eta})\mathrm{d}\vec{\theta}=\arg\max_{\vec{\eta}}p(\mathcal{D}|\vec{\eta})$ \\
-MAP-II & $\hat{\vec{\eta}}=\arg\max_{\vec{\eta}} \int p(\mathcal{D}|\vec{\theta})p(\vec{\theta}|\vec{\eta})p(\vec{\eta})\mathrm{d}\vec{\theta}=\arg\max_{\vec{\eta}}p(\mathcal{D}|\vec{\eta})p(\vec{\eta})$ \\
+\multirow{2}{*}{ML-II (\textbf{Empirical Bayes})} & $\hat{\vec{\eta}}=\arg\max_{\vec{\eta}} \int p(\mathcal{D}|\vec{\theta})p(\vec{\theta}|\vec{\eta})\mathrm{d}\vec{\theta}$ \\
+                                                  & $\quad =\arg\max_{\vec{\eta}}p(\mathcal{D}|\vec{\eta})$ \\
+\multirow{2}{*}{MAP-II} & $\hat{\vec{\eta}}=\arg\max_{\vec{\eta}} \int p(\mathcal{D}|\vec{\theta})p(\vec{\theta}|\vec{\eta})p(\vec{\eta})\mathrm{d}\vec{\theta}$ \\
+                        & $\quad =\arg\max_{\vec{\eta}}p(\mathcal{D}|\vec{\eta})p(\vec{\eta})$ \\
 Full Bayes & $p(\vec{\theta},\vec{\eta}|\mathcal{D}) \propto p(\mathcal{D}|\vec{\theta})p(\vec{\theta}|\vec{\eta})$ \\
 \noalign{\smallskip}\hline
 \end{tabular}
@@ -273,8 +282,8 @@ Our goal is to devise a \textbf{decision procedure} or \textbf{policy}, $f(\vec{
 In the Bayesian approach to decision theory, the optimal output, having observed $\vec{x}$, is defined as the output $a$ that minimizes the \textbf{posterior expected loss}:
 \begin{equation}
 \rho(f)=\mathbb{E}_{p(y|\vec{x})}[L(y,f(\vec{x}))]=\begin{cases}
-\sum\limits_y L[y,f(\vec{x})]p(y|\vec{x}) & \text{, $y$ is discrete}\\
-\int\limits_y L[y,f(\vec{x})]p(y|\vec{x})\mathrm{d}y & \text{, $y$ is continuous}
+\sum\limits_y L[y,f(\vec{x})]p(y|\vec{x}) \\
+\int\limits_y L[y,f(\vec{x})]p(y|\vec{x})\mathrm{d}y
 \end{cases}
 \end{equation}
 
@@ -302,9 +311,11 @@ When $L(y,f(x))$ is \textbf{0-1 loss}(Section \ref{sec:Loss-function-and-risk-fu
 For continuous parameters, a more appropriate loss function is \textbf{squared error}, \textbf{$\ell_2$ loss}, or \textbf{quadratic loss}, defined as $L(y,f(\vec{x}))=\left[y-f(\vec{x})\right]^2$.
 
 The posterior expected loss is given by
-\begin{equation}
-\rho(f)=\int\limits_y L[y,f(\vec{x})]p(y|\vec{x})\mathrm{d}y=\int\limits_y \left[y-f(\vec{x})\right]^2p(y|\vec{x})\mathrm{d}y=\int\limits_y \left[y^2-2yf(\vec{x})+f(\vec{x})^2\right]p(y|\vec{x})\mathrm{d}y
-\end{equation}
+\begin{equation}\begin{split}
+\rho(f) & =\int\limits_y L[y,f(\vec{x})]p(y|\vec{x})\mathrm{d}y \\
+        & =\int\limits_y \left[y-f(\vec{x})\right]^2p(y|\vec{x})\mathrm{d}y \\
+        & =\int\limits_y \left[y^2-2yf(\vec{x})+f(\vec{x})^2\right]p(y|\vec{x})\mathrm{d}y
+\end{split}\end{equation}
 
 Hence the optimal estimate is the posterior mean:
 \begin{align}
@@ -323,7 +334,8 @@ The $\ell_2$ loss penalizes deviations from the truth quadratically, and thus is
 \begin{proof}
 \begin{align*}
 \rho(f)& =\int\limits_y L[y,f(\vec{x})]p(y|\vec{x})\mathrm{d}y=\int\limits_y |y-f(\vec{x})|p(y|\vec{x})\mathrm{d}y \\
-       & =\int\limits_y \left\{[f(\vec{x})-y]p(y<f(\vec{x})|\vec{x})+[y-f(\vec{x})]p(y \geq f(\vec{x})|\vec{x})\right\}\mathrm{d}y \\
+       & =\int\limits_y [f(\vec{x})-y]p(y<f(\vec{x})|\vec{x})+ \\
+	   & \quad [y-f(\vec{x})]p(y \geq f(\vec{x})|\vec{x})\mathrm{d}y \\
 & \dfrac{\partial \rho}{\partial f}=\int\limits_y \left[p(y<f(\vec{x})|\vec{x})-p(y \geq f(\vec{x})|\vec{x})\right]\mathrm{d}y=0 \Rightarrow \\
 & p(y<f(\vec{x})|\vec{x})=p(y \geq f(\vec{x})|\vec{x})=0.5 \\
 & \therefore f(\vec{x})=\text{median}

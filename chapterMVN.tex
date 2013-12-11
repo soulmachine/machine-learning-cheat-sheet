@@ -7,7 +7,7 @@ In this chapter, we discuss the \textbf{multivariate Gaussian} or \textbf{multiv
 \section{Basics}
 Recall from Section \ref{sec:MVN} that the pdf for an MVN in $D$ dimensions is defined by the following:
 \begin{equation}
-\mathcal{N}(\vec{x}|\vec{\mu},\Sigma) \triangleq \dfrac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}}\exp\left[-\dfrac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu})\right]
+\mathcal{N}(\vec{x}|\vec{\mu},\Sigma) \triangleq \dfrac{1}{(2\pi)^{\frac{D}{2}}|\Sigma|^{\frac{1}{2}}}\exp\left[-\dfrac{1}{2}(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu})\right]
 \end{equation}
 
 The expression inside the exponent is the Mahalanobis distance between a data vector $\vec{x}$ and the mean vector $\vec{\mu}$, We can gain a better understanding of this quantity by performing an \textbf{eigendecomposition} of $\vec{\Sigma}$. That is, we write $\vec{\Sigma}=\vec{U}\vec{\Lambda}\vec{U}^T$, where $\vec{U}$ is an orthonormal matrix of eigenvectors satsifying $\vec{U}^T\vec{U}=\vec{I}$, and $\vec{\Lambda}$ is a diagonal matrix of eigenvalues. Using the eigendecomposition, we have that
@@ -16,8 +16,9 @@ The expression inside the exponent is the Mahalanobis distance between a data ve
 \end{equation}
 where $\vec{u}_i$ is the $i$’th column of $\vec{U}$, containing the $i$’th eigenvector. Hence we can rewrite the Mahalanobis distance as follows:
 \begin{align}
-(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu})& =(\vec{x}-\vec{\mu})^T\left(\sum\limits_{i=1}^D \dfrac{1}{\lambda_i}\vec{u}_i\vec{u}_i^T\right)(\vec{x}-\vec{\mu}) \\
-    & =\sum\limits_{i=1}^D \dfrac{1}{\lambda_i}(\vec{x}-\vec{\mu})^T\vec{u}_i\vec{u}_i^T(\vec{x}-\vec{\mu})=\sum\limits_{i=1}^D \dfrac{y_i^2}{\lambda_i}
+(\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu}) & =(\vec{x}-\vec{\mu})^T\left(\sum\limits_{i=1}^D \dfrac{1}{\lambda_i}\vec{u}_i\vec{u}_i^T\right)(\vec{x}-\vec{\mu}) \\
+    & =\sum\limits_{i=1}^D \dfrac{1}{\lambda_i}(\vec{x}-\vec{\mu})^T\vec{u}_i\vec{u}_i^T(\vec{x}-\vec{\mu}) \\
+	& =\sum\limits_{i=1}^D \dfrac{y_i^2}{\lambda_i}
 \end{align}
 where $y_i \triangleq \vec{u}_i^T(\vec{x}-\vec{\mu})$. Recall that the equation for an ellipse in 2d is
 \begin{equation}
@@ -40,8 +41,9 @@ In general, we see that the Mahalanobis distance corresponds to Euclidean distan
 \begin{theorem}(\textbf{MLE for a MVN})
 If we have $N$ iid samples $\vec{x}_i \sim \mathcal{N}(\vec{\mu},\vec{\Sigma})$, then the MLE for the parameters is given by
 \begin{align}
-& \bar{\vec{\mu}}=\dfrac{1}{N}\sum\limits_{i=1}^N \vec{x}_i \triangleq \bar{\vec{x}} \\
-& \bar{\vec{\Sigma}}=\dfrac{1}{N}\sum\limits_{i=1}^N (\vec{x}_i-\bar{\vec{x}})(\vec{x}_i-\bar{\vec{x}})^T=\dfrac{1}{N}\left(\sum\limits_{i=1}^N \vec{x}_i\vec{x}_i^T\right)-\bar{\vec{x}}\bar{\vec{x}}^T
+\bar{\vec{\mu}}    & =\dfrac{1}{N}\sum\limits_{i=1}^N \vec{x}_i \triangleq \bar{\vec{x}} \\
+\bar{\vec{\Sigma}} & =\dfrac{1}{N}\sum\limits_{i=1}^N (\vec{x}_i-\bar{\vec{x}})(\vec{x}_i-\bar{\vec{x}})^T \\
+                     & =\dfrac{1}{N}\left(\sum\limits_{i=1}^N \vec{x}_i\vec{x}_i^T\right)-\bar{\vec{x}}\bar{\vec{x}}^T
 \end{align}
 \end{theorem}
 
@@ -72,7 +74,8 @@ When we compute the probability of $\vec{x}$ under each class conditional densit
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.70]{2d-Gaussians-Visualization.png}
+\subfloat[]{\includegraphics[scale=.70]{2d-Gaussians-Visualization-a.png}} \\
+\subfloat[]{\includegraphics[scale=.70]{2d-Gaussians-Visualization-b.png}}
 \caption{(a) Height/weight data. (b) Visualization of 2d Gaussians fit to each class. 95\% of the probability mass is inside the ellipse.}
 \label{fig:2d-Gaussians-Visualization} 
 \end{figure}
@@ -93,7 +96,8 @@ Thresholding this results in a quadratic function ofx. The result is known as qu
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.60]{QDA.png}
+\subfloat[]{\includegraphics[scale=.50]{QDA-a.png}} \\
+\subfloat[]{\includegraphics[scale=.50]{QDA-b.png}}
 \caption{Quadratic decision boundaries in 2D for the 2 and 3 class case.}
 \label{fig:QDA} 
 \end{figure}
@@ -103,8 +107,9 @@ Thresholding this results in a quadratic function ofx. The result is known as qu
 \label{sec:Linear-discriminant-analysis}
 We now consider a special case in which the covariance matrices are \textbf{tied} or \textbf{shared} across classes,$\vec{\Sigma}_c=\vec{\Sigma}$. In this case, we can simplify Equation ~\eqref{eqn:QDA} as follows:
 \begin{align}
-p(y|\vec{x},\vec{\theta})& \propto \pi_c\exp\left(\vec{\mu}_c\vec{\Sigma}^{-1}\vec{x}-\dfrac{1}{2}\vec{x}^T\vec{\Sigma}^{-1}\vec{x}-\dfrac{1}{2}\vec{\mu}_c^T\vec{\Sigma}^{-1}\vec{\mu}_c\right) \\
- & =\exp\left(\vec{\mu}_c\vec{\Sigma}^{-1}\vec{x}-\dfrac{1}{2}\vec{\mu}_c^T\vec{\Sigma}^{-1}\vec{\mu}_c+\log \pi_c\right)\exp\left(-\dfrac{1}{2}\vec{x}^T\vec{\Sigma}^{-1}\vec{x}\right) \\
+p(y|\vec{x},\vec{\theta})& \propto \pi_c\exp\left(\vec{\mu}_c\vec{\Sigma}^{-1}\vec{x}-\dfrac{1}{2}\vec{x}^T\vec{\Sigma}^{-1}\vec{x}-\dfrac{1}{2}\vec{\mu}_c^T\vec{\Sigma}^{-1}\vec{\mu}_c\right) \nonumber \\
+ & =\exp\left(\vec{\mu}_c\vec{\Sigma}^{-1}\vec{x}-\dfrac{1}{2}\vec{\mu}_c^T\vec{\Sigma}^{-1}\vec{\mu}_c+\log \pi_c\right) \nonumber \\
+ & \quad \exp\left(-\dfrac{1}{2}\vec{x}^T\vec{\Sigma}^{-1}\vec{x}\right) \nonumber \\
  & \propto \exp\left(\vec{\mu}_c\vec{\Sigma}^{-1}\vec{x}-\dfrac{1}{2}\vec{\mu}_c^T\vec{\Sigma}^{-1}\vec{\mu}_c+\log \pi_c\right)
 \end{align}
 
@@ -115,9 +120,9 @@ Since the quadratic term $\vec{x}^T\vec{\Sigma}^{-1}\vec{x}$ is independent of $
 \end{align}
 then we can write
 \begin{equation}\label{eqn:LDA}
-p(y|\vec{x},\vec{\theta})=\dfrac{e^{\vec{\beta}_c^T\vec{x}+\gamma_c}}{\sum_{c'}e^{\vec{\beta}_{c'}^T\vec{x}+\gamma_{c'}}} \triangleq \sigma(\vec{\eta}, c) \quad \text{where } \vec{\eta} \triangleq (e^{\vec{\beta}_1^T\vec{x}}+\gamma_1,\cdots, e^{\vec{\beta}_C^T\vec{x}}+\gamma_C)
+p(y|\vec{x},\vec{\theta})=\dfrac{e^{\vec{\beta}_c^T\vec{x}+\gamma_c}}{\sum_{c'}e^{\vec{\beta}_{c'}^T\vec{x}+\gamma_{c'}}} \triangleq \sigma(\vec{\eta}, c)
 \end{equation}
-where $\sigma()$ is the \textbf{softmax activation function}\footnote{\url{http://en.wikipedia.org/wiki/Softmax_activation_function}}, defined as follows:
+where $\vec{\eta} \triangleq (e^{\vec{\beta}_1^T\vec{x}}+\gamma_1,\cdots, e^{\vec{\beta}_C^T\vec{x}}+\gamma_C)$, $\sigma()$ is the \textbf{softmax activation function}\footnote{\url{http://en.wikipedia.org/wiki/Softmax_activation_function}}, defined as follows:
 \begin{equation}
 \sigma(\vec{q},i) \triangleq \dfrac{\exp(q_i)}{\sum_{j=1}^n \exp(q_j)}
 \end{equation}
@@ -145,7 +150,8 @@ An alternative to fitting an LDA model and then deriving the class posterior is 
 To gain further insight into the meaning of these equations, let us consider the binary case. In this case, the posterior is given by
 \begin{align}
 p(y=1|\vec{x},\vec{\theta})& =\dfrac{e^{\vec{\beta}_1^T\vec{x}+\gamma_1}}{e^{\vec{\beta}_0^T\vec{x}+\gamma_0}+e^{\vec{\beta}_1^T\vec{x}+\gamma_1}}) \\
-  & =\dfrac{1}{1+e^(\vec{\beta}_0-\vec{\beta}_1)^T\vec{x}+(\gamma_0-\gamma_1)}=\text{sigm}((\vec{\beta}_1-\vec{\beta}_0)^T\vec{x}+(\gamma_0-\gamma_1))
+  & =\dfrac{1}{1+e^(\vec{\beta}_0-\vec{\beta}_1)^T\vec{x}+(\gamma_0-\gamma_1)} \\
+  & =\text{sigm}((\vec{\beta}_1-\vec{\beta}_0)^T\vec{x}+(\gamma_0-\gamma_1))
 \end{align}
 where sigm$(x)$ refers to the sigmoid function\footnote{\url{http://en.wikipedia.org/wiki/Sigmoid_function}}.
 
