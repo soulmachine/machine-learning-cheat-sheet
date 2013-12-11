@@ -28,10 +28,13 @@ p(\vec{x}_i|\vec{\theta})=\sum\limits_{k=1}^K \pi_kp_k(\vec{x}_i|\vec{\theta})
 
 Depending on the form of the likelihood $p(\vec{x}_i|\vec{z}_i)$ and the prior $p(\vec{z}_i)$, we can generate a variety of different models, as summarized in Table \ref{tab:popular-directed-latent-variable-models}.
 
-\begin{longtable}{llll}
+\begin{table}
+\label{tab:popular-directed-latent-variable-models}
+\centering
+\begin{tabular}{llll}
 \hline\noalign{\smallskip}
 $p(\vec{x}_i|\vec{z}_i)$ & $p(\vec{z}_i)$ & \textbf{Name} & \textbf{Section} \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
+\noalign{\smallskip}\svhline\noalign{\smallskip}
 MVN & Discrete & Mixture of Gaussians & 11.2.1 \\
 Prod. Discrete & Discrete & Mixture of multinomials & 11.2.2 \\
 Prod. Gaussian & Prod. Gaussian & Factor analysis/ probabilistic PCA & 12.1.5 \\
@@ -40,9 +43,10 @@ Prod. Discrete & Prod. Gaussian & Multinomial PCA & 27.2.3 \\
 Prod. Discrete & Dirichlet & Latent Dirichlet allocation & 27.3 \\
 Prod. Noisy-OR & Prod. Bernoulli & BN20/ QMR & 10.2.3 \\
 Prod. Bernoulli & Prod. Bernoulli & Sigmoid belief net & 27.7 \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
-\caption{Summary of some popular directed latent variable models. Here “Prod” means product, so “Prod. Discrete” in the likelihood means a factored distribution of the form $\prod_j \mathrm{Cat}(x_{ij}|\vec{z}_i)$, and “Prod. Gaussian” means a factored distribution of the form $\prod_j \mathcal{N}(x_{ij}|\vec{z}_i)$.}\label{tab:popular-directed-latent-variable-models} \\
-\end{longtable}
+\noalign{\smallskip}\hline
+\end{tabular}
+\caption{Summary of some popular directed latent variable models. Here “Prod” means product, so “Prod. Discrete” in the likelihood means a factored distribution of the form $\prod_j \mathrm{Cat}(x_{ij}|\vec{z}_i)$, and “Prod. Gaussian” means a factored distribution of the form $\prod_j \mathcal{N}(x_{ij}|\vec{z}_i)$.}
+\end{table}
 
 
 \subsection{Mixtures of Gaussians}
@@ -134,10 +138,14 @@ One approach is to use a generic gradient-based optimizer to find a local minimu
 
 See Table \ref{tab:summary-of-the-applications-of-EM} for a summary of the applications of EM in this book.
 
-\begin{longtable}{ll}
+\begin{table}
+\caption{Some models discussed in this book for which EM can be easily applied to find the ML/ MAP parameter estimate.}
+\label{tab:summary-of-the-applications-of-EM}
+\centering
+\begin{tabular}{ll}
 \hline\noalign{\smallskip}
 \textbf{Model} & \textbf{Section} \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
+\noalign{\smallskip}\svhline\noalign{\smallskip}
 Mix. Gaussians & 11.4.2 \\
 Mix. experts & 11.4.3 \\
 Factor analysis & 12.1.5 \\
@@ -147,9 +155,9 @@ DGM with hidden variables & 11.4.4 \\
 MVN with missing data & 11.6.1 \\
 HMMs & 17.5.2 \\
 Shrinkage estimates of Gaussian means & Exercise 11.13 \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
-\caption{Some models discussed in this book for which EM can be easily applied to find the ML/ MAP parameter estimate.}\label{tab:summary-of-the-applications-of-EM} \\
-\end{longtable}
+\noalign{\smallskip}\hline
+\end{tabular}
+\end{table}
 
 
 \subsection{Basic idea}

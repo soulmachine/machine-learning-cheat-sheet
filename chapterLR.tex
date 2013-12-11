@@ -263,9 +263,13 @@ f(\vec{x})&=&\text{sign}\left(\sum\limits_{j=1}^{N} \alpha_jy_j\vec{x}_j \cdot \
 
 See Table \ref{tab:List-of-various-models-for-classification} for a summary of the classification and regression techniques we cover in this book.
 
-\begin{longtable}{lllll}
+\begin{table}
+\label{tab:List-of-various-models-for-classification}
+\centering
+\begin{tabular}{lllll}
 \hline\noalign{\smallskip}
 \textbf{Model} & \textbf{Classif/regr} & \textbf{Gen/Discr} & \textbf{Param/Non} & \textbf{Section} \\
+\noalign{\smallskip}\svhline\noalign{\smallskip}
 \noalign{\smallskip}\hline\noalign{\smallskip}
 Discriminant analysis & Classif & Gen & Param & Sec. \ref{sec:Linear-discriminant-analysis}, \ref{sec:MLE-for-discriminant-analysis} \\
 Naive Bayes classifier & Classif & Gen & Param & Sec. \ref{sec:NBC}, \ref{sec:Bayesian-naive-Bayes} \\
@@ -286,9 +290,10 @@ Relevance vector machine (RVM) & Both & Discrim & Non & Sec. 14.3.2 \\
 Support vector machine (SVM) & Both & Discrim & Non & Sec. 14.5 \\
 Gaussian processes (GP) & Both & Discrim & Non & Ch. 15 \\
 Smoothing splines & Regr & Discrim & Non & Section 15.4.6 \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
-\caption{List of various models for classification and regression which we discuss in this book. Columns are as follows: Model name; is the model suitable for classification, regression, or both; is the model generative or discriminative; is the model parametric or non-parametric; list of sections in book which discuss the model. See also \url{http://pmtk3.googlecode.com/svn/trunk/docs/tutorial/html/tutSupervised.html} for the PMTK equivalents of these models. Any generative probabilistic model (e.g., HMMs, Boltzmann machines, Bayesian networks, etc.) can be turned into a classifier by using it as a class conditional density}\label{tab:List-of-various-models-for-classification} \\
-\end{longtable}
+\noalign{\smallskip}\hline
+\end{tabular}
+\caption{List of various models for classification and regression which we discuss in this book. Columns are as follows: Model name; is the model suitable for classification, regression, or both; is the model generative or discriminative; is the model parametric or non-parametric; list of sections in book which discuss the model. See also \url{http://pmtk3.googlecode.com/svn/trunk/docs/tutorial/html/tutSupervised.html} for the PMTK equivalents of these models. Any generative probabilistic model (e.g., HMMs, Boltzmann machines, Bayesian networks, etc.) can be turned into a classifier by using it as a class conditional density}
+\end{table}
 
 \begin{figure}[hbtp]
 \centering

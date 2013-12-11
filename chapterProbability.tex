@@ -188,18 +188,23 @@ p(\vec{x}) \triangleq \dbinom{n}{x_1 \cdots x_k} \prod\limits_{k=1}^K\theta_k^{x
 \end{equation}
 \end{definition}
 
-Bernoulli distribution is just a special case of a Binomial distribution with $n=1$, and so is multinoulli distribution as to multinomial distribution. See Table \ref{tab:multinomial} for a summary.
+Bernoulli distribution is just a special case of a Binomial distribution with $n=1$, and so is multinoulli distribution as to multinomial distribution. See Table \ref{tab:multinomial-summary} for a summary.
 
-\begin{longtable}{p{2cm}p{1cm}p{1cm}p{4.6cm}}
-\caption{Summary of the multinomial and related distributions.} \label{tab:Summary-distribution}\\  
+\begin{table}
+\caption{Summary of the multinomial and related distributions.}
+\label{tab:multinomial-summary}
+\centering
+\begin{tabular}{llll}
+\hline\noalign{\smallskip}
 Name & K & n & X \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
+\noalign{\smallskip}\svhline\noalign{\smallskip}
 Bernoulli & 1 & 1 & $x \in \{0,1\}$ \\
 Binomial & 1 & - & $\vec{x} \in \{0,1,\cdots,n\}$ \\
 Multinoulli & - & 1 & $\vec{x} \in \{0,1\}^K, \sum_{k=1}^K x_k=1$ \\
 Multinomial & - & - & $\vec{x} \in \{0,1,\cdots,n\}^K, \sum_{k=1}^K x_k=n$ \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
-\end{longtable}
+\noalign{\smallskip}\hline
+\end{tabular}
+\end{table} 
 
 
 \subsection{The Poisson distribution}
@@ -214,19 +219,22 @@ The first term is just the normalization constant, required to ensure the distri
 
 The Poisson distribution is often used as a model for counts of rare events like radioactive decay and traffic accidents. 
 
-
-\begin{longtable}{llllll}
-\caption{Summary of Bernoulli, binomial multinoulli and multinomial distributions.} \label{tab:multinomial}\\
+\begin{table*}
+\caption{Summary of Bernoulli, binomial multinoulli and multinomial distributions.}
+\label{tab:Summary-distribution}
+\centering
+\begin{tabular}{llllll}
 \hline\noalign{\smallskip}
 Name & Written as & X & $p(x)$(or $p(\vec{x})$) & $\mathbb{E}[X]$ & $\text{var}[X]$ \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
+\noalign{\smallskip}\svhline\noalign{\smallskip}
 Bernoulli & $X \sim \text{Ber}(\theta)$ & $x \in \{0,1\}$ & $\theta^{\mathbb{I}(x=1)}(1-\theta)^{\mathbb{I}(x=0)}$ & $\theta$ & $\theta(1-\theta)$ \\
 Binomial & $X \sim \text{Bin}(n,\theta)$ & $x \in \{0,1,\cdots,n\}$ & $\dbinom{n}{k}\theta^k(1-\theta)^{n-k}$ & $n\theta$ & $n\theta(1-\theta)$ \\
 Multinoulli & $X \sim \text{Cat}(\vec{\theta})$ & $\vec{x} \in \{0,1\}^K, \sum_{k=1}^K x_k=1$ & $\prod\limits_{k=1}^K\theta_j^{\mathbb{I}(x_j=1)}$ & - & - \\
 Multinomial & $X \sim \text{Mu}(n,\vec{\theta})$ & $\vec{x} \in \{0,1,\cdots,n\}^K, \sum_{k=1}^K x_k=n$ & $\dbinom{n}{x_1 \cdots x_k} \prod\limits_{k=1}^K\theta_j^{x_j}$ & - & - \\
 Poisson & $X \sim \text{Poi}(\lambda)$ & $x \in \{0,1,2,\cdots\}$ & $e^{-\lambda}\dfrac{\lambda^x}{x!}$ & $\lambda$ & $\lambda$ \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
-\end{longtable}
+\noalign{\smallskip}\hline
+\end{tabular}
+\end{table*}
 
 
 \subsection{The empirical distribution}
@@ -254,14 +262,17 @@ In this section we present some commonly used univariate (one-dimensional) conti
 % \end{tabular}
 % \end{table} 
 
-\begin{longtable}{cccccc}
-\caption{Summary of Gaussian distribution.} \\
+\begin{table}
+\caption{Summary of Gaussian distribution.}
+\centering
+\begin{tabular}{cccccc}
 \hline\noalign{\smallskip}
 Name & Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
+\noalign{\smallskip}\svhline\noalign{\smallskip}
 Gaussian distribution & $X \sim \mathcal{N}(\mu,\sigma^2)$ & $\dfrac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2\sigma^2}\left(x-\mu\right)^2}$ & $\mu$ & $\mu$ & $\sigma^2$ \\
 \noalign{\smallskip}\hline
-\end{longtable}
+\end{tabular}
+\end{table} 
 
 If $X \sim N(0,1)$,we say $X$ follows a \textbf{standard normal} distribution.
 
@@ -276,15 +287,17 @@ See (Jaynes 2003, ch 7) for a more extensive discussion of why Gaussians are so 
 
 
 \subsection{Student's t-distribution}
-
-\begin{longtable}{cccccc}
-\caption{Summary of Student's t-distribution.} \\
+\begin{table}
+\caption{Summary of Student's t-distribution.}
+\centering
+\begin{tabular}{cccccc}
 \hline\noalign{\smallskip}
 Name & Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
+\noalign{\smallskip}\svhline\noalign{\smallskip}
 Student's t-distribution & $X \sim \mathcal{T}(\mu,\sigma^2,\nu)$ & $\dfrac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\nu\pi}\Gamma(\frac{\nu}{2})}\left[1+\dfrac{1}{\nu}\left(\dfrac{x-\mu}{\nu}\right)^2\right]$ & $\mu$ & $\mu$ & $\dfrac{\nu\sigma^2}{\nu-2}$ \\
 \noalign{\smallskip}\hline
-\end{longtable}
+\end{tabular}
+\end{table}
 where  $\Gamma(x)$ is the gamma function:
 \begin{equation}
 \Gamma(x) \triangleq \int_0^\infty u^{x-1}e^{-u}\mathrm{d}x
@@ -315,15 +328,17 @@ To ensure finite variance, we require $\nu>2$. It is common to use $\nu=4$, whic
 
 
 \subsection{The Laplace distribution}
-
-\begin{longtable}{cccccc}
-\caption{Summary of Laplace distribution.} \\
+\begin{table}
+\caption{Summary of Laplace distribution.}
+\centering
+\begin{tabular}{cccccc}
 \hline\noalign{\smallskip}
 Name & Written as & $f(x)$ & $\mathbb{E}[X]$ & mode & $\text{var}[X]$ \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
+\noalign{\smallskip}\svhline\noalign{\smallskip}
 Laplace distribution & $X \sim \text{Lap}(\mu,b)$ & $\dfrac{1}{2b}\exp\left(-\dfrac{|x-\mu|}{b}\right)$ & $\mu$ & $\mu$ & $2b^2$ \\
 \noalign{\smallskip}\hline
-\end{longtable}
+\end{tabular}
+\end{table}
 
 Here $\mu$ is a location parameter and $b>0$ is a scale parameter. See Figure \ref{fig:pdfs-for-NTL} for a plot.
 

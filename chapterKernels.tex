@@ -470,18 +470,21 @@ We have mentioned several different methods for classification and regression ba
 \item{Mercer kernel: SVMs and GPs require that the kernel is positive definite; the other techniques do not.}
 \end{itemize}
 
-\begin{longtable}{llllllll}
+\begin{table}
+\centering
+\begin{tabular}{llllllll}
 \hline\noalign{\smallskip}
 Method & Opt. \vec{w} & Opt. kernel & Sparse & Prob. & Multiclass & Non-Mercer & Section \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
+\noalign{\smallskip}\svhline\noalign{\smallskip}
 L2VM & Convex & EB & No & Yes & Yes & Yes & 14.3.2 \\
 L1VM & Convex & CV & Yes & Yes & Yes & Yes & 14.3.2 \\
 RVM & Not convex & EB & Yes & Yes & Yes & Yes & 14.3.2 \\
 SVM & Convex & CV & Yes & No & Indirectly & No & 14.5 \\
 GP & N/A & EB & No & Yes & Yes & No & 15 \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
+\noalign{\smallskip}\hline
+\end{tabular}
 \caption{Comparison of various kernel based classifiers. EB = empirical Bayes, CV = cross validation. See text for details}\label{tab:Comparison-of-kernel-based-classifiers}
-\end{longtable}
+\end{table}
 
 
 \section{Kernels for building generative models}

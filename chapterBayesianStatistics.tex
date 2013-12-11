@@ -247,17 +247,21 @@ This is an example of a \textbf{hierarchical Bayesian model}, also called a \tex
 
 \section{Empirical Bayes}
 \label{sec:Empirical-Bayes}
-\begin{longtable}{ll}
+
+\begin{table}
+\centering
+\begin{tabular}{ll}
 \hline\noalign{\smallskip}
 \textbf{Method} & \textbf{Definition} \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
+\noalign{\smallskip}\svhline\noalign{\smallskip}
 Maximum likelihood & $\hat{\vec{\theta}}=\arg\max_{\vec{\theta}} p(\mathcal{D}|\vec{\theta})$ \\
 MAP estimation & $\hat{\vec{\theta}}=\arg\max_{\vec{\theta}} p(\mathcal{D}|\vec{\theta})p(\vec{\theta}|\vec{\eta})$ \\
 ML-II (\textbf{Empirical Bayes}) & $\hat{\vec{\eta}}=\arg\max_{\vec{\eta}} \int p(\mathcal{D}|\vec{\theta})p(\vec{\theta}|\vec{\eta})\mathrm{d}\vec{\theta}=\arg\max_{\vec{\eta}}p(\mathcal{D}|\vec{\eta})$ \\
 MAP-II & $\hat{\vec{\eta}}=\arg\max_{\vec{\eta}} \int p(\mathcal{D}|\vec{\theta})p(\vec{\theta}|\vec{\eta})p(\vec{\eta})\mathrm{d}\vec{\theta}=\arg\max_{\vec{\eta}}p(\mathcal{D}|\vec{\eta})p(\vec{\eta})$ \\
 Full Bayes & $p(\vec{\theta},\vec{\eta}|\mathcal{D}) \propto p(\mathcal{D}|\vec{\theta})p(\vec{\theta}|\vec{\eta})$ \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
-\end{longtable}
+\noalign{\smallskip}\hline
+\end{tabular}
+\end{table}
 
 
 \section{Bayesian decision theory}
