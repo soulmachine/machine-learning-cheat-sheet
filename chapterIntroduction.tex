@@ -31,7 +31,7 @@ In order to measure how well a function fits the training data, a \textbf{loss f
 
 The following is some common loss functions:
 \begin{enumerate}
-\item 0-1 loss function \\ $L(Y,f(X))=I(Y,f(X))=\begin{cases} 1, & Y=f(X) \\ 0, & Y \neq f(X) \end{cases}$
+\item 0-1 loss function \\ $L(Y,f(X))=\mathbb{I}(Y,f(X))=\begin{cases} 1, & Y=f(X) \\ 0, & Y \neq f(X) \end{cases}$
 \item Quadratic loss function $L(Y,f(X))=\left(Y-f(X)\right)^2$
 \item Absolute loss function $L(Y,f(X))=\abs{Y-f(X)}$
 \item Logarithmic loss function \\ $L(Y,P(Y|X))=-\log{P(Y|X)}$

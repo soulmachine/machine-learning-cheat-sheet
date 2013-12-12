@@ -24,8 +24,9 @@ f(\vec{x}) \sim GP(m(\vec{x}),\kappa(\vec{x},\vec{x}'))
 where $m(\vec{x}$ is the mean function and $\kappa(\vec{x},\vec{x}')$ is the kernel or covariance function, i.e.,
 \begin{align}
 m(\vec{x} & = \mathbb{E}[f(\vec{x})] \\
-\kappa(\vec{x},\vec{x}') & = \mathbb{E}[(f(\vec{x})-m(\vec{x}))(f(\vec{x})-m(\vec{x}))^T], \kappa \text{ is a positive definite kernel}
+\kappa(\vec{x},\vec{x}') & = \mathbb{E}[(f(\vec{x})-m(\vec{x}))(f(\vec{x})-m(\vec{x}))^T]
 \end{align}
+where $\kappa$ is a positive definite kernel.
 
 
 \section{GPs meet GLMs}

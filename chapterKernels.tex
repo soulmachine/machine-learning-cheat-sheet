@@ -39,9 +39,9 @@ Here $\sigma^2$ is known as the \textbf{bandwidth}. Equation ~\eqref{eqn:RBF-ker
 
 \subsection{TF-IDF kernels}
 \begin{equation}\label{eqn:RBF-kernel}
-\kappa(\vec{x},\vec{x}')=\frac{\phi(\vec{x})^T\phi(\vec{x}')}{\lVert\phi(vec{x})\rVert_2\lVert\phi(\vec{x}')\rVert_2} \quad \text{, where } \phi(\vec{x})=\mathrm{tf-idf}(\vec{x})
+\kappa(\vec{x},\vec{x}')=\frac{\phi(\vec{x})^T\phi(\vec{x}')}{\lVert\phi(vec{x})\rVert_2\lVert\phi(\vec{x}')\rVert_2}
 \end{equation}
-
+where $\phi(\vec{x})=\text{tf-idf}(\vec{x})$.
 
 \subsection{Mercer (positive definite) kernels}
 \label{sec:Mercer-kernels}
@@ -80,7 +80,8 @@ For example, consider the (non-stationary) \textbf{polynomial kernel} $\kappa(\v
 \begin{align*}
 (\vec{x}\vec{x}'+1)^2 & =(1+x_1x_1'+x_2+x_2')^2 \\
     & = 1+2x_1x_1'+2x_2x_2'+(x_1x_1')^2+(x_2x_2')^2x_1x_1'x_2x_2' \\
-	& = \phi(\vec{x})^T\phi(\vec{x}') \quad \text{, where } \phi(\vec{x})=(1,\sqrt{2}x_1,\sqrt{2}x_2,x_1^2,x_2^2,\sqrt{2}x_1x_2)
+	& = \phi(\vec{x})^T\phi(\vec{x}') \\
+\text{where } & \phi(\vec{x})=(1,\sqrt{2}x_1,\sqrt{2}x_2,x_1^2,x_2^2,\sqrt{2}x_1x_2)
 \end{align*}
 
 In the case of a Gaussian kernel, the feature map lives in an infinite dimensional space. In such a case, it is clearly infeasible to explicitly represent the feature vectors.
@@ -118,12 +119,12 @@ There are various cases of interest. If we set $w_s =0$for $|s| >1$ we get a bag
 
 
 \subsection{Pyramid match kernels}
-\begin{figure}[hbtp]
-\centering
-    \includegraphics[scale=.70]{pyramid-match-kernel.png}
-\caption{Illustration of a pyramid match kernel computed from two images. Used with kind permission of Kristen Grauman.}
-\label{fig:pyramid-match-kernel}
-\end{figure}
+% \begin{figure}[hbtp]
+% \centering
+%     \includegraphics[scale=.70]{pyramid-match-kernel.png}
+% \caption{Illustration of a pyramid match kernel computed from two images. Used with kind permission of Kristen Grauman.}
+% \label{fig:pyramid-match-kernel}
+% \end{figure}
 
 
 \subsection{Kernels derived from probabilistic generative models}
@@ -177,7 +178,9 @@ We can use the kernelized feature vector for logistic regression by defining $p(
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.70]{kenel-machine-xor.png}
+\subfloat[]{\includegraphics[scale=.70]{kenel-machine-xor-a.png}} \\
+\subfloat[]{\includegraphics[scale=.70]{kenel-machine-xor-b.png}} \\
+\subfloat[]{\includegraphics[scale=.70]{kenel-machine-xor-c.png}}
 \caption{(a) xor truth table. (b) Fitting a linear logistic regression classifier using degree 10 polynomial expansion. (c) Same model, but using an RBF kernel with centroids specified by the 4 black crosses.}
 \label{fig:kenel-machine-xor} 
 \end{figure}
@@ -189,22 +192,25 @@ We can also use the kernelized feature vector inside a linear regression model b
 \label{sec:sparse-kernel-machines}
 The main issue with kernel machines is: how do we choose the centroids $\vec{\mu}_k$? We can use \textbf{sparse vector machine}, \textbf{L1VM}, \textbf{L2VM}, \textbf{RVM}, \textbf{SVM}.
 
-In Figure \ref{fig:L2VM-L1VM-RVM-SVM-2d}, we compare L2VM, L1VM, RVM and an SVM using the same RBF kernel on a binary classification problem in 2d.
+% In Figure \ref{fig:L2VM-L1VM-RVM-SVM-2d}, we compare L2VM, L1VM, RVM and an SVM using the same RBF kernel on a binary classification problem in 2d.
 
-\begin{figure}[hbtp]
-\centering
-    \includegraphics[scale=.70]{L2VM-L1VM-RVM-SVM-2d.png}
-\caption{Example of non-linear binary classification using an RBF kernel with bandwidth $\sigma=0.3$. (a) L2VM with $\lambda=5$. (b) L1VM with $\lambda=1$. (c) RVM. (d) SVM with $C=1/\lambda$ chosen by cross validation. Black circles denote the support vectors.}
-\label{fig:L2VM-L1VM-RVM-SVM-2d} 
-\end{figure}
+% \begin{figure}[hbtp]
+% \centering
+% \subfloat[]{\includegraphics[scale=.50]{L2VM-L1VM-RVM-SVM-2d-a.png}} \\
+% \subfloat[]{\includegraphics[scale=.50]{L2VM-L1VM-RVM-SVM-2d-b.png}} \\
+% \subfloat[]{\includegraphics[scale=.50]{L2VM-L1VM-RVM-SVM-2d-c.png}} \\
+% \subfloat[]{\includegraphics[scale=.50]{L2VM-L1VM-RVM-SVM-2d-d.png}}
+% \caption{Example of non-linear binary classification using an RBF kernel with bandwidth $\sigma=0.3$. (a) L2VM with $\lambda=5$. (b) L1VM with $\lambda=1$. (c) RVM. (d) SVM with $C=1/\lambda$ chosen by cross validation. Black circles denote the support vectors.}
+% \label{fig:L2VM-L1VM-RVM-SVM-2d} 
+% \end{figure}
 
-In Figure \ref{fig:L2VM-L1VM-RVM-SVM-1d}, we compare L2VM, L1VM, RVM and an SVM using an RBF kernel on a 1d regression problem. 
-\begin{figure}[hbtp]
-\centering
-    \includegraphics[scale=.70]{L2VM-L1VM-RVM-SVM-1d.png}
-\caption{Example of kernel based regression on the noisy sinc function using an RBF kernel with bandwidth $\sigma=0.3$. (a) L2VM with $\lambda=0.5$. (b) L1VM with $\lambda=0.5$. (c) RVM. (d) SVM regression with $C=1/\lambda$ chosen by cross validation, and $\epsilon=0.1$ (the default for SVMlight). Red circles denote the retained training exemplars.}
-\label{fig:L2VM-L1VM-RVM-SVM-1d} 
-\end{figure}
+% In Figure \ref{fig:L2VM-L1VM-RVM-SVM-1d}, we compare L2VM, L1VM, RVM and an SVM using an RBF kernel on a 1d regression problem. 
+% \begin{figure}[hbtp]
+% \centering
+%     \includegraphics[scale=.70]{L2VM-L1VM-RVM-SVM-1d.png}
+% \caption{Example of kernel based regression on the noisy sinc function using an RBF kernel with bandwidth $\sigma=0.3$. (a) L2VM with $\lambda=0.5$. (b) L1VM with $\lambda=0.5$. (c) RVM. (d) SVM regression with $C=1/\lambda$ chosen by cross validation, and $\epsilon=0.1$ (the default for SVMlight). Red circles denote the retained training exemplars.}
+% \label{fig:L2VM-L1VM-RVM-SVM-1d} 
+% \end{figure}
 
 
 \section{The kernel trick}
@@ -272,10 +278,11 @@ TODO
 
 \section{Support vector machines (SVMs)}
 \label{sec:SVMs}
-In Section \ref{sparse-kernel-machines}, we saw one way to derive a sparse kernel machine, namely by using a GLM with kernel basis functions, plus a sparsity-promoting prior such as $\ell_1$ or ARD. An alternative approach is to change the objective function from negative log likelihood to some other loss function, as we discussed in Section \ref{sec:Surrogate-loss-functions}. In particular, consider the $\ell_2$ regularized empirical risk function
+In Section \ref{sec:sparse-kernel-machines}, we saw one way to derive a sparse kernel machine, namely by using a GLM with kernel basis functions, plus a sparsity-promoting prior such as $\ell_1$ or ARD. An alternative approach is to change the objective function from negative log likelihood to some other loss function, as we discussed in Section \ref{sec:Surrogate-loss-functions}. In particular, consider the $\ell_2$ regularized empirical risk function
 \begin{equation}
-J(\vec{w}, \lambda)=\sum\limits{i=1}^N L(y_i, \hat{y_i})+\lambda\lVert\vec{w}\rVert^2 \quad \text{, where } \hat{y_i}=\vec{w}^T\vec{x}_i+w_0
+J(\vec{w}, \lambda)=\sum\limits{i=1}^N L(y_i, \hat{y_i})+\lambda\lVert\vec{w}\rVert^2
 \end{equation}
+where $\hat{y_i}=\vec{w}^T\vec{x}_i+w_0$.
 
 If $L$ is quadratic loss, this is equivalent to ridge regression, and if $L$ is the log-loss defined in Equation \eqref{eqn:log-loss}, this is equivalent to logistic regression.
 
@@ -334,8 +341,8 @@ It is possible to obtain sparse, probabilistic, multi-class kernel-based classif
 \textbf{Evaluation}
 \begin{eqnarray}
 \min_{\vec{w},b}  &&  C \sum\limits_{i=1}^N\xi_i + \frac{1}{2}\|\vec{w}\|^2 \label{eqn:pfwr1} \\
-      & s.t. \quad & y_i(\vec{w}\vec{x}_i+b)\geqslant 1-\xi_i, i=1,2, \dots , N \label{eqn:pfwr2} \\
-                  && \xi_i \geqslant 0, i=1,2, \dots, N \label{eqn:pfwr3}
+      & s.t. \quad & y_i(\vec{w}\vec{x}_i+b)\geqslant 1-\xi_i  \label{eqn:pfwr2} \\
+                  && \xi_i \geqslant 0, \quad i=1,2, \dots, N \label{eqn:pfwr3}
 \end{eqnarray}
 
 
@@ -439,7 +446,8 @@ SVMs for both classification and regression require that you specify the kernel 
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.70]{choosing-C.png}
+\subfloat[]{\includegraphics[scale=.50]{choosing-C-a.png}} \\
+\subfloat[]{\includegraphics[scale=.50]{choosing-C-b.png}}
 \caption{(a) A cross validation estimate of the 0-1 error for an SVM classifier with RBF kernel with different precisions $\gamma=1/(2\sigma^2)$ and different regularizer $\gamma=1/C$, applied to a synthetic data set drawn from a mixture of 2 Gaussians. (b) A slice through this surface for $\gamma=5$ The red dotted line is the Bayes optimal error, computed using Bayes rule applied to the model used to generate the data. Based on Figure 12.6 of (Hastie et al. 2009). }
 \label{fig:choosing-C} 
 \end{figure}
@@ -474,7 +482,7 @@ We have mentioned several different methods for classification and regression ba
 \centering
 \begin{tabular}{llllllll}
 \hline\noalign{\smallskip}
-Method & Opt. \vec{w} & Opt. kernel & Sparse & Prob. & Multiclass & Non-Mercer & Section \\
+Method & Opt. \vec{w} & Opt. & Sparse & Prob. & Multiclass & Non-Mercer & Section \\
 \noalign{\smallskip}\svhline\noalign{\smallskip}
 L2VM & Convex & EB & No & Yes & Yes & Yes & 14.3.2 \\
 L1VM & Convex & CV & Yes & Yes & Yes & Yes & 14.3.2 \\

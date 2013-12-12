@@ -95,8 +95,8 @@ xyz
 \label{sec:Newtons-method}
 \begin{align}
 f(\vec{x})& \approx f(\vec{x}_k)+\vec{g}_k^T(\vec{x}-\vec{x}_k)+\dfrac{1}{2}(\vec{x}-\vec{x}_k)^T\vec{H}_k(\vec{x}-\vec{x}_k) \nonumber \\
-\text{where } & \vec{g}_k \triangleq \vec{g}(\vec{x}_k)=f'(\vec{x}_k) \nonumber \\
-              & \vec{H}_k \triangleq \vec{H}(\vec{x}_k), \vec{H}(\vec{x}) \triangleq \left[\dfrac{\partial^2 f}{\partial x_i \partial x_j}\right]_{D \times D} \quad \text{(Hessian matrix)} \nonumber \\
+\text{where } & \vec{g}_k \triangleq \vec{g}(\vec{x}_k)=f'(\vec{x}_k), \vec{H}_k \triangleq \vec{H}(\vec{x}_k), \nonumber \\
+              & \vec{H}(\vec{x}) \triangleq \left[\dfrac{\partial^2 f}{\partial x_i \partial x_j}\right]_{D \times D} \quad \text{(Hessian matrix)} \nonumber \\
 f'(\vec{x})& = \vec{g}_k+\vec{H}_k(\vec{x}-\vec{x}_k)=0 \Rightarrow  \label{eqn:newton-stationary-point} \\
 \vec{x}_{k+1}& = \vec{x}_k-\vec{H}_k^{-1}\vec{g}_k
 \end{align}

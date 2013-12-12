@@ -63,23 +63,21 @@ p(X_{1:N})=p(X_1)p(X_3|X_2,X_1)...p(X_N|X_{1:N-1})
 
 \subsubsection{Marginal distribution}
 \textbf{Marginal CDF}:
-\begin{figure*}[!t]
-\normalsize
-\begin{equation}
-\begin{cases}
-F_X(x) \triangleq F(x,+\infty)=\begin{cases}
-\sum_{x_i \leq x}P(X=x_i)=\sum_{x_i \leq x}\sum_{j=1}^{+\infty}P(X=x_i,Y=y_j), & \text{descrete}\\
-\int_{-\infty}^{x}f_X(u)du=\int_{-\infty}^{x}\int_{-\infty}^{+\infty} f(u,v)\mathrm{d}u\mathrm{d}v, & \text{continuous}\\
-\end{cases}\\
-F_Y(y) \triangleq F(+\infty,y)=\begin{cases}
-\sum_{y_j \leq y}p(Y=y_j)=\sum_{i=1}^{+\infty}\sum_{y_j \leq y}P(X=x_i,Y=y_j), & \text{descrete}\\
-\int_{-\infty}^{y}f_Y(v)dv=\int_{-\infty}^{+\infty}\int_{-\infty}^{y} f(u,v)\mathrm{d}u\mathrm{d}v, & \text{continuous}\\
-\end{cases}\\
+\begin{equation}\begin{split}
+& F_X(x) \triangleq F(x,+\infty)= \\
+& \begin{cases}
+\sum\limits_{x_i \leq x}P(X=x_i)=\sum\limits_{x_i \leq x}\sum\limits_{j=1}^{+\infty}P(X=x_i,Y=y_j) \\
+\int_{-\infty}^{x}f_X(u)du=\int_{-\infty}^{x}\int_{-\infty}^{+\infty} f(u,v)\mathrm{d}u\mathrm{d}v \\
 \end{cases}
-\end{equation}
-\hrulefill
-\vspace*{4pt}
-\end{figure*}
+\end{split}\end{equation}
+
+\begin{equation}\begin{split}
+& F_Y(y) \triangleq F(+\infty,y)= \\
+& \begin{cases}
+\sum\limits_{y_j \leq y}p(Y=y_j)=\sum\limits_{i=1}^{+\infty}\sum_{y_j \leq y}P(X=x_i,Y=y_j) \\
+\int_{-\infty}^{y}f_Y(v)dv=\int_{-\infty}^{+\infty}\int_{-\infty}^{y} f(u,v)\mathrm{d}u\mathrm{d}v \\
+\end{cases}
+\end{split}\end{equation}
 
 \textbf{Marginal PMF and PDF}:
 \begin{equation}
@@ -555,8 +553,8 @@ Figure \ref{fig:3d-Dirichlet} shows some plots of the Dirichlet when $K=3$, and 
 
 \begin{figure}[hbtp]
 \centering
-\subfloat[$\vec{\alpha}=(0.1,\cdots,0.1)$. This results in very sparse distributions, with many 0s.]{\includegraphics[scale=.60]{5d-Dirichlet-a.png}} \\
-\subfloat[$\vec{\alpha}=(1,\cdots,1)$. This results in more uniform (and dense) distributions.]{\includegraphics[scale=.60]{5d-Dirichlet-b.png}}
+\subfloat[$\vec{\alpha}=(0.1,\cdots,0.1)$. This results in very sparse distributions, with many 0s.]{\includegraphics[scale=.50]{5d-Dirichlet-a.png}} \\
+\subfloat[$\vec{\alpha}=(1,\cdots,1)$. This results in more uniform (and dense) distributions.]{\includegraphics[scale=.50]{5d-Dirichlet-b.png}}
 \caption{Samples from a 5-dimensional symmetric Dirichlet distribution for different parameter values.} 
 \label{fig:5d-Dirichlet} 
 \end{figure}

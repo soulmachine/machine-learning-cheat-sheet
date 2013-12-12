@@ -14,11 +14,13 @@ where $\vec{w}$ and $\vec{x}$ are extended vectors, i.e., $\vec{w}=(b, w_1, w_2,
 
 \subsection{MLE}
 \begin{align}
-\ell(\vec{w}) &= \log\left\{\prod\limits_{i=1}^N{\left[\pi(\vec{x}_i)\right]^{y_i}\left[1-\pi(\vec{x}_i)\right]^{1-y_i}}\right\} \quad \text{, where } \pi(\vec{x}) \triangleq P(y=1|\vec{x},\vec{w}) \nonumber \\
-           &= \sum\limits_{i=1}^N\left[y_i\log\pi(\vec{x}_i)+(1-y_i)\log(1-\pi(\vec{x}_i))\right] \label{eqn:cross-entropy-error} \\
+\ell(\vec{w}) &= \log\left\{\prod\limits_{i=1}^N{\left[\pi(\vec{x}_i)\right]^{y_i}\left[1-\pi(\vec{x}_i)\right]^{1-y_i}}\right\} \nonumber \\
+              & \quad \text{, where } \pi(\vec{x}) \triangleq P(y=1|\vec{x},\vec{w}) \nonumber \\
+           &= \sum\limits_{i=1}^N\left[y_i\log\pi(\vec{x}_i)+(1-y_i)\log(1-\pi(\vec{x}_i))\right] \label{eqn:cross-entropy-error} \nonumber \\
 		   &= \sum\limits_{i=1}^N\left[y_i\log\dfrac{\pi(\vec{x}_i)}{1-\pi(\vec{x}_i)}+\log(1-\pi(\vec{x}_i))\right] \nonumber \\
 		   &= \sum\limits_{i=1}^N\left[y_i(\vec{w}\cdot\vec{x}_i)-\log(1+\exp(\vec{w}\cdot\vec{x}_i))\right] \nonumber \\
-J(\vec{w}) & \triangleq \mathrm{NLL}(\vec{w})= -\ell(\vec{w}) = -\sum\limits_{i=1}^N\left[y_i(\vec{w}\cdot\vec{x}_i)-\log(1+\exp(\vec{w}\cdot\vec{x}_i))\right] 
+J(\vec{w}) & \triangleq \mathrm{NLL}(\vec{w})= -\ell(\vec{w}) \nonumber \\
+           & = -\sum\limits_{i=1}^N\left[y_i(\vec{w}\cdot\vec{x}_i)-\log(1+\exp(\vec{w}\cdot\vec{x}_i))\right] 
 \end{align}
 
 Equation \eqref{eqn:cross-entropy-error} is also called the \textbf{cross-entropy} error function (see Equation \eqref{eqn:cross-entropy}).
@@ -31,7 +33,7 @@ In the case of logistic regression, one can show that the gradient and Hessian o
 \vec{H}(\vec{w}) &= \dfrac{\mathrm{d} \vec{g}^T}{\mathrm{d} \vec{w}}= \dfrac{\mathrm{d}}{\mathrm{d} \vec{w}} (\vec{\pi}-\vec{y})^T\vec{X}^T \nonumber \\
         &= \dfrac{\mathrm{d}}{\mathrm{d} \vec{w}} \vec{\pi}^T\vec{X}^T \nonumber \\
 		&= (\pi(\vec{x}_i)(1-\pi(\vec{x}_i))\vec{x}_i, \cdots,)\vec{X}^T \nonumber \\
-		&= \vec{X}\vec{S}\vec{X}^T \quad \text{, where } \vec{S} \triangleq \mathrm{diag}(\pi(\vec{x}_i)(1-\pi(\vec{x}_i))\vec{x}_i)
+		&= \vec{X}\vec{S}\vec{X}^T, \quad \vec{S} \triangleq \mathrm{diag}(\pi(\vec{x}_i)(1-\pi(\vec{x}_i))\vec{x}_i)
 \end{align}
 
 
@@ -88,7 +90,7 @@ a_{m1}\vec{B} & \cdots & a_{mn}\vec{B}
 The gradient and Hessian are given by
 \begin{align}
 \vec{g}(\vec{W}) & =\sum\limits_{i=1}^N (\vec{\mu}-\vec{y}_i) \otimes \vec{x}_i \\
-\vec{H}(\vec{W}) & =\sum\limits_{i=1}^N (\mathrm{diag}(\vec{\mu}_i)-\vec{\mu}_i\vec{\mu}_i^T) \otimes (\vec{x}_i\vec{x}_i^T) \\
+\vec{H}(\vec{W}) & =\sum\limits_{i=1}^N (\mathrm{diag}(\vec{\mu}_i)-\vec{\mu}_i\vec{\mu}_i^T) \otimes (\vec{x}_i\vec{x}_i^T)
 \end{align}
 where $\vec{y}_i=(\mathbb{I}(y_i=1),\mathbb{I}(y_i=1),\cdots, \mathbb{I}(y_i=C-1))$ and $\vec{\mu}_i=(p(y=1|\vec{x}_i,\vec{W}),p(y=2|\vec{x}_i,\vec{W}),\cdots, p(y=C-1|\vec{x}_i,\vec{W}))$ are column vectors of length $C-1$.
 
@@ -98,7 +100,8 @@ Pass them to any gradient-based optimizer.
 \subsection{MAP}
 The new objective
 \begin{align}
-J'(\vec{W}) & =\mathrm{NLL}(\vec{w})-\log{p(\vec{W})} \quad \text{, where } p(\vec{W}) \triangleq \prod\limits_{c=1}^C \mathcal{N}(\vec{w}_c|\vec{0},\vec{V}_0) \\
+J'(\vec{W}) & =\mathrm{NLL}(\vec{w})-\log{p(\vec{W})} \\
+            & \quad \text{, where } p(\vec{W}) \triangleq \prod\limits_{c=1}^C \mathcal{N}(\vec{w}_c|\vec{0},\vec{V}_0) \nonumber \\
    & = J(\vec{W})+\dfrac{1}{2}\sum\limits_{c=1}^C \vec{w}_c\vec{V}_0^{-1}\vec{w}_c \\
 \end{align}
 
@@ -256,21 +259,19 @@ f(\vec{x})&=&\text{sign}\left(\sum\limits_{j=1}^{N} \alpha_jy_j\vec{x}_j \cdot \
 
 \item{\textbf{Symmetric in inputs and outputs?} We can run a generative model “backwards”, and infer probable inputs given the output by computing $p(\vec{x}|y)$. This is not possible with a discriminative model. The reason is that a generative model defines a joint distribution on $\vec{x}$ and $y$, and hence treats both inputs and outputs symmetrically.}
 
-\item{\textbf{Can handle feature preprocessing?} A big advantage of discriminative methods is that they allow us to preprocess the input in arbitrary ways, e.g., we can replace $\vec{x}$ with $\phi(\vec{x})$, which could be some basis function expansion, as illustrated in Figure \ref{fig:function-expansion}. It is often hard to define a generative model on such pre-processed data, since the new features are correlated in complex ways.}
+\item{\textbf{Can handle feature preprocessing?} A big advantage of discriminative methods is that they allow us to preprocess the input in arbitrary ways, e.g., we can replace $\vec{x}$ with $\phi(\vec{x})$, which could be some basis function expansion, etc. It is often hard to define a generative model on such pre-processed data, since the new features are correlated in complex ways.}
 
 \item{\textbf{Well-calibrated probabilities?} Some generative models, such as naive Bayes, make strong independence assumptions which are often not valid. This can result in very extreme posterior class probabilities (very near 0 or 1). Discriminative models, such as logistic regression, are usually better calibrated in terms of their probability estimates.}
 \end{itemize}
 
 See Table \ref{tab:List-of-various-models-for-classification} for a summary of the classification and regression techniques we cover in this book.
 
-\begin{table}
-\label{tab:List-of-various-models-for-classification}
+\begin{table*}
 \centering
 \begin{tabular}{lllll}
 \hline\noalign{\smallskip}
 \textbf{Model} & \textbf{Classif/regr} & \textbf{Gen/Discr} & \textbf{Param/Non} & \textbf{Section} \\
 \noalign{\smallskip}\svhline\noalign{\smallskip}
-\noalign{\smallskip}\hline\noalign{\smallskip}
 Discriminant analysis & Classif & Gen & Param & Sec. \ref{sec:Linear-discriminant-analysis}, \ref{sec:MLE-for-discriminant-analysis} \\
 Naive Bayes classifier & Classif & Gen & Param & Sec. \ref{sec:NBC}, \ref{sec:Bayesian-naive-Bayes} \\
 Tree-augmented Naive Bayes classifier & Classif & Gen & Param & Sec. 10.2.1 \\
@@ -280,7 +281,7 @@ Sparse linear/ logistic regression & Both & Discrim & Param & Ch. 13 \\
 Mixture of experts & Both & Discrim & Param & Sec. 11.2.4 \\
 Multilayer perceptron (MLP)/ Neural network & Both & Discrim & Param & Ch. 16 \\
 Conditional random field (CRF) & Classif & Discrim & Param & Sec. 19.6 \\
-\noalign{\smallskip}\hline\noalign{\smallskip} \\
+\noalign{\smallskip}\hline \\
 $K$ nearest neighbor classifier & Classif & Gen & Non & Sec. TODO, TODO \\
 (Infinite) Mixture Discriminant analysis & Classif & Gen & Non & Sec. 14.7.3 \\
 Classification and regression trees (CART) & Both & Discrim & Non & Sec. 16.2 \\
@@ -293,14 +294,8 @@ Smoothing splines & Regr & Discrim & Non & Section 15.4.6 \\
 \noalign{\smallskip}\hline
 \end{tabular}
 \caption{List of various models for classification and regression which we discuss in this book. Columns are as follows: Model name; is the model suitable for classification, regression, or both; is the model generative or discriminative; is the model parametric or non-parametric; list of sections in book which discuss the model. See also \url{http://pmtk3.googlecode.com/svn/trunk/docs/tutorial/html/tutSupervised.html} for the PMTK equivalents of these models. Any generative probabilistic model (e.g., HMMs, Boltzmann machines, Bayesian networks, etc.) can be turned into a classifier by using it as a class conditional density}
-\end{table}
-
-\begin{figure}[hbtp]
-\centering
-    \includegraphics[scale=.7]{function-expansion.png}
-\caption{(a) Multinomial logistic regression for 5 classes in the original feature space. (b) After basis function expansion, using RBF kernels with a bandwidth of 1, and using all the data points as centers.}
-\label{fig:function-expansion} 
-\end{figure}
+\label{tab:List-of-various-models-for-classification}
+\end{table*}
 
 
 \subsection{Dealing with missing data}

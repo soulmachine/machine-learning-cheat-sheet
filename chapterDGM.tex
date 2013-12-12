@@ -49,7 +49,7 @@ p(x_{1:V}|G)=\prod\limits_{t=1}^V p(x_t|x_{\mathrm{pa}(t)})
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.70]{graphical-models.png}
+    \includegraphics[scale=.50]{graphical-models.png}
 \caption{(a) A simple DAG on 5 nodes, numbered in topological order. Node 1 is the root, nodes 4 and 5 are the leaves. (b) A simple undirected graph, with the following maximal cliques: {1,2,3}, {2,3,4}, {3,5}.}
 \label{fig:graphical-models} 
 \end{figure}
@@ -61,7 +61,7 @@ p(x_{1:V}|G)=\prod\limits_{t=1}^V p(x_t|x_{\mathrm{pa}(t)})
 \subsection{Naive Bayes classifiers}
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.70]{naive-bayes-as-DGM.png}
+    \includegraphics[scale=.60]{naive-bayes-as-DGM.png}
 \caption{(a) A naive Bayes classifier represented as a DGM. We assume there are $D=4$ features, for simplicity. Shaded nodes are observed, unshaded nodes are hidden. (b) Tree-augmented naive Bayes classifier for $D=4$ features. In general, the tree topology can change depending on the value of $y$.}
 \label{fig:naive-bayes-as-DGM} 
 \end{figure}
@@ -70,14 +70,14 @@ p(x_{1:V}|G)=\prod\limits_{t=1}^V p(x_t|x_{\mathrm{pa}(t)})
 \subsection{Markov and hidden Markov models}
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.70]{second-order-Markov-chain.png}
+    \includegraphics[scale=.50]{second-order-Markov-chain.png}
 \caption{A first and second order Markov chain.}
 \label{fig:second-order-Markov-chain} 
 \end{figure}
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.70]{first-order-HMM.png}
+    \includegraphics[scale=.60]{first-order-HMM.png}
 \caption{A first-order HMM.}
 \label{fig:first-order-HMM} 
 \end{figure}
@@ -105,11 +105,11 @@ MAP estimate:
 
 \subsection{Learning from complete data}
 If all the variables are fully observed in each case, so there is no missing data and there are no hidden variables, we say the data is \textbf{complete}. For a DGM with complete data, the likelihood is given by
-\begin{equation}
-p(\mathcal{D}|\vec{\theta}) = \prod_{i=1}^N p(\vec{x}_i|\vec{\theta})
-= \prod_{i=1}^N\prod_{t=1}^V p(\vec{x}_{it}|\vec{x}_{i, \mathrm{pa}(t)}, \vec{\theta}_t)
-= \prod_{t=1}^V p(\mathcal{D}_t|\vec{\theta}_t)
-\end{equation}
+\begin{equation}\begin{split}
+p(\mathcal{D}|\vec{\theta}) & = \prod_{i=1}^N p(\vec{x}_i|\vec{\theta}) \\
+& = \prod_{i=1}^N\prod_{t=1}^V p(\vec{x}_{it}|\vec{x}_{i, \mathrm{pa}(t)}, \vec{\theta}_t) \\
+& = \prod_{t=1}^V p(\mathcal{D}_t|\vec{\theta}_t)
+\end{split}\end{equation}
 where $\mathcal{D}_t$ is the data associated with node $t$ and its parents, i.e., the $t$'th family.
 
 Now suppose that the prior factorizes as well:
@@ -133,11 +133,11 @@ If we have missing data and/or hidden variables, the likelihood no longer factor
 \subsection{d-separation and the Bayes Ball algorithm (global Markov properties)}
 \begin{enumerate}
 \item P contains a chain
-\begin{equation}
-p(x,z|y) = \frac{p(x,y,z)}{p(y)}
-= \frac{p(x)p(y|x)p(z|y)}{p(y)}
-= \frac{p(x,y)p(z|y)}{p(y)} = p(x|y)p(z|y)
-\end{equation}
+\begin{equation}\begin{split}
+p(x,z|y) & = \frac{p(x,y,z)}{p(y)}
+= \frac{p(x)p(y|x)p(z|y)}{p(y)} \\
+ & = \frac{p(x,y)p(z|y)}{p(y)} = p(x|y)p(z|y)
+\end{split}\end{equation}
 
 \item P contains a fork
 \begin{equation}
@@ -167,11 +167,10 @@ mb(t) = ch(t)\cup pa(t)\cup copa(t)
 
 \subsection{Multinoulli Learning}
 Multinoulli Distribution：
-\begin{equation}
+\begin{equation}\label{eqn:discrite}
 Cat(x|\mu) = \prod_{k=1}^K\mu_k^{x_k}
-\label{discrite}
 \end{equation}
-then from \ref{bayes_net} and \ref{discrite}:
+then from \ref{bayes_net} and \ref{eqn:discrite}:
 \begin{equation}
 p(x|G,\theta) = \prod_{v=1}^V\prod_{c=1}^{C_v}\prod_{k=1}^K
 \theta_{vck}^{y_{vck}}
@@ -182,8 +181,7 @@ p(D|G,\theta) = \prod_{n=1}^N p(x_n|G,\theta)
 =\prod_{n=1}^N\prod_{v=1}^V\prod_{c=1}^{C_{nv}}\prod_{k=1}^K
 \theta_{vck}^{y_{nvck}}
 \end{equation}
-where $y_{nv} = f(pa(x_{nv}))$, f(x) is a map from x to a vector,
-there is only one element in the vector is 1.
+where $y_{nv} = f(pa(x_{nv}))$, f(x) is a map from x to a vector, there is only one element in the vector is 1.
 
 
 \section{Influence (decision) diagrams *}

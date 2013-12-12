@@ -14,7 +14,7 @@ An alternative approach is to assume that the observed variables are correlated 
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.70]{latent-variable-model.png}
+    \includegraphics[scale=.60]{latent-variable-model.png}
 \caption{A latent variable model represented as a DGM. (a) Many-to-many. (b) One-to-many. (c) Many-to-one. (d) One-to-one.}
 \label{fig:latent-variable-model} 
 \end{figure}
@@ -29,7 +29,6 @@ p(\vec{x}_i|\vec{\theta})=\sum\limits_{k=1}^K \pi_kp_k(\vec{x}_i|\vec{\theta})
 Depending on the form of the likelihood $p(\vec{x}_i|\vec{z}_i)$ and the prior $p(\vec{z}_i)$, we can generate a variety of different models, as summarized in Table \ref{tab:popular-directed-latent-variable-models}.
 
 \begin{table}
-\label{tab:popular-directed-latent-variable-models}
 \centering
 \begin{tabular}{llll}
 \hline\noalign{\smallskip}
@@ -37,15 +36,19 @@ $p(\vec{x}_i|\vec{z}_i)$ & $p(\vec{z}_i)$ & \textbf{Name} & \textbf{Section} \\
 \noalign{\smallskip}\svhline\noalign{\smallskip}
 MVN & Discrete & Mixture of Gaussians & 11.2.1 \\
 Prod. Discrete & Discrete & Mixture of multinomials & 11.2.2 \\
-Prod. Gaussian & Prod. Gaussian & Factor analysis/ probabilistic PCA & 12.1.5 \\
-Prod. Gaussian & Prod. Laplace & Probabilistic ICA/ sparse coding & 12.6 \\
+\multirow{2}{*}{Prod. Gaussian} & \multirow{2}{*}{Prod. Gaussian} & Factor analysis/ & \multirow{2}{*}{12.1.5} \\
+                                &                                 & probabilistic PCA&  \\
+\multirow{2}{*}{Prod. Gaussian} & \multirow{2}{*}{Prod. Laplace} & Probabilistic ICA/& \multirow{2}{*}{12.6} \\
+                                &                                & sparse coding     &  \\
 Prod. Discrete & Prod. Gaussian & Multinomial PCA & 27.2.3 \\
-Prod. Discrete & Dirichlet & Latent Dirichlet allocation & 27.3 \\
+\multirow{2}{*}{Prod. Discrete} & \multirow{2}{*}{Dirichlet} & Latent Dirichlet & \multirow{2}{*}{27.3}\\
+                                &                            & allocation       &  \\
 Prod. Noisy-OR & Prod. Bernoulli & BN20/ QMR & 10.2.3 \\
 Prod. Bernoulli & Prod. Bernoulli & Sigmoid belief net & 27.7 \\
 \noalign{\smallskip}\hline
 \end{tabular}
 \caption{Summary of some popular directed latent variable models. Here “Prod” means product, so “Prod. Discrete” in the likelihood means a factored distribution of the form $\prod_j \mathrm{Cat}(x_{ij}|\vec{z}_i)$, and “Prod. Gaussian” means a factored distribution of the form $\prod_j \mathcal{N}(x_{ij}|\vec{z}_i)$.}
+\label{tab:popular-directed-latent-variable-models}
 \end{table}
 
 
@@ -75,9 +78,10 @@ where $\Sigma_k=\mathrm{diag}(\mu_{jk}(1-\mu_{jk}))$. So although the component 
 There are two main applications of mixture models, black-box density model(see Section 14.7.3 TODO) and clustering(see Chapter 25 TODO).
 
 \textbf{Soft clustering}
-\begin{equation}
-r_{ik} \triangleq p(z_i=k|\vec{x}_i,\vec{\theta})=\dfrac{p(z_i=k,\vec{x}_i|\vec{\theta})}{p(\vec{x}_i|\vec{\theta})}=\dfrac{p(z_i=k|\vec{\theta})p(\vec{x}_i|z_i=k,\vec{\theta})}{\sum_{k'=1}^K p(z_i=k'|\vec{\theta})p(\vec{x}_i|z_i=k',\vec{\theta})}
-\end{equation}
+\begin{equation}\begin{split}
+r_{ik} & \triangleq p(z_i=k|\vec{x}_i,\vec{\theta})=\dfrac{p(z_i=k,\vec{x}_i|\vec{\theta})}{p(\vec{x}_i|\vec{\theta})} \\
+       & =\dfrac{p(z_i=k|\vec{\theta})p(\vec{x}_i|z_i=k,\vec{\theta})}{\sum_{k'=1}^K p(z_i=k'|\vec{\theta})p(\vec{x}_i|z_i=k',\vec{\theta})}
+\end{split}\end{equation}
 where $r_{ik}$ is known as the \textbf{responsibility} of cluster $k$ for point $i$.
 
 \textbf{Hard clustering}
@@ -99,7 +103,9 @@ See Figure \ref{fig:mixture-of-experts2}(a) for the DGM.
 
 \begin{figure}[hbtp]
 \centering
-    \includegraphics[scale=.70]{mixture-of-experts.png}
+\subfloat[]{\includegraphics[scale=.60]{mixture-of-experts-a.png}} \\
+\subfloat[]{\includegraphics[scale=.60]{mixture-of-experts-b.png}} \\
+\subfloat[]{\includegraphics[scale=.60]{mixture-of-experts-c.png}}
 \caption{(a) Some data fit with three separate regression lines. (b) Gating functions for three different “experts”. (c) The conditionally weighted average of the three expert predictions.}
 \label{fig:mixture-of-experts} 
 \end{figure}
@@ -233,9 +239,10 @@ where $r_{ik} \triangleq \mathbb{E}[\mathbb{I}(z_i=k)]=p(z_i=k|\vec{x}_i,\vec{\t
 
 \subsubsection{E-step}
 The E-step has the following simple form, which is the same for any mixture model:
-\begin{equation}
-r_{ik}=p(z_i=k|\vec{x}_i,\vec{\theta}^{t-1})=\frac{p(z_i=k,\vec{x}_i|\vec{\theta}^{t-1})}{p(\vec{x}_i|\vec{\theta}^{t-1})}=\frac{\pi_kp(\vec{x}_i|\vec{\theta}_k^{t-1})}{\sum_{k'=1}^K \pi_{k'}p(\vec{x}_i|\vec{\theta}_k^{t-1})}
-\end{equation}
+\begin{equation}\begin{split}
+r_{ik} & =p(z_i=k|\vec{x}_i,\vec{\theta}^{t-1})=\frac{p(z_i=k,\vec{x}_i|\vec{\theta}^{t-1})}{p(\vec{x}_i|\vec{\theta}^{t-1})} \\
+  & =\frac{\pi_kp(\vec{x}_i|\vec{\theta}_k^{t-1})}{\sum_{k'=1}^K \pi_{k'}p(\vec{x}_i|\vec{\theta}_k^{t-1})}
+\end{split}\end{equation}
 
 \subsubsection{M-step}
 In the M-step, we optimize $Q$ wrt $\vec{\pi}$ and $\vec{\theta}_k$.
@@ -251,9 +258,10 @@ where $\beta$ is the Lagrange multiplier. Taking derivatives, we find
 This is the same for any mixture model, whereas $\vec{\theta}_k$ depends on the form of $p(\vec{x}|\vec{\theta}_k)$.
 
 For $\vec{\theta}_k$, plug in the pdf to Equation \eqref{eqn:Q-miture-model}
-\begin{equation*}
-Q(\vec{\theta}, \vec{\theta}^{t-1}) =\sum\limits_{i=1}^N{\sum\limits_{k=1}^K{r_{ik}\log \pi_k}}-\frac{1}{2}\sum\limits_{i=1}^N{\sum\limits_{k=1}^K{r_{ik}\left[\log |\vec{\Sigma}_k|+(\vec{x}_i-\vec{\mu}_k)^T\vec{\Sigma}_k^{-1}(\vec{x}_i-\vec{\mu}_k)\right]}}
-\end{equation*}
+\begin{equation*}\begin{split}
+Q(\vec{\theta}, \vec{\theta}^{t-1}) & =\sum\limits_{i=1}^N{\sum\limits_{k=1}^K{r_{ik}\log \pi_k}}-\frac{1}{2}\sum\limits_{i=1}^N  \sum\limits_{k=1}^K  r_{ik}\left[\log |\vec{\Sigma}_k| + \right. \\
+ & \quad \left. (\vec{x}_i-\vec{\mu}_k)^T\vec{\Sigma}_k^{-1}(\vec{x}_i-\vec{\mu}_k)\right]
+\end{split}\end{equation*}
 
 Take partial derivatives of $Q$ wrt $\vec{\mu}_k$, $\vec{\Sigma}_k$ and let them equal to 0, we can get
 \begin{align}
@@ -264,7 +272,8 @@ Take partial derivatives of $Q$ wrt $\vec{\mu}_k$, $\vec{\Sigma}_k$ and let them
 
 \begin{align}
 \frac{\partial Q}{\partial \vec{\Sigma}_k} & = -\frac{1}{2}\sum\limits_{i=1}^N{r_{ik}\left[\frac{1}{\vec{\Sigma}_k}-\frac{1}{\vec{\Sigma}_k^2}(\vec{x}_i-\vec{\mu}_k)(\vec{x}_i-\vec{\mu}_k)^T\right]}=0 \Rightarrow \nonumber \\
-\hat{\vec{\Sigma}}_k & = \frac{\sum_{i=1}^N \hat{r}_{ik}(\vec{x}_i-\vec{\mu}_k)(\vec{x}_i-\vec{\mu}_k)^T}{\sum_{i=1}^N \hat{r}_{ik}}=\frac{\sum_{i=1}^N \hat{r}_{ik}\vec{x}_i\vec{x}_i^T}{\sum_{i=1}^N \hat{r}_{ik}}-\vec{\mu}_k\vec{\mu}_k^T
+\hat{\vec{\Sigma}}_k & = \frac{\sum_{i=1}^N \hat{r}_{ik}(\vec{x}_i-\vec{\mu}_k)(\vec{x}_i-\vec{\mu}_k)^T}{\sum_{i=1}^N \hat{r}_{ik}} \\
+ & =\frac{\sum_{i=1}^N \hat{r}_{ik}\vec{x}_i\vec{x}_i^T}{\sum_{i=1}^N \hat{r}_{ik}}-\vec{\mu}_k\vec{\mu}_k^T
 \end{align}
 
 
@@ -297,9 +306,10 @@ Take partial derivatives of $Q$ wrt $\vec{\mu}_k$, $\vec{\Sigma}_k$ and let them
 
 \subsubsection{MAP estimation}
 As usual, the MLE may overfit. The overfitting problem is particularly severe in the case of GMMs. An easy solution to this is to perform MAP estimation. The new auxiliary function is the expected complete data log-likelihood plus the log prior:
-\begin{equation}
-Q(\vec{\theta}, \vec{\theta}^{t-1}) = \left[\sum\limits_{i=1}^N{\sum\limits_{k=1}^K{r_{ik}\log \pi_k}}+\sum\limits_{i=1}^N{\sum\limits_{k=1}^K{r_{ik}\log p(\vec{x}_i|\vec{\theta}_k)}}\right]+\log p(\vec{\pi})+\sum\limits_{k=1}^K{\log p(\vec{\theta}_k)}
-\end{equation}
+\begin{equation}\begin{split}
+Q(\vec{\theta}, \vec{\theta}^{t-1}) & = \sum\limits_{i=1}^N{\sum\limits_{k=1}^K{r_{ik}\log \pi_k}}+\sum\limits_{i=1}^N{\sum\limits_{k=1}^K{r_{ik}\log p(\vec{x}_i|\vec{\theta}_k)}} \\
+ & +\log p(\vec{\pi})+\sum\limits_{k=1}^K{\log p(\vec{\theta}_k)}
+\end{split}\end{equation}
 
 It is natural to use conjugate priors. 
 \begin{align*}
@@ -312,7 +322,8 @@ From Equation \eqref{eqn:Dir-MAP} and Section \ref{sec:Posterior-distribution-of
 \hat{\pi}_k & = \frac{\sum_{i=1}^N r_{ik}+\alpha_k-1}{N+\sum_{k=1}^K \alpha_k-K} \\
 \hat{\vec{\mu}}_k & = \frac{\sum_{i=1}^N r_{ik}\vec{x}_i + \kappa_0\vec{m}_0}{\sum_{i=1}^N r_{ik} + \kappa_0} \\
 \hat{\vec{\Sigma}}_k & = \frac{\vec{S}_0+\vec{S}_k+\frac{\kappa_0r_k}{\kappa_0+r_k}(\bar{\vec{x}}_k-\vec{m}_0)(\bar{\vec{x}}_k-\vec{m}_0)^T}{\nu_0+r_k+D+2} \\
-\text{where } & r_k \triangleq \sum_{i=1}^N r_{ik}, \bar{\vec{x}}_k \triangleq \frac{\sum_{i=1}^N r_{ik}\vec{x}_i}{r_k},\vec{S}_k \triangleq \sum_{i=1}^N r_{ik} (\vec{x}_i-\bar{\vec{x}}_k)(\vec{x}_i-\bar{\vec{x}}_k)^T \nonumber
+\text{where } & r_k \triangleq \sum_{i=1}^N r_{ik}, \bar{\vec{x}}_k \triangleq \frac{\sum_{i=1}^N r_{ik}\vec{x}_i}{r_k}, \nonumber \\
+  & \vec{S}_k \triangleq \sum_{i=1}^N r_{ik} (\vec{x}_i-\bar{\vec{x}}_k)(\vec{x}_i-\bar{\vec{x}}_k)^T \nonumber
 \end{align}
 
 
@@ -414,17 +425,25 @@ Now let's proof why the $Q$ function should look like Equation \eqref{eqn:auxili
                 &= \log{{\sum\limits_{\vec{z}} P(\mathcal{D},\vec{z}|\vec{\theta})}} \nonumber \\
 				&= \log{{\sum\limits_{\vec{z}} P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}} \nonumber \\
 \ell(\vec{\theta})-\ell(\vec{\theta}^{t-1}) &= \log\left[\sum\limits_{\vec{z}} P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})\right] - \log{P(\mathcal{D}|\vec{\theta}^{t-1})} \nonumber \\
-                &= \log\left[\sum\limits_{\vec{z}} P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})\dfrac{P(\vec{z}|\mathcal{D},\theta^{t-1})}{P(\vec{z}|\mathcal{D},\theta^{t-1})}\right] - \log{P(\mathcal{D}|\vec{\theta}^{t-1})} \nonumber \\
-				&= \log\left[\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{D},\theta^{t-1})\dfrac{P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{D},\theta^{t-1})}\right] - \log{P(\mathcal{D}|\vec{\theta}^{t-1})} \nonumber \\
-				&\geq \sum\limits_{\vec{z}} P(\vec{z}|\mathcal{D},\theta^{t-1})\log\left[\dfrac{P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{D},\theta^{t-1})}\right] - \log{P(\mathcal{D}|\vec{\theta}^{t-1})} \nonumber \\
-				&= \sum\limits_{\vec{z}} P(\vec{z}|\mathcal{D},\theta^{t-1})\log\left[\dfrac{P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{D},\theta^{t-1})P(\mathcal{D}|\vec{\theta}^{t-1})}\right] \nonumber \\
-				B(\vec{\theta},\vec{\theta}^{t-1}) & \ell(\vec{\theta}^{t-1})+\triangleq \sum\limits_{\vec{z}} P(\vec{z}|\mathcal{D},\theta^{t-1})\log\left[\dfrac{P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{D},\theta^{t-1})P(\mathcal{D}|\vec{\theta}^{t-1})}\right] \\
+                &= \log\left[\sum\limits_{\vec{z}} P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})\dfrac{P(\vec{z}|\mathcal{D},\theta^{t-1})}{P(\vec{z}|\mathcal{D},\theta^{t-1})}\right] \nonumber \\
+				& \quad -\log{P(\mathcal{D}|\vec{\theta}^{t-1})} \nonumber \\
+				&= \log\left[\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{D},\theta^{t-1})\dfrac{P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{D},\theta^{t-1})}\right] \nonumber \\
+				& \quad - \log{P(\mathcal{D}|\vec{\theta}^{t-1})} \nonumber \\
+				&\geq \sum\limits_{\vec{z}} P(\vec{z}|\mathcal{D},\theta^{t-1})\log\left[\dfrac{P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{D},\theta^{t-1})}\right] \nonumber \\
+				& \quad - \log{P(\mathcal{D}|\vec{\theta}^{t-1})} \nonumber \\
+				&= \sum\limits_{\vec{z}} \left\{P(\vec{z}|\mathcal{D},\theta^{t-1}) \right. \nonumber \\
+				& \quad \left. \log\left[\dfrac{P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{D},\theta^{t-1})P(\mathcal{D}|\vec{\theta}^{t-1})}\right]\right\} \nonumber
+\end{align}
+\begin{align}
+B(\vec{\theta},\vec{\theta}^{t-1}) & \triangleq \ell(\vec{\theta}^{t-1})+ \nonumber \\
+ & \sum\limits_{\vec{z}} P(\vec{z}|\mathcal{D},\theta^{t-1})\log\left[\dfrac{P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{D},\theta^{t-1})P(\mathcal{D}|\vec{\theta}^{t-1})}\right] \nonumber \\
 \Rightarrow & \nonumber
 \end{align}
 
 \begin{align}
 \vec{\theta}^t &= \arg\max\limits_{\vec{\theta}} B(\vec{\theta},\vec{\theta}^{t-1})  \nonumber \\
-                &= \arg\max\limits_{\vec{\theta}}{\left\{ \ell(\vec{\theta}^{t-1})+\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{D},\theta^{t-1})\log\left[\dfrac{P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{D},\theta^{t-1})P(\mathcal{D}|\vec{\theta}^{t-1})}\right]\right\}} \nonumber \\
+                &= \arg\max\limits_{\vec{\theta}}\left\{ \ell(\vec{\theta}^{t-1})+\right. \nonumber \\
+				 & \quad \left. \sum\limits_{\vec{z}} P(\vec{z}|\mathcal{D},\theta^{t-1})\log\left[\dfrac{P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})}{P(\vec{z}|\mathcal{D},\theta^{t-1})P(\mathcal{D}|\vec{\theta}^{t-1})}\right]\right\} \nonumber \\
 				& \text{Now drop terms which are constant w.r.t. } \vec{\theta} \nonumber \\
 				&= \arg\max\limits_{\vec{\theta}}{\left\{\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{D},\theta^{t-1})\log\left[P(\mathcal{D}|\vec{z},\vec{\theta})P(\vec{z}|\vec{\theta})\right]\right\}} \nonumber \\
 				&= \arg\max\limits_{\vec{\theta}}{\left\{\sum\limits_{\vec{z}} P(\vec{z}|\mathcal{D},\theta^{t-1})\log\left[P(\mathcal{D},\vec{z}|\vec{\theta})\right]\right\}} \nonumber \\
@@ -476,9 +495,10 @@ and $\tilde{P}_{\theta}$ is continuous w.r.t. $\vec{\theta}$.
 
 \begin{proof}
 Given a fixed $\vec{\theta}$, we can get $\tilde{P}_{\theta}$ which maximizes $F(\tilde{P},\vec{\theta})$. we construct the Lagrangian
-\begin{equation}
-\mathcal{L}(\tilde{P}, \vec{\theta})=\mathbb{E}_{\tilde{P}}\left[\log{P(X,Z|\theta)}\right]-\mathbb{E}_{\tilde{P}}\log\tilde{P}_{\theta}(Z)+\lambda\left[1-\sum\limits_Z{\tilde{P}(Z)}\right]
-\end{equation}
+\begin{equation}\begin{split}
+\mathcal{L}(\tilde{P}, \vec{\theta}) & =\mathbb{E}_{\tilde{P}}\left[\log{P(X,Z|\theta)}\right]-\mathbb{E}_{\tilde{P}}\log\tilde{P}_{\theta}(Z) \\
+                                     & \quad +\lambda\left[1-\sum\limits_Z{\tilde{P}(Z)}\right]
+\end{split}\end{equation}
 
 Take partial derivative with respect to $\tilde{P}_{\theta}(Z)$ then we get
 \begin{equation}

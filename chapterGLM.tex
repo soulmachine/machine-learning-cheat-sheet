@@ -41,9 +41,10 @@ where $\eta$ is a function that maps the parameters $\vec{\theta}$ to the canoni
 
 \subsubsection{Bernoulli}
 The Bernoulli for $x \in \{0,1\}$ can be written in exponential family form as follows:
-\begin{equation}
-\mathrm{Ber}(x|\mu)=\mu^x(1-\mu)^{1-x}=\exp[x\log\mu+(1-x)\log(1-\mu)]
-\end{equation}
+\begin{equation}\begin{split}
+\mathrm{Ber}(x|\mu)& =\mu^x(1-\mu)^{1-x} \\
+   & =\exp[x\log\mu+(1-x)\log(1-\mu)]
+\end{split}\end{equation}
 where $\phi(x)=(\mathbb{I}(x=0),\mathbb{I}(x=1))$ and $\vec{\theta}=(\log\mu,\log(1-\mu))$. 
 
 However, this representation is \textbf{over-complete} since $\vec{1}^T\phi(x)=\mathbb{I}(x=0)+\mathbb{I}(x=1)=1$. Consequently $\vec{\theta}$ is not uniquely identifiable. It is common to require that the representation be \textbf{minimal}, which means there is a unique $\theta$ associated with the distribution. In this case, we can just define
@@ -60,12 +61,12 @@ We can recover the mean parameter $\mu$ from the canonical parameter using
 
 \subsubsection{Multinoulli}
 We can represent the multinoulli as a minimal exponential family as follows:
-\begin{align}
-\mathrm{Cat}(\vec{x}|\vec{\mu}) & = \prod\limits_{k=1}^K = \exp\left(\sum\limits_{k=1}^K x_k\log\mu_k\right) \nonumber \\
-    & = \exp\left[\sum\limits_{k=1}^{K-1} x_k\log\mu_k+(1-\sum\limits_{k=1}^{K-1} x_k)\log(1-\sum\limits_{k=1}^{K-1} \mu_k)\right] \nonumber \\
-	& = \exp\left[\sum\limits_{k=1}^{K-1} x_k\log\dfrac{\mu_k}{1-\sum_{k=1}^{K-1} \mu_k} + \log(1-\sum\limits_{k=1}^{K-1} \mu_k) \right] \nonumber \\
-	& = \exp\left[\sum\limits_{k=1}^{K-1} x_k\log\dfrac{\mu_k}{\mu_K}+\log\mu_K\right] \quad \text{, where } \mu_K \triangleq 1-\sum\limits_{k=1}^{K-1} \mu_k \nonumber
-\end{align}
+\begin{equation*}\begin{split}
+& \mathrm{Cat}(\vec{x}|\vec{\mu}) = \prod\limits_{k=1}^K = \exp\left(\sum\limits_{k=1}^K x_k\log\mu_k\right) \\
+    & = \exp\left[\sum\limits_{k=1}^{K-1} x_k\log\mu_k+  (1-\sum\limits_{k=1}^{K-1} x_k)\log(1-\sum\limits_{k=1}^{K-1} \mu_k)\right] \\
+	& = \exp\left[\sum\limits_{k=1}^{K-1} x_k\log\dfrac{\mu_k}{1-\sum_{k=1}^{K-1} \mu_k} + \log(1-\sum\limits_{k=1}^{K-1} \mu_k) \right] \\
+	& = \exp\left[\sum\limits_{k=1}^{K-1} x_k\log\dfrac{\mu_k}{\mu_K}+\log\mu_K\right] \text{, where } \mu_K \triangleq 1-\sum\limits_{k=1}^{K-1} \mu_k
+\end{split}\end{equation*}
 
 We can write this in exponential family form as follows:
 \begin{align}

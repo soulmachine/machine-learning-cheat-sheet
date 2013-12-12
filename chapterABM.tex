@@ -31,7 +31,8 @@ Define $\bar{w}_{mi}=\exp{[-y_i(f_{m-1}(\vec{x}_i)]}$, which is constant w.r.t. 
 
 \subsubsection{Input}
 \begin{eqnarray*}
-& \mathcal{D}=\{(\vec{x}_1,y_1),(\vec{x}_2,y2),\dots,(\vec{x}_N,y_N)\} \text{ ,where } \vec{x}_i \in \mathbb{R}^D,\ y_i \in \{-1,+1\} \\
+& \mathcal{D}=\{(\vec{x}_1,y_1),(\vec{x}_2,y2),\dots,(\vec{x}_N,y_N)\} \\
+& \quad \text{where } \vec{x}_i \in \mathbb{R}^D,\ y_i \in \{-1,+1\} \\
 & \text{ Weak classifiers } \{G_1,G_2,\dots,G_m\}
 \end{eqnarray*}
 
@@ -44,7 +45,7 @@ Final classifier: $G(x)$
 \begin{enumerate}
 \item Initialize the weights' distribution of training data(when $m=1$)
 \begin{equation}\nonumber
-\mathcal{D}_1=(w_{11},w_{12},\cdots,w_{1n})=(\frac{1}{N},\frac{1}{N},\cdots,\frac{1}{N}),\ i=1,2,\cdots,N
+\mathcal{D}_0=(w_{11},w_{12},\cdots,w_{1n})=(\frac{1}{N},\frac{1}{N},\cdots,\frac{1}{N})
 \end{equation}
 \item Iterate over $m=1,2,\dotsc,M$
 \subitem (a) Use training data with current weights' distribution $\mathcal{D}_m$ to get a classifier $G_m(\vec{x})$
