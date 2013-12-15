@@ -633,10 +633,10 @@ passing it to article class \MessageBreak
   \processchapsubtit
   \processchapauthor
   \processmotto
-  \ifdim\pagetotal>167\p@
+  \ifdim\pagetotal>67\p@
      \vskip 11\p@
   \else
-     \@tempdima=167\p@\advance\@tempdima by-\pagetotal
+     \@tempdima=67\p@\advance\@tempdima by-\pagetotal
      \vskip\@tempdima
   \fi}}
 
@@ -647,10 +647,10 @@ passing it to article class \MessageBreak
   \chapsize\chapstyle
   \ignorespaces#1\par\nobreak
   \processmotto
-  \ifdim\pagetotal>167\p@
+  \ifdim\pagetotal>67\p@
      \vskip 11\p@
   \else
-     \@tempdima=168\p@\advance\@tempdima by-\pagetotal
+     \@tempdima=67\p@\advance\@tempdima by-\pagetotal
      \vskip\@tempdima
   \fi}}
 %
