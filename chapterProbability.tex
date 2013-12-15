@@ -80,18 +80,15 @@ p(X_{1:N})=p(X_1)p(X_3|X_2,X_1)...p(X_N|X_{1:N-1})
 \end{split}\end{equation}
 
 \textbf{Marginal PMF and PDF}:
-\begin{equation}
-\begin{cases}
-\begin{cases}
-P(X=x_i)=\sum_{j=1}^{+\infty}P(X=x_i,Y=y_j), & \text{descrete}\\
-f_X(x)=\int_{-\infty}^{+\infty} f(x,y)\mathrm{d}y, & \text{continuous}\\
-\end{cases}\\
-\begin{cases}
-p(Y=y_j)=\sum_{i=1}^{+\infty}P(X=x_i,Y=y_j), & \text{descrete}\\
-f_Y(y)=\int_{-\infty}^{+\infty} f(x,y)\mathrm{d}x, & \text{continuous}\\
-\end{cases}\\
-\end{cases}
-\end{equation}
+\begin{equation} \begin{cases}
+P(X=x_i)=\sum_{j=1}^{+\infty}P(X=x_i,Y=y_j) & \text{, descrete}\\
+f_X(x)=\int_{-\infty}^{+\infty} f(x,y)\mathrm{d}y & \text{, continuous}\\
+\end{cases}\end{equation}
+
+\begin{equation}\begin{cases}
+p(Y=y_j)=\sum_{i=1}^{+\infty}P(X=x_i,Y=y_j) & \text{, descrete}\\
+f_Y(y)=\int_{-\infty}^{+\infty} f(x,y)\mathrm{d}x & \text{, continuous}\\
+\end{cases}\end{equation}
 
 
 \subsubsection{Conditional distribution}
