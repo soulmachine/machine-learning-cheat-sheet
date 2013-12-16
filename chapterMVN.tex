@@ -278,6 +278,41 @@ Below we give some examples of these equations in action, which will make them s
 \subsubsection{Marginals and conditionals of a 2d Gaussian}
 
 
+\section{Linear Gaussian systems}
+Suppose we have two variables, $\vec{x}$ and $\vec{y}$.Let $\vec{x} \in \mathbb{R}^{D_x}$ be a hidden variable, and $\vec{y} \in \mathbb{R}^{D_y}$ be a noisy observation of $\vec{x}$. Let us assume we have the following prior and likelihood:
+\begin{equation}\label{eqn:Linear-Gaussian-system}
+  \boxed{\begin{split}
+    p(\vec{x})&=\mathcal{N}(\vec{x}|\vec{\mu}_x,\vec{\Sigma}_x) \\
+	p(\vec{y}|\vec{x})&=\mathcal{N}(\vec{y}|\vec{W}\vec{x}+\vec{\mu}_y,\vec{\Sigma}_y)
+  \end{split}}
+\end{equation}
+where $\vec{W}$ is a matrix of size $D_y \times D_x$. This is an example of a \textbf{linear Gaussian system}. We can represent this schematically as $\vec{x} \rightarrow \vec{y}$, meaning $\vec{x}$ generates $\vec{y}$. In this section, we show how to “invert the arrow”, that is, how to infer $\vec{x}$ from $\vec{y}$. We state the result below, then give several examples, and finally we derive the result. We will see many more applications of these results in later chapters.
+
+
+\subsection{Statement of the result}
+\begin{theorem}(\textbf{Bayes rule for linear Gaussian systems}). 
+Given a linear Gaussian system, as in Equation \eqref{eqn:Linear-Gaussian-system}, the posterior $p(\vec{x}|\vec{y})$ is given by the following:
+\begin{equation}\label{eqn:Linear-Gaussian-system-posterior}
+  \boxed{\begin{split}
+    p(\vec{x}|\vec{y})&=\mathcal{N}(\vec{x}|\vec{\mu}_{x|y},\vec{\Sigma}_{x|y}) \\
+	\vec{\Sigma}_{x|y}&=\vec{\Sigma}_x^{-1}+\vec{W}^T\vec{\Sigma}_y^{-1}\vec{W} \\
+	\vec{\mu}_{x|y}&=\vec{\Sigma}_{x|y}\left[\vec{W}^T\vec{\Sigma}_y^{-1}(\vec{y}-\vec{\mu}_y)+\vec{\Sigma}_x^{-1}\vec{\mu}_x\right]
+  \end{split}}
+\end{equation}
+In addition, the normalization constant $p(\vec{y})$ is given by
+\begin{equation}\label{eqn:Linear-Gaussian-system-normalizer}
+  \boxed{
+    p(\vec{y})=\mathcal{N}(\vec{y}|\vec{W}\vec{\mu}_x+\vec{\mu}_y,\vec{\Sigma}_y+\vec{W}\vec{\Sigma}_x\vec{W}^T)
+  }
+\end{equation}
+\end{theorem}
+
+For the proof, see Section 4.4.3 TODO.
+
+
+\section{Digression: The Wishart distribution *}
+
+
 \section{Inferring the parameters of an MVN}
 
 
