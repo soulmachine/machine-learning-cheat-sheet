@@ -14,7 +14,7 @@ The expression inside the exponent is the Mahalanobis distance between a data ve
 \begin{equation}
 \vec{\Sigma}^{-1}=\vec{U}^{-T}\vec{\Lambda}^{-1}\vec{U}^{-1}=\vec{U}\vec{\Lambda}^{-1}\vec{U}^T=\sum\limits_{i=1}^D \dfrac{1}{\lambda_i}\vec{u}_i\vec{u}_i^T
 \end{equation}
-where $\vec{u}_i$ is the $i$’th column of $\vec{U}$, containing the $i$’th eigenvector. Hence we can rewrite the Mahalanobis distance as follows:
+where $\vec{u}_i$ is the $i$'th column of $\vec{U}$, containing the $i$'th eigenvector. Hence we can rewrite the Mahalanobis distance as follows:
 \begin{align}
 (\vec{x}-\vec{\mu})^T\Sigma^{-1}(\vec{x}-\vec{\mu}) & =(\vec{x}-\vec{\mu})^T\left(\sum\limits_{i=1}^D \dfrac{1}{\lambda_i}\vec{u}_i\vec{u}_i^T\right)(\vec{x}-\vec{\mu}) \\
     & =\sum\limits_{i=1}^D \dfrac{1}{\lambda_i}(\vec{x}-\vec{\mu})^T\vec{u}_i\vec{u}_i^T(\vec{x}-\vec{\mu}) \\
@@ -92,7 +92,7 @@ By plugging in the definition of the Gaussian density to Equation ~\eqref{eqn:Ge
 p(y|\vec{x},\vec{\theta})=\dfrac{\pi_c|2\pi\vec{\Sigma}_c|^{-\frac{1}{2}}\exp\left[-\frac{1}{2}(\vec{x}-\vec{\mu})^T\vec{\Sigma}^{-1}(\vec{x}-\vec{\mu})\right]}{\sum_{c'}\pi_{c'}|2\pi\vec{\Sigma}_{c'}|^{-\frac{1}{2}}\exp\left[-\frac{1}{2}(\vec{x}-\vec{\mu})^T\vec{\Sigma}^{-1}(\vec{x}-\vec{\mu})\right]}
 \end{equation}
 
-Thresholding this results in a quadratic function ofx. The result is known as quadratic discriminant analysis(QDA). Figure \ref{fig:QDA} gives some examples of what the decision boundaries look like in 2D.
+Thresholding this results in a quadratic function of $\vec{x}$. The result is known as quadratic discriminant analysis(QDA). Figure \ref{fig:QDA} gives some examples of what the decision boundaries look like in 2D.
 
 \begin{figure}[hbtp]
 \centering

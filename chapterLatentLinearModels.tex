@@ -77,7 +77,7 @@ We also require that $w_{jj} >0$ for $j =1:L$. The total number of parameters in
 
 \subsection{Mixtures of factor analysers}
 The FA model assumes that the data lives on a low dimensional linear manifold. In reality, most
-data is better modeled by some form of low dimensional \emph{curved} manifold. We can approximate a curved manifold by a piecewise linear manifold. This suggests the following model: let the $k$’th linear subspace of dimensionality $L_k$ be represented by $\vec{W}_k$, for $k=1:K$. Suppose we have a latent indicator $qi \in \{1,\cdots,K\}$ specifying which subspace we should use to generate the data. We then sample $\vec{z}_i$ from a Gaussian prior and pass it through the $\vec{W}_k$ matrix (where $k=q_i$), and add noise. More precisely, the model is as follows:
+data is better modeled by some form of low dimensional \emph{curved} manifold. We can approximate a curved manifold by a piecewise linear manifold. This suggests the following model: let the $k$'th linear subspace of dimensionality $L_k$ be represented by $\vec{W}_k$, for $k=1:K$. Suppose we have a latent indicator $qi \in \{1,\cdots,K\}$ specifying which subspace we should use to generate the data. We then sample $\vec{z}_i$ from a Gaussian prior and pass it through the $\vec{W}_k$ matrix (where $k=q_i$), and add noise. More precisely, the model is as follows:
 \begin{align}
 p(q_i|\vec{\theta}) & =\mathrm{Cat}(q_i\vec{\pi}) \\
 p(\vec{z}_i|\vec{\theta}) & =\mathcal{N}(\vec{z}_i|\vec{0},\vec{I}) \\
@@ -289,7 +289,7 @@ where we exploited the fact that $\vec{\Sigma}=\mathrm{cov}[\vec{z}_i|\vec{x}_i,
 
 (Tipping and Bishop 1999) showed that the only stable fixed point of the EM algorithm is the globally optimal solution. That is, the EM algorithm converges to a solution where $\vec{W}$ spans the same linear subspace as that defined by the first $L$ eigenvectors. However, if we want $\vec{W}$ to be orthogonal, and to contain the eigenvectors in descending order of eigenvalue, we have to orthogonalize the resulting matrix (which can be done quite cheaply). Alternatively, we can modify EM to give the principal basis directly (Ahn and Oh 2003).
 
-This algorithm has a simple physical analogy in the case $D=2$ and $L=1$(Roweis 1997). Consider some points in $\mathbb{R}^2$ attached by springs to a rigid rod, whose orientation is defined by a vector $\vec{w}$. Let $\vec{z}_i$ be the location where the $i$’th spring attaches to the rod. See Figure 12.11 of MLAPP for an illustration.
+This algorithm has a simple physical analogy in the case $D=2$ and $L=1$(Roweis 1997). Consider some points in $\mathbb{R}^2$ attached by springs to a rigid rod, whose orientation is defined by a vector $\vec{w}$. Let $\vec{z}_i$ be the location where the $i$'th spring attaches to the rod. See Figure 12.11 of MLAPP for an illustration.
 
 Apart from this pleasing intuitive interpretation, EM for PCA has the following advantages over eigenvector methods:
 \begin{itemize}
@@ -357,12 +357,40 @@ ICA requires that $\vec{W}$ is square and hence invertible. In the non-square ca
 
 
 \subsection{Maximum likelihood estimation}
-TODO
+In this section, we discuss ways to estimate square mixing matrices $\vec{W}$ for the noise-free ICA model. As usual, we will assume that the observations have been centered; hence we can also assume $\vec{z}$ is zero-mean. In addition, we assume the observations have been whitened, which can be done with PCA. 
+
+If the data is centered and whitened, we have $\mathbb{E}[\vec{x}\vec{x}^T]=\vec{I}$. But in the noise free case, we also have
+\begin{equation}
+\mathrm{cov}[\vec{x}]=\mathbb{E}[\vec{x}\vec{x}^T]=\vec{W}\mathbb{E}[\vec{z}\vec{z}^T]\vec{W}^T
+\end{equation}
+Hence we see that $\vec{W}$ must be orthogonal. This reduces the number of parameters we have to estimate from $D^2$ to $D(D-1)/2$. It will also simplify the math and the algorithms.
+
+Let $\vec{V}=\vec{W}^{-1}$; these are often called the recognition weights, as opposed to $\vec{W}$, which are the generative weights.
+
+Since $\vec{x}=\vec{W}\vec{z}$, we have, from Equation \ref{eqn:Multivariate-transformation},
+\begin{align}
+p_x(\vec{W}\vec{z}_t) & =p_z(\vec{z}_t)|\mathrm{det}(\vec{W}^{-1})| \nonumber \\
+   & = p_z(\vec{V}\vec{x}_t)|\mathrm{det}(\vec{V})|
+\end{align}
+Hence we can write the log-likelihood, assuming $T$ iid samples, as follows:
+\begin{equation*}
+\frac{1}{T} \log p(\mathcal{D}|\vec{V})=\log|\mathrm{det}(\vec{V})|+\frac{1}{T}\sum\limits_{j=1}^L \sum\limits_{t=1}^T \log p_j(\vec{v}_j^T\vec{x}_t)
+\end{equation*}
+where $\vec{v}_j$ is the $j$'th row of $\vec{V}$. Since we are constraining $\vec{V}$ to be orthogonal, the first term is a constant, so we can drop it. We can also replace the average over the data with an expectation operator to get the following objective
+\begin{equation}
+\mathrm{NLL}(\vec{V})=\sum\limits_{j=1}^L \mathbb{E}[G_j(\vec{z}_j)]
+\end{equation}
+where $\vec{z}_j=\vec{v}_j^T\vec{x}$ and $G_j(\vec{z}) \triangleq -\log p_j(\vec{z})$. We want to minimize this subject to the constraint that the rows of $\vec{V}$ are orthogonal. We also want them to be unit norm, since this ensures that the variance of the factors is unity (since, with whitened data, $\mathbb{E}[\vec{v}_j^T\vec{x}]=\lVert \vec{v}_j \rVert^2$, which is necessary to fix the scale of the weights. In otherwords, $\vec{V}$ should be an orthonormal matrix.
+
+It is straightforward to derive a gradient descent algorithm to fit this model; however, it is rather slow. One can also derive a faster algorithm that follows the natural gradient; see e.g., (MacKay 2003, ch 34) for details. A popular alternative is to use an approximate Newton method, which we discuss in Section \ref{sec:FastICA}. Another approach is to use EM, which we discuss in Section \ref{sec:ICA-EM}.
+
 
 \subsection{The FastICA algorithm}
+\label{sec:FastICA}
 
 
 \subsection{Using EM}
+\label{sec:ICA-EM}
 
 
 \subsection{Other estimation principles *}

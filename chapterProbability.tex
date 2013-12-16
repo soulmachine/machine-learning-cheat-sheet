@@ -567,7 +567,7 @@ If $\vec{x} \sim P()$ is some random variable, and $\vec{y}=f(\vec{x})$, what is
 
 
 \subsection{Linear transformations}
-Suppose $g()$is a linear function: 
+Suppose $g()$ is a linear function: 
 \begin{equation}
 g(\vec{x})=A\vec{x}+b
 \end{equation}
@@ -604,6 +604,23 @@ f_Y(y)=f_X(x)|\dfrac{dx}{dy}|
 This is called \textbf{change of variables} formula. We leave the proof of this as an exercise. 
 
 For example, suppose $X \sim U(−1,1)$, and $Y=X^2$. Then $p_Y(y)=\dfrac{1}{2}y^{-\frac{1}{2}}$.
+
+
+\subsubsection{Multivariate change of variables *}
+Let $f$ be a function $f:\mathbb{R}^n \rightarrow \mathbb{R}^n$, and let $\vec{y}=f(\vec{x})$. Then its Jacobian matrix $\vec{J}$ is given by
+\begin{equation}
+\vec{J}_{\vec{x} \rightarrow \vec{y}} \triangleq \frac{\partial \vec{y}}{\partial \vec{x}} \triangleq \left(\begin{array}{ccc}
+\frac{\partial y_1}{\partial x_1} & \cdots & \frac{\partial y_1}{\partial x_n} \\
+\vdots & \vdots & \vdots \\
+\frac{\partial y_n}{\partial x_1} & \cdots & \frac{\partial y_n}{\partial x_n}
+\end{array}\right)
+\end{equation}
+$|\mathrm{det}(\vec{J})|$ measures how much a unit cube changes in volume when we apply $f$.
+
+If $f$ is an invertible mapping, we can define the pdf of the transformed variables using the Jacobian of the inverse mapping $\vec{y} \rightarrow \vec{x}$:
+\begin{equation}\label{eqn:Multivariate-transformation}
+p_y(\vec{y})=p_x(\vec{x})|\mathrm{det}(\frac{\partial \vec{x}}{\partial \vec{y}})|=p_x(\vec{x})|\mathrm{det}(\vec{J}_{\vec{y} \rightarrow \vec{x}})|
+\end{equation}
 
 
 \subsection{Central limit theorem}
