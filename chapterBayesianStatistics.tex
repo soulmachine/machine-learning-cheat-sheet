@@ -37,7 +37,7 @@ How should we summarize a posterior if the mode is not a good choice? The answer
 \subsubsection{MAP estimation is not invariant to reparameterization *}
 A more subtle problem with MAP estimation is that the result we get depends on how we parameterize the probability distribution. Changing from one representation to another equivalent representation changes the result, which is not very desirable, since the units of measurement are arbitrary (e.g., when measuring distance, we can use centimetres or inches).
 
-To understand the problem, suppose we compute the posterior forx. If we define y=f(x), the distribution for yis given by Equation ~\ref{eqn:General-transformations}. The $\frac{\mathrm{d}x}{\mathrm{d}y}$ term is called the Jacobian, and it measures the change in size of a unit volume passed
+To understand the problem, suppose we compute the posterior forx. If we define y=f(x), the distribution for yis given by Equation \ref{eqn:General-transformations}. The $\frac{\mathrm{d}x}{\mathrm{d}y}$ term is called the Jacobian, and it measures the change in size of a unit volume passed
 through $f$. Let $\hat{x}=\arg\max_x p_x(x)$ be the MAP estimate for $x$. In general it is not the case that $\hat{x}=\arg\max_x p_x(x)$ is given by $f(\hat{x})$. For example, let $X \sim \mathcal{N}(6,1)$ and $y=f(x)$, where $f(x)=1/(1+\exp(-x+5))$. 
 
 \begin{figure}[hbtp]
@@ -109,7 +109,7 @@ This quantity is called the \textbf{marginal likelihood}, the \textbf{integrated
 \subsection{Bayesian Occam's razor}
 One might think that using $p(\mathcal{D}|m)$ to select models would always favour the model with the most parameters. This is true if we use $p(\mathcal{D}|\hat{\vec{\theta}}_m)$ to select models, where $\hat{\vec{\theta}}_m)$ is the MLE or MAP estimate of the parameters for model $m$, because models with more parameters will fit the data better, and hence achieve higher likelihood. However, if we integrate out the parameters, rather than maximizing them, we are automatically protected from overfitting: models with more parameters do not necessarily have higher \emph{marginal likelihood}. This is called the \textbf{Bayesian Occam’s razor} effect (MacKay 1995b; Murray and Ghahramani 2005), named after the principle known as \textbf{Occam’s razor}, which says one should pick the simplest model that adequately explains the data.
 
-One way to understand the Bayesian Occam’s razor is to notice that the marginal likelihood can be rewritten as follows, based on the chain rule of probability (Equation ~\ref{eqn:product-rule}):
+One way to understand the Bayesian Occam’s razor is to notice that the marginal likelihood can be rewritten as follows, based on the chain rule of probability (Equation \ref{eqn:product-rule}):
 \begin{equation}\begin{split}
 p(D) & =p((\vec{x}_1,y_1))p((\vec{x}_2,y_2)|(\vec{x}_1,y_1)) \\
      & \quad p((\vec{x}_3,y_3)|(\vec{x}_1,y_1):(\vec{x}_2,y_2))\cdots \\
@@ -180,7 +180,7 @@ p(\mathcal{D})& =\dfrac{Z_N}{Z_0Z_{\ell}} \\
 \end{align}
 
 \subsubsection{BIC approximation to log marginal likelihood}
-In general, computing the integral in Equation ~\ref{eqn:marginal-likelihood} can be quite difficult. One simple but popular approximation is known as the \textbf{Bayesian information criterion} or \textbf{BIC}, which has the following form (Schwarz 1978):
+In general, computing the integral in Equation \ref{eqn:marginal-likelihood} can be quite difficult. One simple but popular approximation is known as the \textbf{Bayesian information criterion} or \textbf{BIC}, which has the following form (Schwarz 1978):
 \begin{equation}
 \mathrm{BIC} \triangleq \log p(\mathcal{D}|\hat{\vec{\theta}})-\dfrac{\mathrm{dof}(\hat{\vec{\theta}})}{2}\log{N}
 \end{equation}
@@ -277,7 +277,7 @@ Full Bayes & $p(\vec{\theta},\vec{\eta}|\mathcal{D}) \propto p(\mathcal{D}|\vec{
 \label{sec:Bayesian-decision-theory}
 We have seen how probability theory can be used to represent and updates our beliefs about the state of the world. However, ultimately our goal is to convert our beliefs into actions. In this section, we discuss the optimal way to do this.
 
-Our goal is to devise a \textbf{decision procedure} or \textbf{policy}, $f(\vec{x}) : \mathcal{X} \rightarrow \mathcal{Y}$, which minimizes the \textbf{expected loss} $R_{\mathrm{exp}}(f)$(see Equation ~\ref{eqn:expected-loss}).
+Our goal is to devise a \textbf{decision procedure} or \textbf{policy}, $f(\vec{x}) : \mathcal{X} \rightarrow \mathcal{Y}$, which minimizes the \textbf{expected loss} $R_{\mathrm{exp}}(f)$(see Equation \ref{eqn:expected-loss}).
 
 In the Bayesian approach to decision theory, the optimal output, having observed $\vec{x}$, is defined as the output $a$ that minimizes the \textbf{posterior expected loss}:
 \begin{equation}

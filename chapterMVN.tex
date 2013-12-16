@@ -65,7 +65,7 @@ p(\vec{x}|y=c,\vec{\theta})=\mathcal{N}(\vec{x}|\vec{\mu}_c,\vec{\Sigma}_c)
 
 The resulting technique is called (Gaussian) \textbf{discriminant analysis} or \textbf{GDA} (even though it is a generative, not discriminative, classifier — see Section TODO for more on this distinction). If $\vec{\Sigma}_c$ is diagonal, this is equivalent to naive Bayes.
 
-We can classify a feature vector using the following decision rule, derived from Equation ~\ref{eqn:Generative-classifier}:
+We can classify a feature vector using the following decision rule, derived from Equation \ref{eqn:Generative-classifier}:
 \begin{equation}
 y=\arg\max_{c} \left[\log p(y=c|\vec{\pi})+\log p(\vec{x}|\vec{\theta})\right]
 \end{equation}
@@ -87,7 +87,7 @@ y=\arg\max_{c} (\vec{x}-\vec{\mu}_c)^T\vec{\Sigma}_c^{-1}(\vec{x}-\vec{\mu}_c)
 
 
 \subsection{Quadratic discriminant analysis (QDA)}
-By plugging in the definition of the Gaussian density to Equation ~\ref{eqn:Generative-classifier}, we can get
+By plugging in the definition of the Gaussian density to Equation \ref{eqn:Generative-classifier}, we can get
 \begin{equation}\label{eqn:QDA}
 p(y|\vec{x},\vec{\theta})=\dfrac{\pi_c|2\pi\vec{\Sigma}_c|^{-\frac{1}{2}}\exp\left[-\frac{1}{2}(\vec{x}-\vec{\mu})^T\vec{\Sigma}^{-1}(\vec{x}-\vec{\mu})\right]}{\sum_{c'}\pi_{c'}|2\pi\vec{\Sigma}_{c'}|^{-\frac{1}{2}}\exp\left[-\frac{1}{2}(\vec{x}-\vec{\mu})^T\vec{\Sigma}^{-1}(\vec{x}-\vec{\mu})\right]}
 \end{equation}
@@ -105,7 +105,7 @@ Thresholding this results in a quadratic function of $\vec{x}$. The result is kn
 
 \subsection{Linear discriminant analysis (LDA)}
 \label{sec:Linear-discriminant-analysis}
-We now consider a special case in which the covariance matrices are \textbf{tied} or \textbf{shared} across classes,$\vec{\Sigma}_c=\vec{\Sigma}$. In this case, we can simplify Equation ~\ref{eqn:QDA} as follows:
+We now consider a special case in which the covariance matrices are \textbf{tied} or \textbf{shared} across classes,$\vec{\Sigma}_c=\vec{\Sigma}$. In this case, we can simplify Equation \ref{eqn:QDA} as follows:
 \begin{align}
 p(y|\vec{x},\vec{\theta})& \propto \pi_c\exp\left(\vec{\mu}_c\vec{\Sigma}^{-1}\vec{x}-\dfrac{1}{2}\vec{x}^T\vec{\Sigma}^{-1}\vec{x}-\dfrac{1}{2}\vec{\mu}_c^T\vec{\Sigma}^{-1}\vec{\mu}_c\right) \nonumber \\
  & =\exp\left(\vec{\mu}_c\vec{\Sigma}^{-1}\vec{x}-\dfrac{1}{2}\vec{\mu}_c^T\vec{\Sigma}^{-1}\vec{\mu}_c+\log \pi_c\right) \nonumber \\
@@ -141,7 +141,7 @@ $\mathcal{S}_{\alpha}$ has the following properties:
 
 Note that the softmax activation function comes from the area of statistical physics, where it is common to use the \textbf{Boltzmann distribution}, which has the same form as the softmax activation function.
 
-An interesting property of Equation ~\ref{eqn:LDA} is that, if we take logs, we end up with a linear function of $\vec{x}$. (The reason it is linear is because the $\vec{x}^T\vec{\Sigma}^{-1}\vec{x}$ cancels from the numerator and denominator.) Thus the decision boundary between any two classes, says $c$ and $c'$, will be a straight line. Hence this technique is called \textbf{linear discriminant analysis} or \textbf{LDA}.
+An interesting property of Equation \ref{eqn:LDA} is that, if we take logs, we end up with a linear function of $\vec{x}$. (The reason it is linear is because the $\vec{x}^T\vec{\Sigma}^{-1}\vec{x}$ cancels from the numerator and denominator.) Thus the decision boundary between any two classes, says $c$ and $c'$, will be a straight line. Hence this technique is called \textbf{linear discriminant analysis} or \textbf{LDA}.
 
 An alternative to fitting an LDA model and then deriving the class posterior is to directly fit $p(y|\vec{x},\vec{W})=\text{Cat}(y|\vec{W}\vec{x})$ for some $C \times D$ weight matrix $\vec{W}$. This is called \textbf{multi-class logistic regression}, or \textbf{multinomial logistic regression}. We will discuss this model in detail in Section TODO. The difference between the two approaches is explained in Section TODO.
 
@@ -266,7 +266,7 @@ and the posterior conditional is given by
 \end{equation}
 \end{theorem}
 
-Equation ~\ref{eqn:Marginals-and-conditionals-of-an-MVN} is of such crucial importance in this book that we have put a box around it, so you can easily find it. For the proof, see Section TODO.
+Equation \ref{eqn:Marginals-and-conditionals-of-an-MVN} is of such crucial importance in this book that we have put a box around it, so you can easily find it. For the proof, see Section TODO.
 
 We see that both the marginal and conditional distributions are themselves Gaussian. For the marginals, we just extract the rows and columns corresponding to $\vec{x}_1$ or $\vec{x}_2$. For the conditional, we have to do a bit more work. However, it is not that complicated: the conditional mean is just a linear function of $\vec{x}_2$, and the conditional covariance is just a constant matrix that is independent of $\vec{x}_2$. We give three different (but equivalent) expressions for the posterior mean, and two different (but equivalent) expressions for the posterior covariance; each one is useful in different circumstances.
 
