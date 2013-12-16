@@ -23,7 +23,7 @@ J(\vec{w}) & \triangleq \mathrm{NLL}(\vec{w})= -\ell(\vec{w}) \nonumber \\
            & = -\sum\limits_{i=1}^N\left[y_i(\vec{w}\cdot\vec{x}_i)-\log(1+\exp(\vec{w}\cdot\vec{x}_i))\right] 
 \end{align}
 
-Equation \eqref{eqn:cross-entropy-error} is also called the \textbf{cross-entropy} error function (see Equation \eqref{eqn:cross-entropy}).
+Equation \ref{eqn:cross-entropy-error} is also called the \textbf{cross-entropy} error function (see Equation \ref{eqn:cross-entropy}).
 
 Unlike linear regression, we can no longer write down the MLE in closed form. Instead, we need to use an optimization algorithm to compute it, see Appendix \ref{chap:Optimization-methods}. For this, we need to derive the gradient and Hessian.
 

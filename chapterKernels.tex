@@ -34,7 +34,7 @@ We can interpret the $\sigma_j$ as defining the \textbf{characteristic length sc
 \kappa(\vec{x},\vec{x}')=\exp\left(-\frac{\lVert\vec{x}-\vec{x}'\rVert^2}{2\sigma^2}\right)
 \end{equation}
 
-Here $\sigma^2$ is known as the \textbf{bandwidth}. Equation ~\eqref{eqn:RBF-kernel} is an example of a \textbf{radial basis function} or \textbf{RBF} kernel, since it is only a function of $\lVert\vec{x}-\vec{x}'\rVert^2$.
+Here $\sigma^2$ is known as the \textbf{bandwidth}. Equation ~\ref{eqn:RBF-kernel} is an example of a \textbf{radial basis function} or \textbf{RBF} kernel, since it is only a function of $\lVert\vec{x}-\vec{x}'\rVert^2$.
 
 
 \subsection{TF-IDF kernels}
@@ -143,7 +143,7 @@ Although it seems strange to fit a model to a single data point, it is important
 \end{equation}
 which is (up to a constant factor) the RBF kernel.
 
-It turns out that one can compute Equation ~\eqref{eqn:Probability-product-kernels} for a variety of generative models, including ones with latent variables, such as HMMs. This provides one way to define kernels on variable length sequences. Furthermore, this technique works even if the sequences are of real-valued vectors, unlike the string kernel in Section \ref{sec:String-kernels}. See (Jebara et al. 2004) for further details
+It turns out that one can compute Equation ~\ref{eqn:Probability-product-kernels} for a variety of generative models, including ones with latent variables, such as HMMs. This provides one way to define kernels on variable length sequences. Furthermore, this technique works even if the sequences are of real-valued vectors, unlike the string kernel in Section \ref{sec:String-kernels}. See (Jebara et al. 2004) for further details
 
 
 \subsubsection{Fisher kernels}
@@ -172,7 +172,7 @@ We define a \textbf{kernel machine} to be a GLM where the input feature vector h
 \phi(\vec{x})=(\kappa(\vec{x},\vec{\mu}_1),\cdots,\kappa(\vec{x},\vec{\mu}_K))
 \end{equation}
 
-where $\vec{\mu}_k \in \mathcal{X}$ are a set of $K$ centroids. If $\kappa$ is an RBF kernel, this is called an \textbf{RBF network}. We discuss ways to choose the $\vec{\mu}_k$ parameters below. We will call Equation \eqref{eqn:kernel-machine} a \textbf{kernelised feature vector}. Note that in this approach, the kernel need not be a Mercer kernel.
+where $\vec{\mu}_k \in \mathcal{X}$ are a set of $K$ centroids. If $\kappa$ is an RBF kernel, this is called an \textbf{RBF network}. We discuss ways to choose the $\vec{\mu}_k$ parameters below. We will call Equation \ref{eqn:kernel-machine} a \textbf{kernelised feature vector}. Note that in this approach, the kernel need not be a Mercer kernel.
 
 We can use the kernelized feature vector for logistic regression by defining $p(y|\vec{x},\vec{\theta})=\mathrm{Ber}(y|\vec{w}^T\phi(\vec{x}))$. This provides a simple way to define a non-linear decision boundary. For example, see Figure \ref{fig:kenel-machine-xor}.
 
@@ -228,7 +228,7 @@ then by replacing all $<\vec{x}_i,\vec{x}_j>$ with $\kappa(\vec{x}_i,\vec{x}_j)$
 \subsection{Kernelized K-medoids clustering}
 \textbf{K-medoids algorothm} is similar to K-means(see Section \ref{sec:K-means}), but instead of representing each cluster’s centroid by the mean of all data vectors assigned to this cluster, we make each centroid be one of the data vectors themselves. Thus we always deal with integer indexes, rather than data objects.
 
-This algorithm can be kernelized by using Equation \eqref{eqn:Euclidean-distance} to replace the distance computation.
+This algorithm can be kernelized by using Equation \ref{eqn:Euclidean-distance} to replace the distance computation.
 
 
 \subsection{Kernelized ridge regression}
@@ -236,15 +236,15 @@ Applying the kernel trick to distance-based methods was straightforward. It is n
 
 
 \subsubsection{The primal problem}
-we rewrite Equation \eqref{eqn:Ridge-regression-J} as the following
+we rewrite Equation \ref{eqn:Ridge-regression-J} as the following
 \begin{equation}\label{eqn:Ridge-regression-primal-form}
 J(\vec{w})=(\vec{y}-\vec{X}\vec{w})^T(\vec{y}-\vec{X}\vec{w})+\lambda\lVert\vec{w}\rVert^2
 \end{equation}
-and its solution is given by Equation \eqref{eqn:Ridge-regression-solution}.
+and its solution is given by Equation \ref{eqn:Ridge-regression-solution}.
 
 
 \subsubsection{The dual problem}
-Equation \eqref{eqn:Ridge-regression-primal-form} is not yet in the form of inner products. However, using the matrix inversion lemma (Equation 4.107 TODO) we rewrite the ridge estimate as follows
+Equation \ref{eqn:Ridge-regression-primal-form} is not yet in the form of inner products. However, using the matrix inversion lemma (Equation 4.107 TODO) we rewrite the ridge estimate as follows
 \begin{equation}
 \vec{w}=\vec{X}^T(\vec{X}\vec{X}^T+\lambda\vec{I}_N)^{-1}\vec{y}
 \end{equation}
@@ -269,7 +269,7 @@ So we have succesfully kernelized ridge regression by changing from primal to du
 
 
 \subsubsection{Computational cost}
-The cost of computing the dual variables $\vec{\alpha}$ is $O(N^3)$, whereas the cost of computing the primal variables $\vec{w}$ is $O(D^3)$. Hence the kernel method can be useful in high dimensional settings, even if we only use a linear kernel (c.f., the SVD trick in Equation \eqref{eqn:Ridge-regression-SVD}). However, prediction using the dual variables takes $O(ND)$ time, while prediction using the primal variables only takes $O(D)$ time. We can speedup prediction by making $\vec{\alpha}$ sparse, as we discuss in Section \ref{sec:SVMs}.
+The cost of computing the dual variables $\vec{\alpha}$ is $O(N^3)$, whereas the cost of computing the primal variables $\vec{w}$ is $O(D^3)$. Hence the kernel method can be useful in high dimensional settings, even if we only use a linear kernel (c.f., the SVD trick in Equation \ref{eqn:Ridge-regression-SVD}). However, prediction using the dual variables takes $O(ND)$ time, while prediction using the primal variables only takes $O(D)$ time. We can speedup prediction by making $\vec{\alpha}$ sparse, as we discuss in Section \ref{sec:SVMs}.
 
 
 \subsection{Kernel PCA}
@@ -284,7 +284,7 @@ J(\vec{w}, \lambda)=\sum\limits{i=1}^N L(y_i, \hat{y_i})+\lambda\lVert\vec{w}\rV
 \end{equation}
 where $\hat{y_i}=\vec{w}^T\vec{x}_i+w_0$.
 
-If $L$ is quadratic loss, this is equivalent to ridge regression, and if $L$ is the log-loss defined in Equation \eqref{eqn:log-loss}, this is equivalent to logistic regression.
+If $L$ is quadratic loss, this is equivalent to ridge regression, and if $L$ is the log-loss defined in Equation \ref{eqn:log-loss}, this is equivalent to logistic regression.
 
 However, if we replace the loss function with some other loss function, to be explained below, we can ensure that the solution is sparse, so that predictions only depend on a subset of the training data, known as \textbf{support vectors}. This combination of the kernel trick plus a modified loss function is known as a \textbf{support vector machine} or \textbf{SVM}. 
 
@@ -380,14 +380,14 @@ L(y, f(\vec{x})) = \begin{cases}
 \end{equation}
 
 \begin{proof}
-We can write equation \eqref{eqn:Hinge-Loss-objective} as equations \eqref{eqn:pfwr1} $\sim$ \eqref{eqn:pfwr3}.
+We can write equation \ref{eqn:Hinge-Loss-objective} as equations \ref{eqn:pfwr1} $\sim$ \ref{eqn:pfwr3}.
 
 Define slack variables
 \begin{equation}
 \xi_i \triangleq 1-y_i(\vec{w} \cdot \vec{x}_i + b),\xi_i \geqslant 0
 \end{equation}
 
-Then $\vec{w},b,\xi_i$ satisfy the constraints \eqref{eqn:pfwr1} and \eqref{eqn:pfwr2}. And objective function \eqref{eqn:pfwr3} can be written as
+Then $\vec{w},b,\xi_i$ satisfy the constraints \ref{eqn:pfwr1} and \ref{eqn:pfwr2}. And objective function \ref{eqn:pfwr3} can be written as
 \begin{equation}
 \min_{\vec{w},b} \sum\limits_{i=1}^N{\xi_i}+ \lambda\|\vec{w}\|^2 \nonumber
 \end{equation}
@@ -396,7 +396,7 @@ If $\lambda=\dfrac{1}{2C}$, then
 \begin{equation}
 \min_{\vec{w},b} \dfrac{1}{C}\left(C\sum\limits_{i=1}^N{\xi_i}+\dfrac{1}{2}\|\vec{w}\|^2\right)
 \end{equation}
-It is equivalent to equation \eqref{eqn:pfwr1}.
+It is equivalent to equation \ref{eqn:pfwr1}.
 
 \end{proof}
 

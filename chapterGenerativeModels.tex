@@ -193,7 +193,7 @@ Suppose we observe $N$ dice rolls, $\mathcal{D}=\{x_1,x_2,\cdots,x_N\}$, where $
 \begin{equation}
 p(\mathcal{D}|\vec{\theta}) = \dbinom{N}{N_1 \cdots N_k} \prod\limits_{k=1}^K\theta_k^{N_k} \quad \text{where } N_k=\sum\limits_{i=1}^N \mathbb{I}(y_i=k)
 \end{equation}
-almost the same as Equation \eqref{eqn:multinomial-pmf}.
+almost the same as Equation \ref{eqn:multinomial-pmf}.
 
 
 \subsection{Prior}
@@ -209,7 +209,7 @@ p(\vec{\theta}|\mathcal{D})& \propto p(\mathcal{D}|\vec{\theta})p(\vec{\theta}) 
 	 & =\text{Dir}(\vec{\theta}|\alpha_1+N_1,\cdots,\alpha_K+N_K)
 \end{align}
 
-From Equation \eqref{eqn:Dirichlet-properties}, the MAP estimate is given by
+From Equation \ref{eqn:Dirichlet-properties}, the MAP estimate is given by
 \begin{equation}\label{eqn:Dir-MAP}
 \hat{\theta}_k=\dfrac{N_k+\alpha_k-1}{N+\alpha_0-K}
 \end{equation}
@@ -270,7 +270,7 @@ where $N_c \triangleq \sum\limits_i \mathbb{I}(y_i=c)$ is the number of feature 
 
 We see that this expression decomposes into a series of terms, one concerning $\vec{\pi}$, and $DC$ terms containing the $\theta_{jc}$’s. Hence we can optimize all these parameters separately.
 
-From Equation \eqref{eqn:Dirichlet-multinomial-posterior-MLE}, the MLE for the class prior is given by
+From Equation \ref{eqn:Dirichlet-multinomial-posterior-MLE}, the MLE for the class prior is given by
 \begin{equation}
 \hat{\pi}_c=\dfrac{N_c}{N}
 \end{equation}
@@ -310,7 +310,7 @@ Or we can use BMA, just integrate out the unknown parameters.
 
 
 \subsection{The log-sum-exp trick}
-when using generative classifiers of any kind, computing the posterior over class labels using Equation \eqref{eqn:Generative-classifier} can fail due to \textbf{numerical underflow}. The problem is that $p(\vec{x}|y=c)$ is often a very small number, especially if \vec{x} is a high-dimensional vector. This is because we require that $\sum_{\vec{x}}p(\vec{x}|y)=1$, so the probability of observing any particular high-dimensional vector is small. The obvious solution is to take logs when applying Bayes rule, as follows:
+when using generative classifiers of any kind, computing the posterior over class labels using Equation \ref{eqn:Generative-classifier} can fail due to \textbf{numerical underflow}. The problem is that $p(\vec{x}|y=c)$ is often a very small number, especially if \vec{x} is a high-dimensional vector. This is because we require that $\sum_{\vec{x}}p(\vec{x}|y)=1$, so the probability of observing any particular high-dimensional vector is small. The obvious solution is to take logs when applying Bayes rule, as follows:
 \begin{equation}
 \log p(y=c|\vec{x},\vec{\theta})=b_c-\log\left(\sum\limits_{c'}e^{b_{c'}}\right)
 \end{equation}
@@ -370,7 +370,7 @@ where we have implicitly assumed that the document length $N_i$ is independent o
 
 Although the multinomial classifier is easy to train and easy to use at test time, it does not work particularly well for document classification. One reason for this is that it does not take into account the \textbf{burstiness} of word usage. This refers to the phenomenon that most words never appear in any given document, but if they do appear once, they are likely to appear more than once, i.e., words occur in bursts.
 
-The multinomial model cannot capture the burstiness phenomenon. To see why, note that Equation \eqref{eqn:Multinomial-document-classifier} has the form $\theta_{jc}^{x_{ij}}$, and since $\theta_{jc} \ll 1$ for rare words, it becomes increasingly unlikely to generate many of them. For more frequent words, the decay rate is not as fast. To see why intuitively, note that the most frequent words are function words which are not specific to the class, such as “and”, “the”, and “but”; the chance of the word “and” occuring is pretty much the same no matter how many time it has previously occurred (modulo document length), so the independence assumption is more reasonable for common words. However, since rare words are the ones that matter most for classification purposes, these are the ones we want to model the most carefully.
+The multinomial model cannot capture the burstiness phenomenon. To see why, note that Equation \ref{eqn:Multinomial-document-classifier} has the form $\theta_{jc}^{x_{ij}}$, and since $\theta_{jc} \ll 1$ for rare words, it becomes increasingly unlikely to generate many of them. For more frequent words, the decay rate is not as fast. To see why intuitively, note that the most frequent words are function words which are not specific to the class, such as “and”, “the”, and “but”; the chance of the word “and” occuring is pretty much the same no matter how many time it has previously occurred (modulo document length), so the independence assumption is more reasonable for common words. However, since rare words are the ones that matter most for classification purposes, these are the ones we want to model the most carefully.
 
 \subsubsection{DCM model}
 Various ad hoc heuristics have been proposed to improve the performance of the multinomial document classifier (Rennie et al. 2003). We now present an alternative class conditional density that performs as well as these ad hoc methods, yet is probabilistically sound (Madsen et al. 2005).

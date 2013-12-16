@@ -257,7 +257,7 @@ where $\beta$ is the Lagrange multiplier. Taking derivatives, we find
 \end{equation}
 This is the same for any mixture model, whereas $\vec{\theta}_k$ depends on the form of $p(\vec{x}|\vec{\theta}_k)$.
 
-For $\vec{\theta}_k$, plug in the pdf to Equation \eqref{eqn:Q-miture-model}
+For $\vec{\theta}_k$, plug in the pdf to Equation \ref{eqn:Q-miture-model}
 \begin{equation*}\begin{split}
 Q(\vec{\theta}, \vec{\theta}^{t-1}) & =\sum\limits_{i=1}^N{\sum\limits_{k=1}^K{r_{ik}\log \pi_k}}-\frac{1}{2}\sum\limits_{i=1}^N  \sum\limits_{k=1}^K  r_{ik}\left[\log |\vec{\Sigma}_k| + \right. \\
  & \quad \left. (\vec{x}_i-\vec{\mu}_k)^T\vec{\Sigma}_k^{-1}(\vec{x}_i-\vec{\mu}_k)\right]
@@ -317,7 +317,7 @@ p(\vec{\pi}) & = \mathrm{Dir}(\vec{\pi}|\vec{\alpha}) \\
 p(\vec{\mu}_k,\vec{\Sigma}_k) & = \mathrm{NIW}(\vec{\mu}_k,\vec{\Sigma}_k|\vec{m}_0,\kappa_0,\nu_0,\vec{S}_0)
 \end{align*}
 
-From Equation \eqref{eqn:Dir-MAP} and Section \ref{sec:Posterior-distribution-of-mu-and-Sigma}, the MAP estimate is given by
+From Equation \ref{eqn:Dir-MAP} and Section \ref{sec:Posterior-distribution-of-mu-and-Sigma}, the MAP estimate is given by
 \begin{align}
 \hat{\pi}_k & = \frac{\sum_{i=1}^N r_{ik}+\alpha_k-1}{N+\sum_{k=1}^K \alpha_k-K} \\
 \hat{\vec{\mu}}_k & = \frac{\sum_{i=1}^N r_{ik}\vec{x}_i + \kappa_0\vec{m}_0}{\sum_{i=1}^N r_{ik} + \kappa_0} \\
@@ -419,7 +419,7 @@ f\left(\sum\limits_{i=1}^n \lambda_i\vec{x}_i\right) \leq \sum\limits_{i=1}^n {\
 \end{equation}
 \end{proposition}
 
-Now let's proof why the $Q$ function should look like Equation \eqref{eqn:auxiliary-function}:
+Now let's proof why the $Q$ function should look like Equation \ref{eqn:auxiliary-function}:
 \begin{align}
 \ell(\vec{\theta}) &= \log{P(\mathcal{D}|\vec{\theta})}  \nonumber \\
                 &= \log{{\sum\limits_{\vec{z}} P(\mathcal{D},\vec{z}|\vec{\theta})}} \nonumber \\

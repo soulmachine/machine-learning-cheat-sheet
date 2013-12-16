@@ -16,12 +16,12 @@ where \vec{W} is a $D \times L$ matrix, known as the \textbf{factor loading matr
 
 
 \subsection{FA is a low rank parameterization of an MVN}
-FA can be thought of as a way of specifying a joint density model on $\vec{x}$ using a small number of parameters. To see this, note that from Equation \eqref{eqn:Linear-Gaussian-system-normalizer}, the induced marginal distribution $p(\vec{x}_i|\vec{\theta})$ is a Gaussian:
+FA can be thought of as a way of specifying a joint density model on $\vec{x}$ using a small number of parameters. To see this, note that from Equation \ref{eqn:Linear-Gaussian-system-normalizer}, the induced marginal distribution $p(\vec{x}_i|\vec{\theta})$ is a Gaussian:
 \begin{align}
 p(\vec{x}_i|\vec{\theta}) & = \int \mathcal{N}(\vec{x}_i|\vec{W}\vec{z}_i+\vec{\mu},\vec{\Psi})\mathcal{N}(\vec{z}_i|\vec{\mu}_0,\vec{\Sigma}_0)\mathrm{d}\vec{z}_i \nonumber \\
  & = \mathcal{N}(\vec{x}_i|\vec{W}\vec{\mu}_0+\vec{\mu},\vec{\Psi}+\vec{W}\vec{\Sigma}_0\vec{W})
 \end{align}
-From this, we see that we can set $\vec{\mu}_0=0$ without loss of generality, since we can always absorb $\vec{W}\vec{\mu}_0$ into $\vec{\mu}$. Similarly, we can set $\vec{\Sigma}_0=\vec{I}$ without loss of generality, because we can always “emulate” a correlated prior by using defining a new weight matrix, $\tilde{\vec{W}}=\vec{W}\vec{\Sigma}_0^{-\frac{1}{2}}$. So we can rewrite Equation \eqref{eqn:FA-prior} and \eqref{eqn:FA-class-conditional-density} as:
+From this, we see that we can set $\vec{\mu}_0=0$ without loss of generality, since we can always absorb $\vec{W}\vec{\mu}_0$ into $\vec{\mu}$. Similarly, we can set $\vec{\Sigma}_0=\vec{I}$ without loss of generality, because we can always “emulate” a correlated prior by using defining a new weight matrix, $\tilde{\vec{W}}=\vec{W}\vec{\Sigma}_0^{-\frac{1}{2}}$. So we can rewrite Equation \ref{eqn:FA-prior} and \ref{eqn:FA-class-conditional-density} as:
 \begin{align}
 p(\vec{z}_i)&=\mathcal{N}(\vec{z}_i|\vec{0},\vec{I}) \\
 p(\vec{x}_i|\vec{z}_i,\vec{\theta})&=\mathcal{N}(\vec{x}_i|\vec{W}\vec{z}_i+\vec{\mu},\vec{\Psi})
