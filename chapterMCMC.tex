@@ -1,2 +1,20 @@
 \chapter{Markov chain Monte Carlo (MCMC)inference}
 
+
+\section{Introduction}
+In Chapter \ref{chap:Monte-Carlo-inference}, we introduced some simple Monte Carlo methods, including rejection sampling and importance sampling. The trouble with these methods is that they do not work well in high dimensional spaces. The most popular method for sampling from high-dimensional distributions is \textbf{Markov chain Monte Carlo} or \textbf{MCMC}.
+
+The basic idea behind MCMC is to construct a Markov chain (Section \ref{sec:Markov-models}) on the state space $\mathcal{X}$ whose stationary distribution is the target density $p^*(\vec{x})$ of interest (this may be a prior or a posterior). That is, we perform a random walk on the state space, in such a way that the fraction of time we spend in each state $\vec{x}$ is proportional to $p^*(\vec{x})$. By drawing (correlated!) samples $\vec{x}_0, \vec{x}_1, \vec{x}_2, \cdots$ from the chain, we can perform Monte Carlo integration wrt $p^*$.
+
+
+\section{Metropolis Hastings algorithm}
+
+
+\section{Gibbs sampling}
+
+
+\section{Speed and accuracy of MCMC}
+
+
+\section{Auxiliary variable MCMC *}
+

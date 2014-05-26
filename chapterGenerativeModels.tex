@@ -236,7 +236,7 @@ The above expression avoids the zero-count problem. In fact, this form of Bayesi
 \label{sec:NBC}
 Assume the features are \textbf{conditionally independent} given the class label, then the class conditional density has the following form
 \begin{equation}
-p(\vec{x}|y,\vec{\theta})=\prod\limits_{j=1}^D p(x_j|y=c,\vec{\theta}_{jc})
+p(\vec{x}|y=c,\vec{\theta})=\prod\limits_{j=1}^D p(x_j|y=c,\vec{\theta}_{jc})
 \end{equation}
 
 The resulting model is called a \textbf{naive Bayes classifier}(NBC).
