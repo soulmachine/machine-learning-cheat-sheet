@@ -12,7 +12,7 @@ The cheat sheet will also appeal to someone who is preparing for a job interview
 This open-source book adopts the [Springer latex template](http://www.springer.com/authors/book+authors?SGWID=0-154102-12-970131-0).
 
 ##How to compile on Windows
-1. Install [Tex Live 2012](http://www.tug.org/texlive/), then add its `bin` path for example `D:\texlive\2012\bin\win32` to he PATH environment variable.
+1. Install [Tex Live 2014](http://www.tug.org/texlive/), then add its `bin` path for example `D:\texlive\2012\bin\win32` to he PATH environment variable.
 2. Install [TeXstudio](http://texstudio.sourceforge.net/).
 3. Configure TeXstudio.  
     Run TeXstudio, click `Options-->Configure Texstudio-->Commands`, set `XeLaTex` to `xelatex -synctex=1 -interaction=nonstopmode %.tex`.

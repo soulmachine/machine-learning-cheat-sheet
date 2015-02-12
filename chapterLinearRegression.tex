@@ -34,7 +34,7 @@ The NLL formulation is sometimes more convenient, since many optimization softwa
 Now let us apply the method of MLE to the linear regression setting. Inserting the definition of the Gaussian into the above, we find that the log likelihood is given by
 \begin{align}
 \ell(\vec{\theta})& =\sum\limits_{i=1}^N \log\left[\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{1}{2\sigma^2}(y_i-\vec{w}^T\vec{x}_i)^2\right)\right] \\
-     & =-\dfrac{1}{2\sigma^2}\text{RSS}(\vec{w})-\dfrac{\vec{w}}{2}\log(2\pi\sigma^2)
+     & =-\dfrac{1}{2\sigma^2}\text{RSS}(\vec{w})-\dfrac{N}{2}\log(2\pi\sigma^2)
 \end{align}
 
 RSS stands for \textbf{residual sum of squares} and is defined by
