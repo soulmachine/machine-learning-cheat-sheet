@@ -696,7 +696,7 @@ entropy is the uniform distribution}.
 \begin{definition}
 \textbf{Mutual information} or \textbf{MI}, is defined as follows:
 \begin{equation}\begin{split}
-\mathbb{I}(X;Y) & \triangleq \mathbb{KL}(P(X,Y)||P(X)P(X)) \\
+\mathbb{I}(X;Y) & \triangleq \mathbb{KL}(P(X,Y)||P(X)P(Y)) \\
     & =\sum\limits_x\sum\limits_yp(x,y)\log\dfrac{p(x,y)}{p(x)p(y)}
 \end{split}\end{equation}
 We have $\mathbb{I}(X;Y) \geq 0$ with equality if $P(X,Y)=P(X)P(Y)$. That is, the MI is zero if the variables are independent.
@@ -730,4 +730,4 @@ This measures the discrepancy between these events occuring together compared to
 PMI(x,y)=\log\dfrac{p(x|y)}{p(x)}=\log\dfrac{p(y|x)}{p(y)}
 \end{equation}
 
-This is the amount we learn from updating the prior $p(x)$ into the posterior $p(x|y)$ , or equivalently, updating the prior $p(y)$ into the posterior $p(y |x)$ .
+This is the amount we learn from updating the prior $p(x)$ into the posterior $p(x|y)$, or equivalently, updating the prior $p(y)$ into the posterior $p(y |x)$.
