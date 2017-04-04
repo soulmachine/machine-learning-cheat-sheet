@@ -5,13 +5,22 @@ This cheat sheet contains many classical equations and diagrams on machine learn
 
 The cheat sheet will also appeal to someone who is preparing for a job interview related to machine learning.
 
-##Download PDF
+
+## Download PDF
 [machine-learning-cheat-sheet.pdf](https://github.com/soulmachine/machine-learning-cheat-sheet/raw/master/machine-learning-cheat-sheet.pdf) 
 
-##LaTeX template
+
+## How to compile
+
+    docker pull soulmachine/texlive
+    docker run -it --rm -v $(pwd):/data -w /data soulmachine/texlive xelatex -synctex=1 --enable-write18 -interaction=nonstopmode machine-learning-cheat-sheet.tex
+
+
+## LaTeX template
 This open-source book adopts the [Springer latex template](http://www.springer.com/authors/book+authors?SGWID=0-154102-12-970131-0).
 
-##How to compile on Windows
+
+## How to compile on Windows
 1. Install [Tex Live 2014](http://www.tug.org/texlive/), then add its `bin` path for example `D:\texlive\2012\bin\win32` to he PATH environment variable.
 2. Install [TeXstudio](http://texstudio.sourceforge.net/).
 3. Configure TeXstudio.  
