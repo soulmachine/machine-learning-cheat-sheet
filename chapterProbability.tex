@@ -672,11 +672,11 @@ One way to measure the dissimilarity of two probability distributions, $p$ and $
 where the sum gets replaced by an integral for pdfs\footnote{The KL divergence is not a distance, since it is asymmetric. One symmetric version of the KL divergence is the \textbf{Jensen-Shannon divergence}, defined as $JS(p_1,p_2)=0.5\mathbb{KL}(p_1||q)+0.5\mathbb{KL}(p_2||q)$,where $q=0.5p_1+0.5p_2$}. The KL divergence is only defined if P and Q both sum to 1 and if $q(x)=0$ implies $p(x)=0$ for all $x$(absolute continuity). If the quantity  $0\ln0$ appears in the formula, it is interpreted as zero because $\lim\limits_{x \to 0}x\ln x$. We can rewrite this as
 \begin{equation}\begin{split}
 \mathbb{KL}(p||q) & \triangleq \sum\limits_{x}{p(x)\log_2p(x)}-\sum\limits_{k=1}^{K}{p(x)\log_2q(x)} \\
-    & =\mathbb{H}(p)-\mathbb{H}(p,q)
+    & =\mathbb{H}(p,q)-\mathbb{H}(p)
 \end{split}\end{equation}
 where $\mathbb{H}(p,q)$ is called the \textbf{cross entropy},
 \begin{equation}\label{eqn:cross-entropy}
-\mathbb{H}(p,q)=\sum\limits_{x}{p(x)\log_2q(x)}
+\mathbb{H}(p,q)=-\sum\limits_{x}{p(x)\log_2q(x)}
 \end{equation}
 
 One can show (Cover and Thomas 2006) that the cross entropy is the average number of bits needed to encode data coming from a source with distribution $p$ when we use model $q$ to define our codebook. Hence the “regular” entropy $\mathbb{H}(p)=\mathbb{H}(p,p)$, defined in section \S \ref{sec:Entropy},is the expected number of bits if we use the true model, so the KL divergence is the diference between these. In other words, the KL divergence is the average number of \emph{extra} bits needed to encode the data, due to the fact that we used distribution $q$ to encode the data instead of the true distribution $p$.
