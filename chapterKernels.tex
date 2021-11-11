@@ -6,9 +6,9 @@ So far in this book, we have been assuming that each object that we wish to clas
 
 One approach to such problems is to define a generative model for the data, and use the inferred latent representation and/or the parameters of the model as features, and then to plug these features in to standard methods. For example, in Chapter 28 TODO, we discuss deep learning, which is essentially an unsupervised way to learn good feature representations.
 
-Another approach is to assume that we have some way of measuring the similarity between objects, that doesn’t require preprocessing them into feature vector format. For example, when comparing strings, we can compute the edit distance between them. Let $\kappa(\vec{x},\vec{x}') \geq 0$ be some measure of similarity between objects $\kappa(\vec{x},\vec{x}') \in \mathcal{X}$,  we will call $\kappa$ a \textbf{kernel function}. Note that the word “kernel” has several meanings; we will discuss a different interpretation in Section 14.7.1 TODO.
+Another approach is to assume that we have some way of measuring the similarity between objects, that doesn't require preprocessing them into feature vector format. For example, when comparing strings, we can compute the edit distance between them. Let $\kappa(\vec{x},\vec{x}') \geq 0$ be some measure of similarity between objects $\kappa(\vec{x},\vec{x}') \in \mathcal{X}$,  we will call $\kappa$ a \textbf{kernel function}. Note that the word “kernel” has several meanings; we will discuss a different interpretation in Section 14.7.1 TODO.
 
-In this chapter, we will discuss several kinds of kernel functions. We then describe some algorithms that can be written purely in terms of kernel function computations. Such methods can be used when we don’t have access to (or choose not to look at) the “inside” of the objects $\vec{x}$ that we are processing.
+In this chapter, we will discuss several kinds of kernel functions. We then describe some algorithms that can be written purely in terms of kernel function computations. Such methods can be used when we don't have access to (or choose not to look at) the “inside” of the objects $\vec{x}$ that we are processing.
 
 
 \section{Kernel functions}
